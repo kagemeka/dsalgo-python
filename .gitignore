@@ -1,0 +1,11 @@
+*.egg-info
+*.log
+core
+.ipynb_checkpoints
+__pycache__
+/build/
+/dist/
+*.so
+.mypy_cache
+.pytest_cache
+!.gitkeep
