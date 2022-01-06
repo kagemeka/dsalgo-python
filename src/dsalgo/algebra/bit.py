@@ -1,33 +1,19 @@
 import typing
+import functools
+import sys 
+sys.setrecursionlimit(1 << 20)
 
 
-
-
-def bit_count(n: int) -> int:
-    c = 0
-    while n:
-        c += n & 1
-        n >>= 1
-    return c
-
-
-class BitCount():
-    def __call__(self, n: int) -> int:
-        c = self.__cache
-        if n == 0: return 0
-        if not n in c: c[n] = self(n >> 1) + (n & 1)
-        return c[n]
-
-    def __init__(self) -> NoReturn:
-        self.__cache = dict()
-
+@functools.lru_cache(maxsize=None)
+def popcount_cached(n: int) -> typing.NoReturn:
+    if n == 0: return 0
+    return popcount_cached(n >> 1) + (n & 1)
 
 
 def bit_count_table(n: int) -> list[int]:
     cnt = [0] * n
     for i in range(n): cnt[i] = cnt[i >> 1] + i & 1
     return cnt
-
 
 
 def bit_length(n: int) -> int:
@@ -60,7 +46,7 @@ def popcount_table(n: int) -> typing.List[int]:
     O(N)
     """
     cnt = [0] * n 
-    for i in range(n): cnt[i] = cnt[i >> 1] + i & 1
+    for i in range(n): cnt[i] = cnt[i >> 1] + (i & 1)
     return cnt
 
 
@@ -76,3 +62,11 @@ def popcount(n: int) -> int:
     n = n + (n >> 16)
     n = n + (n >> 32)
     return n & 0x0000007f
+
+
+
+import pytest 
+
+@pytest.fixture
+def test_popcount() -> typing.NoReturn:
+    assert popcount(1) == 1
