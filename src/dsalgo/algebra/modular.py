@@ -14,6 +14,7 @@ def cumprod(mod: int, a: list[int]) -> typing.NoReturn:
 
 
 def cumprod(mod: int, a: typing.List[int]) -> typing.List[int]:
+    """Compute cummulative product over Modular."""
     a = a.copy()
     for i in range(len(a) - 1): 
         a[i + 1] = a[i + 1] * a[i] % mod

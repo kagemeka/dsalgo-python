@@ -19,6 +19,7 @@ def accumulate(
     return decorate
 
 
+
 @accumulate(0)
 def xor(a: int, b: int) -> int:
     return a ^ b

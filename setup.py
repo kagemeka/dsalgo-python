@@ -31,7 +31,7 @@ setuptools.setup(
     description="",
     long_description="",
     long_description_content_type="text/markdown",
-    url="https://github.com/kagemeka/py",
+    url="https://github.com/kagemeka/python-algorithms",
     author="kagemeka",
     author_email="kagemeka1@gmail.com",
     maintainer='kagemeka',

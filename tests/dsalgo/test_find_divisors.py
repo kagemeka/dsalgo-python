@@ -1,5 +1,5 @@
 import dsalgo 
-from kagemeka.dsa.number_theory.divisor import (
+from dsalgo.number_theory.divisor import (
     find_divisors,
 )
 import typing 
