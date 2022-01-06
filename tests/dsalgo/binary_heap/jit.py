@@ -1,11 +1,8 @@
-from kgmk.dsa.binary_heap.jit import (
-    heappush,
-    heappop,
-)
-
 import typing
+
 import numba as nb
 import numpy as np
+from kgmk.dsa.binary_heap.jit import heappop, heappush
 
 
 @nb.njit(
@@ -20,5 +17,5 @@ def test() -> typing.NoReturn:
         print(heappop(hq))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     test()

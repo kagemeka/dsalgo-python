@@ -1,8 +1,0 @@
-import numpy as np
-import numba as nb
-
-
-@nb.njit
-def compress_array(a: np.ndarray) -> tuple[(np.ndarray, ) * 2]:
-    v = np.unique(a)
-    return np.searchsorted(v, a), v

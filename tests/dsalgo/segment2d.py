@@ -1,15 +1,5 @@
-from kgmk.dsa.algebra.vector \
-    import (
-        Vector2D,
-    )
-
-
-from \
-    kgmk.dsa.geometry \
-    .segment2d \
-    import (
-        Segment2D,
-    )
+from kgmk.dsa.algebra.vector import Vector2D
+from kgmk.dsa.geometry.segment2d import Segment2D
 
 
 def test():
@@ -23,5 +13,5 @@ def test():
     print(s0)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     test()

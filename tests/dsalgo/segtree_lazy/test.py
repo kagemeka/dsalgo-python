@@ -1,16 +1,11 @@
-import typing
 import sys
-import numpy as np
-import numba as nb
+import typing
 
-from kgmk.dsa.tree.misc.segment.lazy.bottomup.jit import (
-    seg_build,
-    seg_get,
-    seg_set,
-    seg_update,
-    S,
-    F,
-)
+import numba as nb
+import numpy as np
+from kgmk.dsa.tree.misc.segment.lazy.bottomup.jit import (F, S, seg_build,
+                                                          seg_get, seg_set,
+                                                          seg_update)
 
 
 @nb.njit
@@ -56,9 +51,15 @@ def set_range_seg(
     f: F,
 ) -> typing.NoReturn:
     seg_set(
-        seg, lazy,
-        seg_op_s, seg_op_f, seg_e_f, seg_map,
-        l, r, f,
+        seg,
+        lazy,
+        seg_op_s,
+        seg_op_f,
+        seg_e_f,
+        seg_map,
+        l,
+        r,
+        f,
     )
 
 
@@ -70,9 +71,15 @@ def get_range_seg(
     r: int,
 ) -> S:
     return seg_get(
-        seg, lazy,
-        seg_op_s, seg_e_s, seg_op_f, seg_e_f, seg_map,
-        l, r,
+        seg,
+        lazy,
+        seg_op_s,
+        seg_e_s,
+        seg_op_f,
+        seg_e_f,
+        seg_map,
+        l,
+        r,
     )
 
 
@@ -83,11 +90,7 @@ def update_point_seg(
     i: int,
     x: S,
 ) -> typing.NoReturn:
-    seg_update(
-        seg, lazy,
-        seg_op_s, seg_op_f, seg_e_f, seg_map,
-        i, x
-    )
+    seg_update(seg, lazy, seg_op_s, seg_op_f, seg_e_f, seg_map, i, x)
 
 
 @nb.njit(cache=True)

@@ -1,9 +1,4 @@
-from \
-    kgmk.dsa.combinatorics \
-    .choose \
-    import (
-        Choose,
-    )
+from kgmk.dsa.combinatorics.choose import Choose
 
 
 def test():
@@ -12,5 +7,5 @@ def test():
     assert c(40, 20) == 846527861
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     test()

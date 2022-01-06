@@ -1,10 +1,5 @@
 import numpy as np
-from \
-    kgmk.dsa.algebra.modular \
-    .factorial.np \
-    import (
-        ModFactorial,
-    )
+from kgmk.dsa.algebra.modular.factorial.np import ModFactorial
 
 
 def test():
@@ -16,5 +11,5 @@ def test():
     print(a)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     test()

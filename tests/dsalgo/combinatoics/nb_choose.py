@@ -1,13 +1,6 @@
-from \
-    kgmk.dsa.algebra.modular \
-    .factorial.jit \
-    import (
-        factorial,
-        inv_factorial,
-    )
-
-import numpy as np
 import numba as nb
+import numpy as np
+from kgmk.dsa.algebra.modular.factorial.jit import factorial, inv_factorial
 
 
 @nb.njit
@@ -31,12 +24,10 @@ def test():
     ifact = inv_factorial(n, mod)
 
     c = choose
-    assert (
-        c(40, 20) == 846527861
-    )
+    assert c(40, 20) == 846527861
     for i in range(100):
         c(np.arange(1 << 20), 3)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     test()

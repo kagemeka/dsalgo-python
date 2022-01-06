@@ -1,7 +1,6 @@
 import heapq
-from kgmk.dsa.binary_heap import (
-    BinaryHeap,
-)
+
+from kgmk.dsa.binary_heap import BinaryHeap
 
 
 def test():
@@ -16,5 +15,5 @@ def test():
         print(hq.pop())
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     test()

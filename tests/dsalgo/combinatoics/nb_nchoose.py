@@ -1,9 +1,4 @@
-from \
-    kgmk.dsa.combinatorics \
-    .nchoose.jit \
-    import (
-        nchoose,
-    )
+from kgmk.dsa.combinatorics.nchoose.jit import nchoose
 
 
 def test():
@@ -17,5 +12,5 @@ def test():
     assert c[2] == t
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     test()
