@@ -1,16 +1,11 @@
-import typing
 import collections
-
-
-import typing
 import sys
-import numpy as np
-import numba as nb
+import typing
 
+import numba as nb
+import numpy as np
 from kgmk.dsa.number_theory.prime_factorize.naive.jit import (
-    prime_factorize,
-    prime_factorize_factorial,
-)
+    prime_factorize, prime_factorize_factorial)
 
 
 @nb.njit(
@@ -21,5 +16,5 @@ def test():
     print(f)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     test()

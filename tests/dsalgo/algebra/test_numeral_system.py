@@ -1,10 +1,8 @@
 import typing
-import unittest 
-from dsalgo.algebra.numeral_system import (
-    base_convert,
-    base_convert_from_ten,
-    base_convert_to_ten,
-)
+import unittest
+
+from dsalgo.algebra.numeral_system import (base_convert, base_convert_from_ten,
+                                           base_convert_to_ten)
 
 
 class TestClass(unittest.TestCase):
@@ -19,12 +17,12 @@ class TestClass(unittest.TestCase):
         )
         with self.assertRaises(AssertionError):
             base_convert_from_ten(-1, 10)
-    
+
     def test_base_convert_to_ten(self) -> typing.NoReturn:
         self.assertEqual(
-            base_convert_to_ten(2, [0, 1, 0, 1]), 
+            base_convert_to_ten(2, [0, 1, 0, 1]),
             10,
-        ), 
+        ),
         self.assertEqual(
             base_convert_to_ten(-2, [0, 1, 1, 1, 1]),
             10,
@@ -32,6 +30,6 @@ class TestClass(unittest.TestCase):
         with self.assertRaises(AssertionError):
             base_convert_to_ten(-1, [0, 1, 0, 1])
 
-    
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()

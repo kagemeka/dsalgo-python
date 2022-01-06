@@ -1,10 +1,7 @@
-from kgmk.dsa.number_theory.sieve_of_eratosthenes.jit import (
-    sieve_of_eratosthenes,
-    gpf,
-    lpf,
-)
-import numpy as np
 import numba as nb
+import numpy as np
+from kgmk.dsa.number_theory.sieve_of_eratosthenes.jit import (
+    gpf, lpf, sieve_of_eratosthenes)
 
 
 @nb.njit(
@@ -21,5 +18,5 @@ def test():
     print(a)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     test()

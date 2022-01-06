@@ -1,10 +1,4 @@
-from \
-    kgmk.dsa.algebra.modular \
-    .factorial.jit \
-    import (
-        factorial,
-        inv_factorial,
-    )
+from kgmk.dsa.algebra.modular.factorial.jit import factorial, inv_factorial
 
 
 def test():
@@ -18,5 +12,5 @@ def test():
     print(a[:10])
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     test()

@@ -1,9 +1,4 @@
-from \
-    kgmk.dsa.algebra.modular \
-    .inverse.jit \
-    import (
-        inverse,
-    )
+from kgmk.dsa.algebra.modular.inverse.jit import inverse
 
 
 def test():
@@ -13,5 +8,5 @@ def test():
     print(pow(5, mod - 2, mod))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     test()

@@ -1,11 +1,5 @@
 import numpy as np
-from \
-    kgmk.dsa.algebra.modular \
-    .matrix.jit \
-    import (
-        mdot,
-        matpow,
-    )
+from kgmk.dsa.algebra.modular.matrix.jit import matpow, mdot
 
 
 def test():
@@ -20,5 +14,5 @@ def test():
     print(a)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     test()

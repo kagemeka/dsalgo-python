@@ -1,9 +1,4 @@
-from \
-    kgmk.dsa.combinatorics \
-    .nchoose \
-    import (
-        NChoose,
-    )
+from kgmk.dsa.combinatorics.nchoose import NChoose
 
 
 def test():
@@ -16,5 +11,5 @@ def test():
     print(len(c))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     test()

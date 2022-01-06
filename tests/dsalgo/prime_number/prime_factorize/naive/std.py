@@ -1,6 +1,4 @@
-from kgmk.dsa.number_theory.prime_factorize.naive import (
-    PrimeFactorize,
-)
+from kgmk.dsa.number_theory.prime_factorize.naive import PrimeFactorize
 
 
 def test():
@@ -8,5 +6,5 @@ def test():
     print(f)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     test()

@@ -1,0 +1,41 @@
+[tool.poetry]
+name = "dsalgo"
+version = "0.1.0"
+description = "A package for datastructures and algorithms."
+authors = ["Hiroshi Tsuyuki <kagemeka1@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = ">=3.9,<3.10"
+networkx = "^2"
+numba = "^0"
+numpy = "^1"
+scipy = "^1"
+
+
+[tool.poetry.dev-dependencies]
+flake8 = "^"
+mypy = "^"
+pytest = "^"
+
+
+[tool.black]
+target-version = ['py39']
+line-length = 79
+
+
+
+[tool.flake8]
+count = 'true' # have not adaped to boolean value yet.
+show-source = 'true'
+statistics = 'true'
+
+
+[tool.isort]
+line_length = 79
+
+[tool.mypy]
+strict_optional=true
+ignore_missing_imports = false
+
+
+[tool.pytest]

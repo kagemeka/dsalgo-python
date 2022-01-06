@@ -1,19 +1,9 @@
-'''TODO
+"""TODO
 pip install -e .[dsa]
-'''
+"""
 
-from \
-    kgmk.dsa.algebra.modular \
-    .mod_factory \
-    import (
-        ModFactory,
-    )
-from \
-    kgmk.dsa.algebra.modular \
-    .factorial \
-    import (
-        ModFactorial,
-    )
+from kgmk.dsa.algebra.modular.factorial import ModFactorial
+from kgmk.dsa.algebra.modular.mod_factory import ModFactory
 
 
 def test():
@@ -43,5 +33,5 @@ def test():
     inv = fn.inv(1 << 21)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     test()

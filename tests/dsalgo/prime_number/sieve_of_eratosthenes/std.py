@@ -1,6 +1,4 @@
-from kgmk.dsa.number_theory.sieve_of_eratosthenes import (
-    SieveOfEratosthenes,
-)
+from kgmk.dsa.number_theory.sieve_of_eratosthenes import SieveOfEratosthenes
 
 
 def test():
@@ -13,5 +11,5 @@ def test():
     print(a[:10])
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     test()

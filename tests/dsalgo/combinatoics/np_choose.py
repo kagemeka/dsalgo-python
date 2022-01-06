@@ -1,10 +1,5 @@
-from \
-    kgmk.dsa.combinatorics \
-    .choose.np \
-    import (
-        Choose,
-    )
 import numpy as np
+from kgmk.dsa.combinatorics.choose.np import Choose
 
 
 def test():
@@ -14,5 +9,5 @@ def test():
     print(c(np.arange(10), 3))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     test()
