@@ -1,6 +1,6 @@
 import typing
+
 from dsalgo.algebra.abstract.structure.monoid import Monoid
-import doctest
 
 S = typing.TypeVar("S")
 
@@ -14,10 +14,16 @@ class FenwickTree(typing.Generic[S]):
         Args:
             monoid (Monoid[S]): monoid is an abstruct data structure.
             a (typing.List[S]): default array.
-            
+
         Example:
             >>> monoid = Monoid(op=lambda x, y: x + y, e=lambda: 0)
-            
+            >>> a = [0, 1, 2, 3, 4]
+            >>> fw = FenwickTree(monoid, a)
+            >>> fw[3]
+            3
+            >>> fw[2] = 2
+            >>> fw[3]
+            5
         """
         n = len(a)
         data: typing.List[S] = [monoid.e() for _ in range(n + 1)]
@@ -29,6 +35,12 @@ class FenwickTree(typing.Generic[S]):
         self.__m, self.__data = monoid, data
 
     def __setitem__(self, i: int, x: S) -> None:
+        """Set value.
+
+        Args:
+            i (int): index on initial array.
+            x (S): the value to operate on a[i].
+        """
         d = self.__data
         assert 0 <= i < len(d) - 1
         i += 1
@@ -37,6 +49,16 @@ class FenwickTree(typing.Generic[S]):
             i += i & -i
 
     def __getitem__(self, i: int) -> S:
+        """Get value.
+
+        Args:
+            i (int): index on initial array.
+
+        Returns:
+            S: the result of cummulative opration.
+                monoid.op(a[0], a[1], ..., a[i - 1]).
+                return monoid.e() when i = 0.
+        """
         m, d = self.__m, self.__data
         assert 0 <= i < len(d)
         v = m.e()
@@ -46,6 +68,18 @@ class FenwickTree(typing.Generic[S]):
         return v
 
     def max_right(self, is_ok: typing.Callable[[S], bool]) -> int:
+        """Max right.
+
+        Args:
+            i (int): index on initial array.
+
+        Returns:
+            int: the rightmost index i such that
+                is_ok(monoid.op(a[0], ..., a[i - 1])) = true.
+                monoid.op(a[0], ..., a[i - 1]) should be monotonous increasing
+                against i.
+                return 0 if is_ok(a[0]) = false.
+        """
         m, d = self.__m, self.__data
         n = len(d)
         length = 1
@@ -70,5 +104,7 @@ get:
 """
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
+    import doctest
+
     doctest.testmod()

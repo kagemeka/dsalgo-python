@@ -1,7 +1,10 @@
 import numba as nb
 import numpy as np
 from kgmk.dsa.number_theory.sieve_of_eratosthenes.jit import (
-    gpf, lpf, sieve_of_eratosthenes)
+    gpf,
+    lpf,
+    sieve_of_eratosthenes,
+)
 
 
 @nb.njit(

@@ -3,9 +3,14 @@ import typing
 
 import numba as nb
 import numpy as np
-from kgmk.dsa.tree.misc.segment.lazy.bottomup.jit import (F, S, seg_build,
-                                                          seg_get, seg_set,
-                                                          seg_update)
+from kgmk.dsa.tree.misc.segment.lazy.bottomup.jit import (
+    F,
+    S,
+    seg_build,
+    seg_get,
+    seg_set,
+    seg_update,
+)
 
 
 @nb.njit

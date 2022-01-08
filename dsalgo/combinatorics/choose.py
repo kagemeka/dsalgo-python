@@ -1,8 +1,12 @@
 import typing
 
 import numpy as np
-from kagemeka.dsa.algebra.modular import (factorial, factorial_inverse,
-                                          factorial_inverse_np, factorial_np)
+from kagemeka.dsa.algebra.modular import (
+    factorial,
+    factorial_inverse,
+    factorial_inverse_np,
+    factorial_np,
+)
 
 
 def make_choose(
