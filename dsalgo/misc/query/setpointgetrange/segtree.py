@@ -1,8 +1,9 @@
 import typing
 
 from kgmk.dsa.algebra.abstract.structure.monoid import Monoid
-from kgmk.dsa.tree.misc.segment.normal.one_indexed.topdown.non_recursive import \
-    SegmentTree
+from kgmk.dsa.tree.misc.segment.normal.one_indexed.topdown.non_recursive import (
+    SegmentTree,
+)
 
 # TODO cut below
 

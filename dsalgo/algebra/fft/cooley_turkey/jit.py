@@ -10,7 +10,7 @@ def fft(a: np.ndarray, inverse: bool = False) -> np.ndarray:
         h += 1
     assert 1 << h == n
 
-    def _reverse_bits():
+    def reverse_bits():
         idx = np.empty(n, dtype=np.int64)
         for i in range(n):
             j = 0
@@ -20,7 +20,7 @@ def fft(a: np.ndarray, inverse: bool = False) -> np.ndarray:
         nonlocal a
         a = a[idx]
 
-    def _butterfly():
+    def butterfly():
         sign = -1 + 2 * inverse
         b = 1
         while b < n:
@@ -31,8 +31,8 @@ def fft(a: np.ndarray, inverse: bool = False) -> np.ndarray:
                     a[k + j], a[k + j + b] = s + t, s - t
             b <<= 1
 
-    _reverse_bits()
-    _butterfly()
+    reverse_bits()
+    butterfly()
     if inverse:
         a /= n
     return a

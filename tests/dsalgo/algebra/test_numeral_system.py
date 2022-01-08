@@ -1,8 +1,11 @@
 import typing
 import unittest
 
-from dsalgo.algebra.numeral_system import (base_convert, base_convert_from_ten,
-                                           base_convert_to_ten)
+from dsalgo.algebra.numeral_system import (
+    base_convert,
+    base_convert_from_ten,
+    base_convert_to_ten,
+)
 
 
 class TestClass(unittest.TestCase):

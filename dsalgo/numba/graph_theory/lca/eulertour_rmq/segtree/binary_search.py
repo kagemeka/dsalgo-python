@@ -1,10 +1,15 @@
 import numba as nb
 import numpy as np
 from kgmk.dsa.misc.online_update_query.set_point_get_range.update_min.segtree.jit import (
-    build_seg, get_range_seg, seg_e, seg_op)
+    build_seg,
+    get_range_seg,
+    seg_e,
+    seg_op,
+)
 from kgmk.dsa.topology.euler_tour.edge.non_recursive.jit import euler_tour_edge
-from kgmk.dsa.tree.misc.segment.normal.one_indexed.bottomup.jit import \
-    seg_max_right
+from kgmk.dsa.tree.misc.segment.normal.one_indexed.bottomup.jit import (
+    seg_max_right,
+)
 
 # TODO cut below
 

@@ -1,8 +1,11 @@
 import numba as nb
 import numpy as np
 from kgmk.dsa.math.bit_length.table.jit import bit_length_table
-from kgmk.dsa.misc.sparse_table.normal.jit import (S, sparse_table_build,
-                                                   sparse_table_get)
+from kgmk.dsa.misc.sparse_table.normal.jit import (
+    S,
+    sparse_table_build,
+    sparse_table_get,
+)
 from kgmk.dsa.topology.euler_tour.edge.non_recursive.jit import euler_tour_edge
 
 # TODO cut below

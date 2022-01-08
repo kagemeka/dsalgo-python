@@ -1,7 +1,10 @@
 import numba as nb
 import numpy as np
-from kagemeka.dsa.jit.algebra.modular import (cumprod, factorial,
-                                              factorial_inverse)
+from kagemeka.dsa.jit.algebra.modular import (
+    cumprod,
+    factorial,
+    factorial_inverse,
+)
 
 
 @nb.njit
