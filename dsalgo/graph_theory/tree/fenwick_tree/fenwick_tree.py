@@ -6,28 +6,31 @@ S = typing.TypeVar("S")
 
 
 class FenwickTree(typing.Generic[S]):
-    """Fenwick Tree."""
+    """Fenwick Tree.
 
-    def __init__(self, monoid: Monoid[S], a: typing.List[S]) -> None:
+    Generic Type S must be commutative over its operations.
+
+    Example:
+        >>> monoid = Monoid(op=lambda x, y: x + y, e=lambda: 0)
+        >>> arr = [0, 1, 2, 3, 4]
+        >>> fw = FenwickTree(monoid, arr)
+        >>> fw[3]
+        3
+        >>> fw[2] = 2
+        >>> fw[3]
+        5
+    """
+
+    def __init__(self, monoid: Monoid[S], arr: typing.List[S]) -> None:
         """Init Fenwick Tree.
 
         Args:
             monoid (Monoid[S]): monoid is an abstruct data structure.
-            a (typing.List[S]): default array.
-
-        Example:
-            >>> monoid = Monoid(op=lambda x, y: x + y, e=lambda: 0)
-            >>> a = [0, 1, 2, 3, 4]
-            >>> fw = FenwickTree(monoid, a)
-            >>> fw[3]
-            3
-            >>> fw[2] = 2
-            >>> fw[3]
-            5
+            arr (typing.List[S]): initial array.
         """
-        n = len(a)
+        n = len(arr)
         data: typing.List[S] = [monoid.e() for _ in range(n + 1)]
-        data[1:] = a.copy()
+        data[1:] = arr.copy()
         for i in range(1, n + 1):
             j = i + (i & -i)
             if j < n + 1:
@@ -38,8 +41,8 @@ class FenwickTree(typing.Generic[S]):
         """Set value.
 
         Args:
-            i (int): index on initial array.
-            x (S): the value to operate on a[i].
+            i (int): index on the given array.
+            x (S): the value to operate on arr[i].
         """
         d = self.__data
         assert 0 <= i < len(d) - 1
@@ -56,7 +59,7 @@ class FenwickTree(typing.Generic[S]):
 
         Returns:
             S: the result of cummulative opration.
-                monoid.op(a[0], a[1], ..., a[i - 1]).
+                monoid.op(arr[0], ..., arr[i - 1]).
                 return monoid.e() when i = 0.
         """
         m, d = self.__m, self.__data
@@ -75,10 +78,10 @@ class FenwickTree(typing.Generic[S]):
 
         Returns:
             int: the rightmost index i such that
-                is_ok(monoid.op(a[0], ..., a[i - 1])) = true.
-                monoid.op(a[0], ..., a[i - 1]) should be monotonous increasing
-                against i.
-                return 0 if is_ok(a[0]) = false.
+                is_ok(monoid.op(arr[0], ..., arr[i - 1])) = true.
+                monoid.op(arr[0], ..., arr[i - 1]) should be
+                monotonous increasing against i.
+                return 0 if is_ok(arr[0]) = false.
         """
         m, d = self.__m, self.__data
         n = len(d)
@@ -92,6 +95,30 @@ class FenwickTree(typing.Generic[S]):
                 v = m.op(v, d[i])
             length >>= 1
         return i
+
+
+def build_with_size(monoid: Monoid[S], size: int) -> FenwickTree[S]:
+    """Build a new FenwickTree of given size.
+
+    The Built one is filled with the value monoid.e().
+    """
+    return FenwickTree(
+        monoid,
+        [monoid.e() for _ in range(size)],
+    )
+
+
+def get_range(
+    fw: FenwickTree[S],
+    inverse: typing.Callable[[S], S],
+    left: int,
+    right: int,
+) -> S:
+    """Get range product.
+    An associative function for FenwickTree.
+    Generic Type S must be Abelian Group not only but Monoid.
+    so it's needed to pass the inverse function.
+    """
 
 
 """In case implementing as zero-indexed internally.
