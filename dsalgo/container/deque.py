@@ -1,4 +1,5 @@
 import typing
+
 from dsalgo.container.linked_list import DoublyLinkedListNode
 
 T = typing.TypeVar("T")
@@ -179,3 +180,9 @@ class DoublyLinkedListDeque(typing.Generic[T]):
         else:
             self.__first.left = None
         return v
+
+
+if __name__ == "__main__":
+    import doctest
+
+    doctest.testmod()
