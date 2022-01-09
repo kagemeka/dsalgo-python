@@ -1,20 +1,29 @@
-class Multiset:
-    def __init__(self, n: int) -> NoReturn:
+"""TODO: implement
+- multiset
+    - with fenwick tree
+    - with segment tree
+    - with red black tree
+
+"""
+
+
+class FenwickTreeMultiset:
+    def __init__(self, n: int) -> None:
         self.__fw = PointAddRangeSum([0] * n)
         self.__n = n
 
     def size(self) -> int:
         return self.__fw[self.__n - 1]
 
-    def add(self, x: int) -> NoReturn:
+    def add(self, x: int) -> None:
         self.__fw[x] = 1
 
-    def pop(self, x: int) -> NoReturn:
+    def pop(self, x: int) -> None:
         fw = self.__fw
         assert fw.get_range(x, x + 1) > 0
         fw[x] = -1
 
-    def get(self, i: int) -> NoReturn:
+    def get(self, i: int) -> None:
         fw = self.__fw
         assert 0 <= i < fw[self.__n - 1]
 
@@ -36,8 +45,8 @@ class Multiset:
         return self.__fw[x + 1]
 
 
-def __test() -> NoReturn:
-    multiset = Multiset(1 << 19)
+def __test() -> None:
+    multiset = FenwickTreeMultiset(1 << 19)
     try:
         multiset.min()
     except Exception as e:
@@ -51,3 +60,9 @@ def __test() -> NoReturn:
     print(multiset.upper_bound(5))
     print(multiset.lower_bound(6))
     print(multiset.upper_bound(4))
+
+
+if __name__ == "__main__":
+    import doctest
+
+    doctest.testmod()

@@ -1,6 +1,5 @@
 import typing
 
-
 S = typing.TypeVar("S")
 
 

@@ -1,5 +1,6 @@
-import unittest
 import typing
+import unittest
+
 from dsalgo.algebra.abstract.structure.monoid import Monoid
 
 # from .

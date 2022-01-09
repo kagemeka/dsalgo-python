@@ -1,6 +1,7 @@
+import typing
+
 import numba as nb
 import numpy as np
-import typing
 
 
 @nb.njit
@@ -88,6 +89,7 @@ def permutations(
             break
         else:
             return np.array(ls)
+
 
 @nb.njit
 def permutations_with_next_perm(
@@ -193,8 +195,6 @@ def repeated_permutations_dfs(n: int, k: int) -> np.ndarray:
     return res[::-1]
 
 
-
-
 @nb.njit((nb.i8, nb.i8[:]))
 def next_repeated_permutation(
     n: int,
@@ -206,4 +206,3 @@ def next_repeated_permutation(
             return a
         a[i] = 0
     return None
-
