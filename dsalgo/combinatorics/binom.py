@@ -7,6 +7,16 @@ from dsalgo.algebra.modular import (
 
 
 def make_choose(p: int, n: int) -> typing.Callable[[int, int], int]:
+    """Make choose function.
+
+    Args:
+        p (int): prime modulo.
+        n (int): internal factorial table size. 
+                returned function can compute at most n-1 choose k.
+
+    Returns:
+        typing.Callable[[int, int], int]: choose function.
+    """
     fact = factorial(p, n)
     ifact = factorial_inverse(p, n)
 
@@ -22,11 +32,20 @@ def make_choose(p: int, n: int) -> typing.Callable[[int, int], int]:
 def make_caching_pascal_choose(
     mod: typing.Optional[int] = None,
 ) -> typing.Callable[[int, int], int]:
+    """Make chasing pascal choose.
+
+    Args:
+        mod (typing.Optional[int], optional): optional modulo. Defaults to None.
+
+    Returns:
+        typing.Callable[[int, int], int]: choose function.
+    """
     import sys
     import functools
 
     sys.setrecursionlimit(1 << 20)
-    assert mod >= 1
+    if mod is not None:
+        assert mod >= 1
 
     @functools.lru_cache(maxsize=None)
     def choose(n: int, k: int) -> int:
@@ -43,6 +62,16 @@ def make_caching_pascal_choose(
 
 
 def n_choose_table(p: int, n: int, kmax: int) -> typing.List[int]:
+    """N choose k table for fixed N and small k.
+
+    Args:
+        p (int): prime modulo.
+        n (int): fixed N.
+        kmax (int): max k for N choose k.
+
+    Returns:
+        typing.List[int]: result table.
+    """
     assert 0 <= kmax <= n
     a = list(range(n + 1, n - kmax, -1))
     a[0] = 1
@@ -55,6 +84,17 @@ def n_choose_table(p: int, n: int, kmax: int) -> typing.List[int]:
 
 
 def make_count_permutation(p: int, n: int) -> typing.Callable[[int, int], int]:
+    """Make count permutation.
+
+    Args:
+        p (int): prime modulo.
+        n (int): internal factorial table size.
+                returned function can compute at most {n-1}P{k} mod p
+                that is (n - 1)! / (n - k)! mod p.
+
+    Returns:
+        typing.Callable[[int, int], int]: count permutations function.
+    """
     fact = factorial(p, n)
     ifact = factorial_inverse(p, n)
 
