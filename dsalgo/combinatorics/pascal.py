@@ -1,11 +1,11 @@
 import typing
 
-from kagemeka.dsa.algebra.abstract.structure import Monoid
+from dsalgo.algebra.abstract.structure.monoid import Monoid
 
 T = typing.TypeVar("T")
 
 
-def pascal(
+def pascal_triangle(
     m: Monoid[T],
     default: typing.Callable[[], T],
     n: int,
