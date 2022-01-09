@@ -1,4 +1,3 @@
-
 class ModChooseNP:
     def __init__(self, mod: int, n: int) -> NoReturn:
         self.__mod = mod
@@ -14,8 +13,6 @@ class ModChooseNP:
         mod, fact, ifact = self.__mod, self.__fact, self.__ifact
         ok = (0 <= k) & (k <= n)
         return ifact[n] * fact[n - k] % mod * fact[k] % mod * ok
-
-
 
 
 class NChooseNP:
