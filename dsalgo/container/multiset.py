@@ -1,4 +1,15 @@
-class Multiset:
+
+
+'''TODO: implement
+- multiset
+    - with fenwick tree
+    - with segment tree
+    - with red black tree
+
+'''
+
+
+class FenwickTreeMultiset:
     def __init__(self, n: int) -> NoReturn:
         self.__fw = PointAddRangeSum([0] * n)
         self.__n = n

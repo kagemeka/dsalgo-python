@@ -50,8 +50,6 @@ def combinations_with_next_comb(
         s = next_combination(s)
 
 
-
-
 class PermutationsDFS:
     def __call__(
         self,
@@ -135,7 +133,6 @@ class PermutationsWithNextPerm:
         for _ in range(m):
             yield a
             a = fn(a)
-
 
 
 def next_permutation(

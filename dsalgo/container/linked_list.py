@@ -3,15 +3,16 @@ from __future__ import annotations
 import dataclasses
 import typing
 
+T = typing.TypeVar('T')
 
 @dataclasses.dataclass
-class SinglyLinkedListNode:
-    value: typing.Optional[typing.Any] = None
+class SinglyLinkedListNode(typing.Generic[T]):
+    value: T
     next: typing.Optional[SinglyLinkedListNode] = None
 
 
 @dataclasses.dataclass
-class DoublyLinkedListNode:
-    value: typing.Optional[typing.Any] = None
+class DoublyLinkedListNode(typing.Generic[T]):
+    value: T
     left: typing.Optional[DoublyLinkedListNode] = None
     right: typing.Optional[DoublyLinkedListNode] = None

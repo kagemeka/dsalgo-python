@@ -1,9 +1,6 @@
 import typing
-from dsalgo.algebra.modular import (
-    factorial,
-    factorial_inverse,
-    cumprod,
-)
+
+from dsalgo.algebra.modular import cumprod, factorial, factorial_inverse
 
 
 def make_choose(p: int, n: int) -> typing.Callable[[int, int], int]:
@@ -11,7 +8,7 @@ def make_choose(p: int, n: int) -> typing.Callable[[int, int], int]:
 
     Args:
         p (int): prime modulo.
-        n (int): internal factorial table size. 
+        n (int): internal factorial table size.
                 returned function can compute at most n-1 choose k.
 
     Returns:
@@ -35,13 +32,15 @@ def make_caching_pascal_choose(
     """Make chasing pascal choose.
 
     Args:
-        mod (typing.Optional[int], optional): optional modulo. Defaults to None.
+        mod (typing.Optional[int], optional):
+            optional modulo.
+            Defaults to None.
 
     Returns:
         typing.Callable[[int, int], int]: choose function.
     """
-    import sys
     import functools
+    import sys
 
     sys.setrecursionlimit(1 << 20)
     if mod is not None:

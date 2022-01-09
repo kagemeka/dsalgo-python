@@ -44,7 +44,7 @@ DsAlgo is now still alpha version and being developed actively (1-9-2022).
 - [black](https://black.readthedocs.io/en/stable/)
 - [isort](https://github.com/PyCQA/isort)
 
-### Testin
+### Testing
 - [doctest](https://docs.python.org/3/library/doctest.html)
 - [unittest](https://docs.python.org/3/library/unittest.html)
 - [pytest](https://docs.pytest.org/)

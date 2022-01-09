@@ -14,7 +14,6 @@ class Combinations:
         return np.array((*c,))
 
 
-
 class Permutations:
     def __call__(
         self,

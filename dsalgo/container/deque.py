@@ -3,20 +3,26 @@ import typing
 T = typing.TypeVar("T")
 
 
-class CircularBufferDeque(typing.Generics[T]):
+class CircularBufferDeque(typing.Generic[T]):
+    """CircularBufferDeque.
+
+    one of the ways to implement Double-Ended-Queue with Dynamic Array.
+
+    """
+    
     def __bool__(self) -> bool:
         return self.__l <= self.__r
 
-    def __init__(self, buf_size: int) -> typing.NoReturn:
-        self.__data = [None] * max_size
+    def __init__(self, buf_size: int) -> None:
+        self.__data: typing.List[typing.Optional[T]] = [None] * buf_size
         self.__l = 0
         self.__r = -1
 
-    def append(self, v: T) -> typing.NoReturn:
+    def append(self, v: T) -> None:
         self.__r += 1
         self.__data[self.__r] = v
 
-    def appendleft(self, v: T) -> typing.NoReturn:
+    def appendleft(self, v: T) -> None:
         self.__l -= 1
         self.__data[self.__l] = v
 
@@ -28,6 +34,7 @@ class CircularBufferDeque(typing.Generics[T]):
             raise Exception("cannot pop from empty deque.")
         v = self.__data[self.__r]
         self.__r -= 1
+        assert v is not None
         return v
 
     def popleft(self) -> T:
@@ -38,27 +45,28 @@ class CircularBufferDeque(typing.Generics[T]):
         return v
 
 
-import typing
+class MiddleIndexDeque(): 
+    """CircularBufferDeque.
 
-from kgmk.dsa.linked_list.doubly import DoublyLinkedListNode
+    one of the ways to implement Double-Ended-Queue with Dynamic Array.
 
-# TODO cut below
+    """
+    ...
+
 
 
 class DoublyLinkedListDeque:
     def __bool__(self) -> bool:
         return self.__first is not None
 
-    def __init__(
-        self,
-    ) -> NoReturn:
+    def __init__(self) -> None:
         self.__first: typing.Optional[DoublyLinkedListNode] = None
         self.__last: typing.Optional[DoublyLinkedListNode] = None
 
     def append(
         self,
         v: typing.Any,
-    ) -> NoReturn:
+    ) -> None:
         x = DoublyLinkedListNode(value=v, left=self.__last)
         if x.left is None:
             self.__first = x
@@ -69,7 +77,7 @@ class DoublyLinkedListDeque:
     def appendleft(
         self,
         v: typing.Any,
-    ) -> NoReturn:
+    ) -> None:
         x = DoublyLinkedListNode(value=v, right=self.__first)
         if self.__right is None:
             self.__last = x
