@@ -1,3 +1,10 @@
+import typing
+
+
+def make_choose(p: int, n: int) -> typing.Callable[[int, int], int]:
+    ...
+
+
 class ModChooseNP:
     def __init__(self, mod: int, n: int) -> NoReturn:
         self.__mod = mod
