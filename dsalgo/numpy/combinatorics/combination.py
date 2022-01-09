@@ -1,27 +1,29 @@
 import numpy as np
+import itertools
 
 
-class Combinations:
-    def __call__(
-        self,
-        n: int,
-        r: int,
-    ) -> np.array:
-        from itertools import combinations
+def combinations(n: int, k: int) -> np.ndarray:
+    """Combinations.
 
-        a = range(n)
-        c = combinations(a, r)
-        return np.array((*c,))
+    Args:
+        n (int): n of nCk
+        k (int): k of nCk
+
+    Returns:
+        np.ndarray: combinations matrix.
+    """
+    return np.array((*itertools.combinations(range(n), k),))
 
 
-class Permutations:
-    def __call__(
-        self,
-        n: int,
-        r: typing.Optional[int] = None,
-    ) -> np.array:
-        from itertools import permutations
+def permutations(n: int, k: int) -> np.ndarray:
+    """Permutations.
 
-        a = range(n)
-        p = permutations(a, r)
-        return np.array((*p,))
+    Args:
+        n (int): n of nPk
+        k (int): k of nPk
+
+    Returns:
+        np.ndarray: permutations matrix.
+    """
+
+    return np.array((*itertools.permutations(range(n), k),))
