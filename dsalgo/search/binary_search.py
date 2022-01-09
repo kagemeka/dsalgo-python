@@ -19,7 +19,7 @@ def binary_search(
             it must be monotonous between [lo, hi) over is_ok.
             that means following conditions should be satisfied.
                 is_ok(arr[lo]) = ... = is_ok(arr[i - 1]) = False
-                is_ok(arr[i], ... = is_ok(arr[hi - 1]) = True
+                is_ok(arr[i]), ... = is_ok(arr[hi - 1]) = True
             where
                 lo <= i < hi
         lo (typing.Optional[int], optional):
@@ -29,7 +29,7 @@ def binary_search(
             high index. Defaults to None.
             0 <= hi <= len(arr)
 
-    Constraits:
+    Constraints:
         - lo <= hi
 
     Returns:
