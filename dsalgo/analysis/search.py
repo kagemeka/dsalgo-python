@@ -1,10 +1,9 @@
+def binary_search():
+    ...
 
 
-
-def binary_search(): ... 
-
-def ternary_search(): ...
-
+def ternary_search():
+    ...
 
 
 def find_root_newton(

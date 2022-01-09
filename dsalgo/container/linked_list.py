@@ -3,7 +3,8 @@ from __future__ import annotations
 import dataclasses
 import typing
 
-T = typing.TypeVar('T')
+T = typing.TypeVar("T")
+
 
 @dataclasses.dataclass
 class SinglyLinkedListNode(typing.Generic[T]):

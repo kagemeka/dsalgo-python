@@ -56,6 +56,17 @@ python2 = ["typed-ast (>=1.4.3)"]
 uvloop = ["uvloop (>=0.15.2)"]
 
 [[package]]
+name = "blacken-docs"
+version = "1.12.0"
+description = "Run `black` on python code blocks in documentation files"
+category = "dev"
+optional = false
+python-versions = ">=3.6.1"
+
+[package.dependencies]
+black = ">=19.3b0"
+
+[[package]]
 name = "click"
 version = "8.0.3"
 description = "Composable command line interface toolkit"
@@ -344,7 +355,7 @@ python-versions = ">=3.6"
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.9,<3.10"
-content-hash = "b5f08d8b864a19c091b2f4ac39540852d4caee5f63324f69a0b0b901312fde02"
+content-hash = "9b6cad78e94c25422c0e18c1fb71006e35558955f26d79d847fee3d1822d09b7"
 
 [metadata.files]
 atomicwrites = [
@@ -362,6 +373,10 @@ autopep8 = [
 black = [
     {file = "black-21.12b0-py3-none-any.whl", hash = "sha256:a615e69ae185e08fdd73e4715e260e2479c861b5740057fde6e8b4e3b7dd589f"},
     {file = "black-21.12b0.tar.gz", hash = "sha256:77b80f693a569e2e527958459634f18df9b0ba2625ba4e0c2d5da5be42e6f2b3"},
+]
+blacken-docs = [
+    {file = "blacken_docs-1.12.0-py2.py3-none-any.whl", hash = "sha256:a81e0abc9771521f445ee582f469c8ec2f5880c19c369d766bb151f79f642d7b"},
+    {file = "blacken_docs-1.12.0.tar.gz", hash = "sha256:3e8138b22c33406cef5946058e535a8aca45cd64b8e7d392b3bd1329fc1f4af8"},
 ]
 click = [
     {file = "click-8.0.3-py3-none-any.whl", hash = "sha256:353f466495adaeb40b6b5f592f9f91cb22372351c84caeb068132442a4518ef3"},

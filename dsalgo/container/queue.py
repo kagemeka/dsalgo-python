@@ -1,7 +1,8 @@
 import typing
 
 
-T = typing.TypeVar('T')
+T = typing.TypeVar("T")
+
 
 class DinamicArrayQueue:
     def __bool__(self) -> bool:
