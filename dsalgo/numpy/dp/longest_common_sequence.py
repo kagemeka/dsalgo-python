@@ -2,6 +2,15 @@ import numpy as np
 
 
 def longest_common_subsequence(a: np.ndarray, b: np.ndarray) -> np.ndarray:
+    """Longest Common Subsequence.
+
+    Args:
+        a (np.ndarray): first array.
+        b (np.ndarray): second array.
+
+    Returns:
+        np.ndarray: result.
+    """
     n, m = a.size, b.size
     length = np.zeros((n + 1, m + 1), dtype=np.int64)
     for i in range(n):
