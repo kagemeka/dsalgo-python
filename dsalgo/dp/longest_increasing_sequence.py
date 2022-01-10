@@ -1,5 +1,5 @@
-import typing
 import bisect
+import typing
 
 
 def longest_increasing_sequence(arr: typing.List[int]) -> typing.List[int]:

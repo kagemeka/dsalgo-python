@@ -1,8 +1,9 @@
+import sys
 import typing
-from dsalgo.graph_theory.union_find import (
-    UnionFind,
-    get_labels,
-)
+
+from dsalgo.graph_theory.union_find import UnionFind, get_labels
+
+sys.setrecursionlimit(1 << 20)
 
 
 def connected_components_bfs(
