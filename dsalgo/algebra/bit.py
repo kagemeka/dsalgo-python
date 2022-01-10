@@ -1,16 +1,202 @@
 import functools
-import sys
 import typing
 
 
+def reverse_bit(n: int) -> int:
+    """Reverse bit.
+
+    coming soon.
+
+    Args:
+        n (int): [description]
+
+    Returns:
+        int: [description]
+    """
+    ...
+
+
+def reset_least_bit_naive(n: int) -> int:
+    """Reset least bit naive.
+
+    Args:
+        n (int): an unsined integer.
+
+    Returns:
+        int: new bit.
+
+    Examples:
+        >>> reset_least_bit_naive(0b0110) == 0b0100
+        True
+
+    Complesity:
+        time: O(1)
+        space: O(1)
+    """
+    return n - (n & -n)
+
+
+def reset_least_bit(n: int) -> int:
+    """Reset least bit.
+
+    Args:
+        n (int): an unsined integer.
+
+    Returns:
+        int: new bit.
+
+    Examples:
+        >>> reset_least_bit(0b0110) == 0b0100
+        True
+
+    Complesity:
+        time: O(1)
+        space: O(1)
+    """
+    assert n >= 0
+    return n & (n - 1)
+
+
+def most_significant_bit_naive(n: int) -> typing.Optional[int]:
+    """MSB naive.
+
+    Args:
+        n (int): an 64bit unsined integer.
+
+    Returns:
+        typing.Optional[int]: msb
+
+    Examples:
+        >>> most_significant_bit_naive(0b01010)
+        3
+
+    Complesity:
+        time: O(1)
+        space: O(1)
+    """
+    assert n >= 0
+    if n == 0:
+        return None
+    return bit_length(n) - 1
+
+
+def most_significant_bit(n: int) -> typing.Optional[int]:
+    """MSB.
+
+    Args:
+        n (int): an 64bit unsined integer.
+
+    Returns:
+        typing.Optional[int]: msb
+
+    Examples:
+        >>> most_significant_bit(0b01010)
+        3
+
+    Complesity:
+        time: O(1)
+        space: O(1)
+    """
+    assert n >= 0
+    if n == 0:
+        return None
+    if n & 0xFFFFFFFF00000000 > 0:
+        n &= 0xFFFFFFFF00000000
+    if n & 0xFFFF0000FFFF0000 > 0:
+        n &= 0xFFFF0000FFFF0000
+    if n & 0xFF00FF00FF00FF00 > 0:
+        n &= 0xFF00FF00FF00FF00
+    if n & 0xF0F0F0F0F0F0F0F0 > 0:
+        n &= 0xF0F0F0F0F0F0F0F0
+    if n & 0xCCCCCCCCCCCCCCCC > 0:
+        n &= 0xCCCCCCCCCCCCCCCC
+    if n & 0xAAAAAAAAAAAAAAAA > 0:
+        n &= 0xAAAAAAAAAAAAAAAA
+    return bit_length(n) - 1
+
+
+def least_significant_bit(n: int) -> typing.Optional[int]:
+    """LSB.
+
+    Args:
+        n (int): an 64bit unsined integer.
+
+    Returns:
+        typing.Optional[int]: lsb
+
+    Examples:
+        >>> least_significant_bit(0b01010)
+        1
+
+    Complesity:
+        time: O(1)
+        space: O(1)
+    """
+    assert n >= 0
+    if n == 0:
+        return None
+    return bit_length(n & -n) - 1
+
+
 def bit_length_naive(n: int) -> int:
+    r"""Bit length naive.
+
+    Args:
+        n (int): an unsigned integer.
+
+    Returns:
+        int: bit length.
+
+    Complexity:
+        time: O(\log{N})
+        space: O(1)
+    """
+    assert n >= 0
     length = 0
     while 1 << length <= n:
         length += 1
     return length
 
 
+def bit_length(n: int) -> int:
+    r"""Bit length.
+
+    Args:
+        n (int): an 64bit unsigned integer.
+
+    Returns:
+        int: bit length.
+
+    Complexity:
+        time: O(1)
+        space: O(1)
+    """
+    assert n >= 0
+    if n == 0:
+        return 0
+    length = 1
+    for i in range(5, -1, -1):
+        i = 1 << i
+        if n >> i == 0:
+            continue
+        length += i
+        n >>= i
+    return length
+
+
 def bit_length_table(n: int) -> list[int]:
+    """Bit length table.
+
+    Args:
+        n (int): an unsigned integer.
+
+    Returns:
+        list[int]: bit length table.
+
+    Complexity:
+        time: O(N)
+        space: O(N)
+    """
     length = [0] * n
     for i in range(1, n):
         length[i] = length[i >> 1] + 1
@@ -40,7 +226,7 @@ def popcount_naive(n: int) -> int:
         ...
         AssertionError: n must be unsinged integer.
     """
-    assert n >= 0, 'n must be unsinged integer.'
+    assert n >= 0, "n must be unsinged integer."
     cnt = 0
     while n:
         cnt += n & 1
@@ -74,7 +260,7 @@ def popcount_cached(n: int) -> int:
         ...
         AssertionError: n must be unsinged integer.
     """
-    assert n >= 0, 'n must be unsinged integer.'
+    assert n >= 0, "n must be unsinged integer."
     if n == 0:
         return 0
     return popcount_cached(n >> 1) + (n & 1)
@@ -88,6 +274,10 @@ def popcount_table(n: int) -> typing.List[int]:
 
     Returns:
         typing.List[int]: popcount table.
+
+    Complexity:
+        time: O(N)
+        space: O(N)
     """
     cnt = [0] * n
     for i in range(n):
