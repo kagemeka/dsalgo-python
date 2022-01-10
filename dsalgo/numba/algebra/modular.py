@@ -5,10 +5,12 @@ import numpy as np
 
 
 @nb.njit
-def cumprod(mod: int, a: np.ndarray) -> NoReturn:
+def cumprod(mod: int, arr: np.ndarray) -> np.ndarry:
     r"""Modular cumulative product in place."""
+    a = arr.copy()
     for i in range(len(a) - 1):
         a[i + 1] = a[i + 1] * a[i] % mod
+    return a
 
 
 @nb.njit
@@ -16,8 +18,7 @@ def factorial(mod: int, n: int) -> np.ndarray:
     r"""Modular factorial table."""
     a = np.arange(n)
     a[0] = 1
-    cumprod(mod, a)
-    return a
+    return cumprod(mod, a)
 
 
 @nb.njit

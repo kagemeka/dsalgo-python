@@ -27,3 +27,9 @@ def factorial_inverse_np(n: int, mod: int) -> np.ndarray:
     a = np.arange(1, n + 1)
     a[-1] = inverse(int(factorial_np(n, mod)[-1]), mod)
     return cumprod_np(a[::-1], mod)[::-1]
+
+
+def inverse_table_np(n: int, mod: int) -> np.ndarray:
+    a = factorial_inverse_np(n, mod)
+    a[1:] *= factorial_np(n - 1, mod)
+    return a % mod

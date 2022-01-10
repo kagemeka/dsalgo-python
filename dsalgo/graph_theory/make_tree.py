@@ -1,0 +1,6 @@
+def bfs_tree(graph):
+    ...
+
+
+def dfs_tree(graph):
+    ...

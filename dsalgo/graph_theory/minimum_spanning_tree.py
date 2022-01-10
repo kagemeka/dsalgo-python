@@ -1,9 +1,57 @@
 import typing
 
-from ....graph import Edge, Graph
-from ....union_find.parent_size_at_same import UnionFind
+from dsalgo.graph_theory.union_find import UnionFind
 
-# TODO cut below
+
+def kruskal_unionfind(
+    n: int,
+    edges: typing.List[typing.Tuple[int, int, int]],
+) -> typing.List[typing.Tuple[int, int, int]]:
+    edges = sorted(edges, key=lambda e: e[2])
+    uf = UnionFind(n)
+    mst: typing.List[typing.Tuple[int, int, int]] = []
+    for u, v, weight in edges:
+        if uf.find(u) == uf.find(v):
+            continue
+        mst.append((u, v, weight))
+        uf.unite(u, v)
+    return mst
+
+
+def to_directed(
+    n, g: list[tuple[int, int, ...]]
+) -> list[list[tuple[int, ...]]]:
+    t = [[] for _ in range(n)]
+    for e in g:
+        u, v = e[:2]
+        t[u].append((v, *e[2:]))
+        t[v].append((u, *e[2:]))
+    return t
+
+
+def prim_sparse(self, g: Graph) -> Graph:
+    import heapq
+
+    n = g.size
+    new_g = Graph.from_size(n)
+    visited = [False] * n
+    inf = 1 << 60
+    weight = [inf] * n
+    hq = [(0, -1, 0)]
+    while hq:
+        wu, pre, u = heapq.heappop(hq)
+        if visited[u]:
+            continue
+        visited[u] = True
+        if pre != -1:
+            new_g.add_edge(Edge(pre, u, wu))
+        for e in g.edges[u]:
+            v, wv = e.to, e.weight
+            if visited[v] or wv >= weight[v]:
+                continue
+            weight[v] = wv
+            heapq.heappush(hq, (wv, u, v))
+    return new_g
 
 
 class MSTBoruvkaUF:
@@ -63,3 +111,11 @@ class MSTBoruvkaUF:
             if j == -1 or w < edges[j][2]:
                 min_edge_idx[v] = i
         self.__min_edge_idx = min_edge_idx
+
+
+class ReverseDelete:
+    ...
+
+
+def mst_linear():
+    ...
