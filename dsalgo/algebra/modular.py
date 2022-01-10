@@ -2,8 +2,6 @@ import abc
 import enum
 import typing
 
-import numpy as np
-
 
 def cumprod(mod: int, a: typing.List[int]) -> typing.List[int]:
     """Compute cummulative product over Modular."""
@@ -25,21 +23,78 @@ def factorial_inverse(p: int, n: int) -> typing.List[int]:
     return cumprod(p, ifact[::-1])[::-1]
 
 
-def inverse(mod: int, n: int) -> int:
+def inverse_naive(mod: int, n: int) -> int:
+    """Modular Inverse naive implementation.
+
+    Args:
+        mod (int): [description]
+        n (int): [description]
+
+    Returns:
+        int: [description]
+    """
     return pow(n, -1, mod)
 
 
-def inverse_table(n: int, mod: int) -> list[int]:
+def inverse_fermat(p: int, n: int) -> int:
+    """Modular Inverse by Fermat's Little theorem.
+
+    Args:
+        p (int): [description]
+        n (int): [description]
+
+    Returns:
+        int: [description]
+    """
+    return pow(n, p - 2, p)
+
+
+def inverse_extended_gcd(mod: int, n: int) -> int:
+    """Modular Inverse with extended eucledian GCD algorithm.
+
+    Args:
+        mod (int): [description]
+        n (int): [description]
+
+    Returns:
+        int: [description]
+
+    Constraints:
+
+    """
+    ...
+
+
+def inverse_euler(mod: int, n: int) -> int:
+    """Modular Inverse by Euler's theorem.
+
+    Args:
+        mod (int): [description]
+        n (int): [description]
+
+    Returns:
+        int: [description]
+
+    Constraints:
+
+    """
+    ...
+
+
+def inverse_table(n: int, mod: int) -> typing.List[int]:
+    """Modular Inverse table.
+
+    Args:
+        n (int): [description]
+        mod (int): [description]
+
+    Returns:
+        typing.List[int]: [description]
+    """
     b, a = factorial(n, mod), factorial_inverse(n, mod)
     for i in range(n - 1):
         a[i + 1] = a[i + 1] * b[i] % mod
     return a
-
-
-def inverse_table_np(n: int, mod: int) -> NoReturn:
-    a = factorial_inverse_np(n, mod)
-    a[1:] *= factorial_np(n - 1, mod)
-    return a % mod
 
 
 class Modulo(enum.IntEnum):

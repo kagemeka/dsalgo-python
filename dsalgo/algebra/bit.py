@@ -16,6 +16,10 @@ def reverse_bit(n: int) -> int:
     ...
 
 
+def invert_bit(n: int) -> int:
+    ...
+
+
 def reset_least_bit_naive(n: int) -> int:
     """Reset least bit naive.
 
@@ -29,7 +33,7 @@ def reset_least_bit_naive(n: int) -> int:
         >>> reset_least_bit_naive(0b0110) == 0b0100
         True
 
-    Complesity:
+    Complexity:
         time: O(1)
         space: O(1)
     """
@@ -49,7 +53,7 @@ def reset_least_bit(n: int) -> int:
         >>> reset_least_bit(0b0110) == 0b0100
         True
 
-    Complesity:
+    Complexity:
         time: O(1)
         space: O(1)
     """
@@ -70,7 +74,7 @@ def most_significant_bit_naive(n: int) -> typing.Optional[int]:
         >>> most_significant_bit_naive(0b01010)
         3
 
-    Complesity:
+    Complexity:
         time: O(1)
         space: O(1)
     """
@@ -93,7 +97,7 @@ def most_significant_bit(n: int) -> typing.Optional[int]:
         >>> most_significant_bit(0b01010)
         3
 
-    Complesity:
+    Complexity:
         time: O(1)
         space: O(1)
     """
@@ -128,7 +132,7 @@ def least_significant_bit(n: int) -> typing.Optional[int]:
         >>> least_significant_bit(0b01010)
         1
 
-    Complesity:
+    Complexity:
         time: O(1)
         space: O(1)
     """

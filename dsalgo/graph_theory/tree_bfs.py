@@ -2,19 +2,19 @@ import typing
 
 
 def tree_bfs(
-    g: typing.List[typing.Tuple[int, int]],
+    tree_edges: typing.List[typing.Tuple[int, int]],
     root: int,
-) -> typing.Tuple[(typing.List[int],) * 2]:
-    n = len(g) + 1
-    t = [[] for _ in range(n)]
-    for u, v in g:
-        t[u].append(v)
-        t[v].append(u)
+) -> typing.Tuple[typing.List[int], typing.List[int]]:
+    n = len(tree_edges) + 1
+    graph: typing.List[typing.List[int]] = [[] for _ in range(n)]
+    for u, v in tree_edges:
+        graph[u].append(v)
+        graph[v].append(u)
     parent = [-1] * n
     depth = [0] * n
     que = [root]
     for u in que:
-        for v in t[u]:
+        for v in graph[u]:
             if v == parent[u]:
                 continue
             parent[v] = u

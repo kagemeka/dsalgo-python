@@ -2,7 +2,7 @@ import typing
 
 
 class UnionFind:
-    def __init__(self, n: int) -> typing.NoReturn:
+    def __init__(self, n: int) -> None:
         self.__data = [-1] * n
 
     def __len__(self) -> int:
@@ -15,7 +15,7 @@ class UnionFind:
         d[u] = self.find(d[u])
         return d[u]
 
-    def unite(self, u: int, v: int) -> typing.NoReturn:
+    def unite(self, u: int, v: int) -> None:
         u, v = self.find(u), self.find(v)
         if u == v:
             return
@@ -31,12 +31,12 @@ class UnionFind:
 
 def get_labels(uf: UnionFind) -> typing.List[int]:
     n = len(uf)
-    label = [-1] * n
-    l = 0
+    labels = [-1] * n
+    label = 0
     for i in range(n):
         root = uf.find(i)
-        if label[root] == -1:
-            label[root] = l
-            l += 1
-        label[i] = label[root]
-    return label
+        if labels[root] == -1:
+            labels[root] = label
+            label += 1
+        labels[i] = labels[root]
+    return labels
