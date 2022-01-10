@@ -167,6 +167,50 @@ def compute_depth(tour_edges: typing.List[int]) -> typing.List[int]:
     return depth
 
 
+def compute_first_index(tour_nodes: typing.List[int]) -> typing.List[int]:
+    """Compute first index in euler tour from euler tour on nodes.
+
+    Args:
+        tour_nodes (typing.List[int]): euler tour on nodes.
+
+    Returns:
+        typing.List[int]: first indices.
+
+    Examples:
+        >>> tour_nodes = [0, 1, 4, 1, 2, 1, 0, 3, 0]
+        >>> compute_first_index(tour_nodes)
+        [0, 1, 4, 7, 2]
+    """
+    n = len(tour_nodes) + 1 >> 1
+    first_idx = [-1] * n
+    for i, u in enumerate(tour_nodes):
+        if first_idx[u] == -1:
+            first_idx[u] = i
+    return first_idx
+
+
+def compute_last_index(tour_nodes: typing.List[int]) -> typing.List[int]:
+    """Compute last index in euler tour from euler tour on nodes.
+
+    Args:
+        tour_nodes (typing.List[int]): euler tour on nodes.
+
+    Returns:
+        typing.List[int]: last indices.
+
+    Examples:
+        >>> tour_nodes = [0, 1, 4, 1, 2, 1, 0, 3, 0]
+        >>> compute_last_index(tour_nodes)
+        [8, 5, 4, 7, 2]
+    """
+
+    n = len(tour_nodes) + 1 >> 1
+    last_idx = [-1] * n
+    for i, u in enumerate(tour_nodes):
+        last_idx[u] = i
+    return last_idx
+
+
 if __name__ == "__main__":
     import doctest
 
