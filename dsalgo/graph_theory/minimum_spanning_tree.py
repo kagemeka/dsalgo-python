@@ -1,121 +1,140 @@
 import typing
 
+from dsalgo.graph_theory.connected_components import (
+    connected_components_union_find,
+)
 from dsalgo.graph_theory.union_find import UnionFind
 
 
-def kruskal_unionfind(
+def __to_directed(
+    n: int,
+    edges: typing.List[typing.Tuple[int, int, int]],
+) -> typing.List[typing.List[typing.Tuple[int, ...]]]:
+    graph: typing.List[typing.List[typing.Tuple[int, ...]]] = [
+        [] for _ in range(n)
+    ]
+    for e in edges:
+        u, v = e[:2]
+        graph[u].append((v, *e[2:]))
+        graph[v].append((u, *e[2:]))
+    return graph
+
+
+def mst_kruskal_unionfind(
     n: int,
     edges: typing.List[typing.Tuple[int, int, int]],
 ) -> typing.List[typing.Tuple[int, int, int]]:
     edges = sorted(edges, key=lambda e: e[2])
     uf = UnionFind(n)
-    mst: typing.List[typing.Tuple[int, int, int]] = []
+    mst_edges: typing.List[typing.Tuple[int, int, int]] = []
     for u, v, weight in edges:
         if uf.find(u) == uf.find(v):
             continue
-        mst.append((u, v, weight))
+        mst_edges.append((u, v, weight))
         uf.unite(u, v)
-    return mst
+    return mst_edges
 
 
-def to_directed(
-    n, g: list[tuple[int, int, ...]]
-) -> list[list[tuple[int, ...]]]:
-    t = [[] for _ in range(n)]
-    for e in g:
-        u, v = e[:2]
-        t[u].append((v, *e[2:]))
-        t[v].append((u, *e[2:]))
-    return t
-
-
-def prim_sparse(self, g: Graph) -> Graph:
+# O((E + V)\log{E})
+def mst_prim_sparse(
+    n: int,
+    edges: typing.List[typing.Tuple[int, int, int]],
+) -> typing.List[typing.Tuple[int, int, int]]:
+    graph = __to_directed(n, edges)
+    mst_edges: typing.List[typing.Tuple[int, int, int]] = []
     import heapq
 
-    n = g.size
-    new_g = Graph.from_size(n)
-    visited = [False] * n
-    inf = 1 << 60
-    weight = [inf] * n
     hq = [(0, -1, 0)]
+    inf = 1 << 20
+    weight = [inf] * n
+    visited = [False] * n
     while hq:
-        wu, pre, u = heapq.heappop(hq)
+        weight_to_u, pre, u = heapq.heappop(hq)
         if visited[u]:
             continue
         visited[u] = True
         if pre != -1:
-            new_g.add_edge(Edge(pre, u, wu))
-        for e in g.edges[u]:
-            v, wv = e.to, e.weight
-            if visited[v] or wv >= weight[v]:
+            mst_edges.append((pre, u, weight_to_u))
+        for v, weight_to_v in graph[u]:
+            if visited[v] or weight_to_v >= weight[v]:
                 continue
-            weight[v] = wv
-            heapq.heappush(hq, (wv, u, v))
-    return new_g
+            weight[v] = weight_to_v
+            heapq.heappush(hq, (weight_to_v, u, v))
+
+    return mst_edges
 
 
-class MSTBoruvkaUF:
-    def __call__(self, g: Graph) -> Graph:
-        n = g.size
-        self.__new_g = Graph.from_size(n)
-        self.__uf = UnionFind(n)
-        self.__root = list(range(n))
-        self.__n = n
-        edges = [(u, e.to, e.weight) for u in range(n) for e in g.edges[u]]
-        self.__edge_is_added = [False] * len(edges)
-        self.__edges = edges
-        while not self.__all_same():
-            self.__update_min_edge_indices()
-            self.__add_min_edges()
-            self.__update_all_roots()
-        return self.__new_g
-
-    def __add_min_edges(
-        self,
-    ) -> NoReturn:
-        edge_is_added = self.__edge_is_added
-        for i in range(self.__n):
-            if i != self.__root[i]:
+# O(V^2)
+def mst_prime_dense(
+    graph: typing.List[typing.List[int]],
+) -> typing.List[typing.Tuple[int, int, int]]:
+    n = len(graph)
+    for u in range(1, n):
+        for v in range(u):
+            assert graph[u][v] == graph[v][u]
+    inf = 1 << 63
+    mst_edges: typing.List[typing.Tuple[int, int, int]] = []
+    min_edge = [(-1, inf)] * n  # (previous node, weight)
+    min_edge[0] = (-1, 0)
+    visited = [False] * n
+    for _ in range(n):
+        pre = -1
+        u = -1
+        weight_to_u = inf
+        for i in range(n):
+            if visited[i] or min_edge[i][1] >= weight_to_u:
                 continue
-            i = self.__min_edge_idx[i]
-            if edge_is_added[i]:
+            u = i
+            pre, weight_to_u = min_edge[i]
+        assert weight_to_u < inf
+        visited[u] = True
+        if pre != -1:
+            mst_edges.append((pre, u, weight_to_u))
+        for v in range(n):
+            if visited[v] or graph[u][v] >= min_edge[v][1]:
                 continue
-            u, v, w = self.__edges[i]
-            self.__uf.unite(u, v)
-            self.__new_g.add_edge(Edge(u, v, w))
-            edge_is_added[i] = True
+            min_edge[v] = (u, graph[u][v])
+    assert len(mst_edges) == n - 1
+    return mst_edges
 
-    def __all_same(self) -> bool:
-        n, root = self.__n, self.__root
-        return all(root[i] == root[i + 1] for i in range(n - 1))
 
-    def __update_all_roots(
-        self,
-    ) -> NoReturn:
-        for i in range(self.__n):
-            self.__root[i] = self.__uf.find(i)
-
-    def __update_min_edge_indices(
-        self,
-    ) -> NoReturn:
-        root, edges = self.__root, self.__edges
-        min_edge_idx = [-1] * self.__n
-        for i, (u, v, w) in enumerate(edges):
-            u, v = root[u], root[v]
+# O(E\log{V})
+def mst_boruvka(
+    n: int,
+    edges: typing.List[typing.Tuple[int, int, int]],
+) -> typing.List[typing.Tuple[int, int, int]]:
+    m = len(edges)
+    is_added = [False] * m
+    mst_edges: typing.List[typing.Tuple[int, int, int]] = []
+    while True:  # O(\log{N}) times loop.
+        label = connected_components_union_find(
+            n,
+            [(u, v) for u, v, _ in mst_edges],
+        )
+        k = max(label) + 1
+        if k == 1:
+            break
+        min_edge = [-1] * k  # for each component.
+        for i, (u, v, weight) in enumerate(edges):
+            u, v = label[u], label[v]
             if u == v:
                 continue
-            j = min_edge_idx[u]
-            if j == -1 or w < edges[j][2]:
-                min_edge_idx[u] = i
-            j = min_edge_idx[v]
-            if j == -1 or w < edges[j][2]:
-                min_edge_idx[v] = i
-        self.__min_edge_idx = min_edge_idx
+            if min_edge[u] == -1 or weight < edges[min_edge[u]][2]:
+                min_edge[u] = i
+            if min_edge[v] == -1 or weight < edges[min_edge[v]][2]:
+                min_edge[v] = i
+
+        for i in min_edge:
+            if is_added[i]:
+                continue
+            mst_edges.append(edges[i])
+            is_added[i] = True
+    return mst_edges
 
 
-class ReverseDelete:
+def reverse_delete():
     ...
 
 
-def mst_linear():
+def randomized_linear():
     ...
