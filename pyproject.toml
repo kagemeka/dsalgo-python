@@ -33,7 +33,7 @@ pytest = "^"
 
 
 [tool.black]
-target-version = ['py39']
+target-version = ['py38', 'py39']
 line-length = 79
 
 
