@@ -13,7 +13,7 @@ def euler_tour_recurse(
         root (int): tour root node.
 
     Returns:
-        typing.List[int]: the result array represent the tour.
+        typing.List[int]: the result array represent the tour on edges.
 
     Examples:
         >>> edges = [(0, 1), (0, 3), (1, 4), (1, 2)]
@@ -53,7 +53,7 @@ def euler_tour(
         root (int): tour root node.
 
     Returns:
-        typing.List[int]: the result array represent the tour.
+        typing.List[int]: the result array represent the tour on edges.
 
     Examples:
         >>> edges = [(0, 1), (0, 3), (1, 4), (1, 2)]
@@ -83,11 +83,11 @@ def euler_tour(
     return tour
 
 
-def to_nodes(tour: typing.List[int]) -> typing.List[int]:
+def to_nodes(tour_edges: typing.List[int]) -> typing.List[int]:
     """Convert Euler-tour-on-edges to Euler-tour-on-nodes.
 
     Args:
-        tour (typing.List[int]): euler tour on edges.
+        tour_edges (typing.List[int]): euler tour on edges.
 
     Returns:
         typing.List[int]: euler tour on nodes.
@@ -97,9 +97,9 @@ def to_nodes(tour: typing.List[int]) -> typing.List[int]:
         >>> to_nodes(tour_edges)
         [0, 1, 4, 1, 2, 1, 0, 3, 0]
     """
-    parent = compute_parent(tour)
+    parent = compute_parent(tour_edges)
     tour_nodes: typing.List[int] = []
-    for u in tour[:-1]:
+    for u in tour_edges[:-1]:
         if u >= 0:
             tour_nodes.append(u)
         else:
@@ -110,12 +110,12 @@ def to_nodes(tour: typing.List[int]) -> typing.List[int]:
 
 
 def compute_parent(
-    tour: typing.List[int],
+    tour_edges: typing.List[int],
 ) -> typing.List[typing.Optional[int]]:
     """Compute parent from Euler-tour-on-edges.
 
     Args:
-        tour (typing.List[int]): euler tour on edges.
+        tour_edges (typing.List[int]): euler tour on edges.
 
     Returns:
         typing.List[typing.Optional[int]]:
@@ -127,10 +127,10 @@ def compute_parent(
         >>> compute_parent(tour_edges)
         [None, 0, 1, 0, 1]
     """
-    n = len(tour) >> 1
+    n = len(tour_edges) >> 1
     parent: typing.List[typing.Optional[int]] = [None] * n
-    st = [tour[0]]
-    for u in tour[1:]:
+    st = [tour_edges[0]]
+    for u in tour_edges[1:]:
         if u < 0:
             st.pop()
             continue
@@ -138,6 +138,77 @@ def compute_parent(
         st.append(u)
 
     return parent
+
+
+def compute_depth(tour_edges: typing.List[int]) -> typing.List[int]:
+    """Compute depth from Euler-tour-on-edges.
+
+    Args:
+        tour_edges (typing.List[int]): euler tour on edges.
+
+    Returns:
+        typing.List[int]: depth list.
+
+    Examples:
+        >>> tour_edges = [0, 1, 4, -5, 2, -3, -2, 3, -4, -1]
+        >>> compute_depth(tour_edges)
+        [0, 1, 2, 1, 2]
+
+    """
+    n = len(tour_edges) >> 1
+    parent = compute_parent(tour_edges)
+    depth = [0] * n
+    for u in tour_edges[1:]:
+        if u < 0:
+            continue
+        p = parent[u]
+        assert p is not None
+        depth[u] = depth[p] + 1
+    return depth
+
+
+def compute_first_index(tour_nodes: typing.List[int]) -> typing.List[int]:
+    """Compute first index in euler tour from euler tour on nodes.
+
+    Args:
+        tour_nodes (typing.List[int]): euler tour on nodes.
+
+    Returns:
+        typing.List[int]: first indices.
+
+    Examples:
+        >>> tour_nodes = [0, 1, 4, 1, 2, 1, 0, 3, 0]
+        >>> compute_first_index(tour_nodes)
+        [0, 1, 4, 7, 2]
+    """
+    n = len(tour_nodes) + 1 >> 1
+    first_idx = [-1] * n
+    for i, u in enumerate(tour_nodes):
+        if first_idx[u] == -1:
+            first_idx[u] = i
+    return first_idx
+
+
+def compute_last_index(tour_nodes: typing.List[int]) -> typing.List[int]:
+    """Compute last index in euler tour from euler tour on nodes.
+
+    Args:
+        tour_nodes (typing.List[int]): euler tour on nodes.
+
+    Returns:
+        typing.List[int]: last indices.
+
+    Examples:
+        >>> tour_nodes = [0, 1, 4, 1, 2, 1, 0, 3, 0]
+        >>> compute_last_index(tour_nodes)
+        [8, 5, 4, 7, 2]
+    """
+
+    n = len(tour_nodes) + 1 >> 1
+    last_idx = [-1] * n
+    for i, u in enumerate(tour_nodes):
+        last_idx[u] = i
+    return last_idx
 
 
 if __name__ == "__main__":

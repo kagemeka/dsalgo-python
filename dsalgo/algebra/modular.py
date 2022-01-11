@@ -118,6 +118,10 @@ class Modular(abc.ABC):
         value %= self.mod
         self.__value = value
 
+    @property
+    def value(self) -> int:
+        return self.__value
+
     def __repr__(self) -> str:
         return f"{self.__value}"
 
