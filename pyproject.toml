@@ -7,6 +7,9 @@ name = "dsalgo"
 version = "0.1.0"
 description = "A package for datastructures and algorithms."
 authors = ["Hiroshi Tsuyuki <kagemeka1@gmail.com>"]
+packages = [
+    { include = "dsalgo", from = "src" },
+]
 
 [tool.poetry.dependencies]
 python = ">=3.9,<3.10"
