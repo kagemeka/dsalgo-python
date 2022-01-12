@@ -135,7 +135,7 @@ class FenwickTreeAbelianGroup(typing.Generic[S], FenwickTree[S]):
         return g.op(g.invert(self[left]), self[right])
 
 
-class FenwickTreeIntAdd:
+class FenwickTreeIntAdd:  # version not using dataclass for performance.
     def __init__(self, arr: typing.List[int]) -> None:
         n = len(arr)
         data = [0] * (n + 1)
