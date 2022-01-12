@@ -26,22 +26,50 @@ class AVLTree(typing.Generic[K, V]):
     def __init__(self) -> None:
         self.__root = None
 
-    def isnert(self, key: K, value: typing.Optional[V]) -> None:
-        node = Node(key=key, value=value)
-        if self.__root is None:
-            self.__root = node
-            return 
+    def insert(self, key: K, value: typing.Optional[V]) -> None:
+        self.__root = self.__insert(self.__root, key, value)
         
-        if key <= self.__root.key:
-            if self.__root is None:
-                self.__root.left = node
-                return
-            else:
-                assert self.__root.left is not None
-                self.__root.left = left_rotate(self.__root.left)
+    def __insert(self, node: typing.Optional[Node[K, V]], key: K, value: V) -> Node[K, V]:
+        if node is None:
+            return Node(key, value)
+        
+        if key <= node.key:
+            node.left = self.__insert(node.left, key, value)
         else:
-            ...
+            node.right = self.__insert(node.right, key, value)
+        
+        node.height = max(
+            self.__get_height(node.left),
+            self.__get_height(node.right),
+        ) + 1
+        
+        balance = self.__get_balance(node)
+        
+        if balance < -1:  # balancing left direction
+            if self.__get_balance(node.left) <= 0:
+                return right_rotate(node)
+            assert node.left is not None
+            node.left = left_rotate(node.left)  # left exist (balance < -1)
+            return right_rotate(node)
+        elif balance > 1:
+            if self.__get_balance(node.right) >= 0:
+                return left_rotate(node)
+            assert node.right is not None
+            node.right = right_rotate(node.right)
+            return left_rotate(node)
+        else:
+            return node
             
+    def __get_height(self, node: typing.Optional[Node[K, V]]) -> int:
+        if node is None:
+            return 0
+        return node.height
+    
+    def __get_balance(self, node: typing.Optional[Node[K, V]]) -> int:
+        if node is None:
+            return 0
+        return self.__get_height(node.right) - self.__get_height(node.right)
+    
     def remove(self, key: K) -> None:
         ...
     
@@ -61,3 +89,9 @@ def right_rotate(node: Node[K, V]) -> Node[K, V]:
 
 
 
+tree = AVLTree[int, int]()
+
+tree.insert(1, 1)
+tree.insert(3, 2)
+
+print(tree._AVLTree__root)
