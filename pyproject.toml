@@ -33,7 +33,7 @@ pytest = "^"
 
 
 [tool.black]
-target-version = ['py39']
+target-version = ['py38', 'py39']
 line-length = 79
 
 
@@ -41,6 +41,7 @@ line-length = 79
 count = 'true' # have not adaped to boolean value yet.
 show-source = 'true'
 statistics = 'true'
+ignore = 'E203'
 
 
 [tool.isort]
