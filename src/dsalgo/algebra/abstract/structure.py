@@ -15,10 +15,18 @@ class Monoid(typing.Generic[S]):
     e: typing.Callable[[], S]
 
 
-
 @dataclasses.dataclass
 class Group(typing.Generic[S]):
     op: typing.Callable[[S, S], S]
     e: typing.Callable[[], S]
-    inverse: typing.Callable[[S], S]
+    invert: typing.Callable[[S], S]
 
+
+@dataclasses.dataclass
+class Semiring(typing.Generic[S]):
+    ...
+
+
+@dataclasses.dataclass
+class Ring(typing.Generic[S]):
+    ...

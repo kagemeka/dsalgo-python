@@ -1,6 +1,6 @@
 import typing
 
-from dsalgo.algebra.abstract.structure.monoid import Monoid
+from dsalgo.algebra.abstract.structure import Monoid, Group
 
 S = typing.TypeVar("S")
 
@@ -97,6 +97,16 @@ class FenwickTree(typing.Generic[S]):
         return i
 
 
+"""In case implementing as zero-indexed internally.
+set:
+    i |= i + 1
+
+get:
+    i &= i + 1
+    i -= 1
+"""
+
+
 def build_with_size(monoid: Monoid[S], size: int) -> FenwickTree[S]:
     """Build a new FenwickTree of given size.
 
@@ -108,27 +118,49 @@ def build_with_size(monoid: Monoid[S], size: int) -> FenwickTree[S]:
     )
 
 
-def get_range(
-    fw: FenwickTree[S],
-    inverse: typing.Callable[[S], S],
-    left: int,
-    right: int,
-) -> S:
-    """Get range product.
-    An associative function for FenwickTree.
-    Generic Type S must be Abelian Group not only but Monoid.
-    so it's needed to pass the inverse function.
-    """
+class FenwickTreeAbelianGroup(typing.Generic[S], FenwickTree[S]):
+    def __init__(self, group: Group[S], arr: typing.List[S]) -> None:
+        monoid = Monoid[S](group.op, group.e)
+        super().__init__(monoid, arr)
+        self.__group = group
+
+    def get_range(self, left: int, right: int) -> S:
+        """Get range product.
+        An associative function for FenwickTree.
+        Generic Type S must be Abelian Group not only but Monoid.
+        so it's needed to pass the inverse function.
+        """
+
+        g = self.__group
+        return g.op(g.invert(self[left]), self[right])
 
 
-"""In case implementing as zero-indexed internally.
-set:
-    i |= i + 1
+class FenwickTreeIntAdd:
+    def __init__(self, arr: typing.List[int]) -> None:
+        n = len(arr)
+        data = [0] * (n + 1)
+        data[1:] = arr.copy()
+        for i in range(n):
+            j = i + (i & -i)
+            if j > n:
+                continue
+            data[j] += data[i]
+        self.__data = data
 
-get:
-    i &= i + 1
-    i -= 1
-"""
+    def __set__(self, i: int, x: int) -> None:
+        assert 0 <= i < len(self.__data) - 1
+        i += 1
+        while i < len(self.__data):
+            self.__data[i] += x
+            i += i & -i
+
+    def __get__(self, i: int) -> int:
+        assert 0 <= i < len(self.__data)
+        v = 0
+        while i > 0:
+            v += self.__data[i]
+            i -= i & -i
+        return v
 
 
 if __name__ == "__main__":
