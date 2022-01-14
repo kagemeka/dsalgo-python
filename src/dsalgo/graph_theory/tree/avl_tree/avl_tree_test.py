@@ -1,4 +1,3 @@
-
 # root: typing.Optional[Node[int, int]] = None
 
 # for i in range(5):

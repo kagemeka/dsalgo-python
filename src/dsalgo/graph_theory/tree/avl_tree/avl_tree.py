@@ -140,6 +140,22 @@ def get_min_node(root: Node[K, V]) -> Node[K, V]:
     return root if root.left is None else get_min_node(root.left)
 
 
+def lower_bound(root: typing.Optional[Node[K, V]], key: K) -> int:
+    if root is None:
+        return 0
+    if root.key < key:
+        return __get_size(root.left) + 1 + lower_bound(root.right, key)
+    return lower_bound(root.left, key)
+
+
+def upper_bound(root: typing.Optional[Node[K, V]], key: K) -> int:
+    if root is None:
+        return 0
+    if root.key <= key:
+        return __get_size(root.left) + 1 + upper_bound(root.right, key)
+    return upper_bound(root.left, key)
+
+
 def find(
     root: typing.Optional[Node[K, V]],
     key: K,
