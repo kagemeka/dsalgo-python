@@ -16,6 +16,7 @@ class Node(typing.Generic[K, V]):
     left: typing.Optional[Node[K, V]] = None
     right: typing.Optional[Node[K, V]] = None
     height: int = 1
+    size: int = 1
 
 
 # https://www.programiz.com/dsa/avl-tree
@@ -29,11 +30,20 @@ def __get_height(root: typing.Optional[Node[K, V]]) -> int:
         return 0
     return root.height
 
+def __get_size(root: typing.Optional[Node[K, V]]) -> int:
+    if root is None:
+        return 0
+    return root.size 
 
 def __get_balance(root: typing.Optional[Node[K, V]]) -> int:
     if root is None:
         return 0
     return __get_height(root.right) - __get_height(root.left)
+
+
+def __update(root: Node[K, V]) -> None:
+    root.height = max(__get_height(root.left), __get_height(root.right)) + 1
+    root.size = __get_size(root.left) + __get_size(root.right) + 1
 
 
 def __pop_max_node(
@@ -47,7 +57,8 @@ def __pop_max_node(
 
 
 def __balance_tree(root: Node[K, V]) -> Node[K, V]:
-    root.height = max(__get_height(root.left), __get_height(root.right)) + 1
+    # root.height = max(__get_height(root.left), __get_height(root.right)) + 1
+    __update(root)
     balance = __get_balance(root)
     if balance < -1:  # lean to left direction
         if __get_balance(root.left) > 0:
@@ -67,6 +78,7 @@ def left_rotate(root: Node[K, V]) -> Node[K, V]:
     u = root.right
     assert u is not None
     u.left, root.right = root, u.left
+    __update(root)
     return u
 
 
@@ -74,6 +86,7 @@ def right_rotate(root: Node[K, V]) -> Node[K, V]:
     u = root.left
     assert u is not None
     u.right, root.left = root, u.right
+    __update(root)
     return u
 
 
@@ -89,14 +102,14 @@ def insert(root: typing.Optional[Node[K, V]], node: Node[K, V]) -> Node[K, V]:
 
 def remove(
     root: typing.Optional[Node[K, V]],
-    node: Node[K, V],
+    key: K,
 ) -> typing.Optional[Node[K, V]]:
     if root is None:
         return None
-    if node.key < root.key:
-        root.left = remove(root.left, node)
-    elif node.key > root.key:
-        root.right = remove(root.right, node)
+    if key < root.key:
+        root.left = remove(root.left, key)
+    elif key > root.key:
+        root.right = remove(root.right, key)
     else:
         if root.left is None:
             return root.right
@@ -109,7 +122,8 @@ root = None
 
 for i in range(5):
     root = insert(root, Node(i, 0))
+    print(root)
 
-root = remove(root, Node(3, 0))
+root = remove(root, 3)
 
 print(root)
