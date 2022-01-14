@@ -19,12 +19,6 @@ class Node(typing.Generic[K, V]):
     size: int = 1
 
 
-# https://www.programiz.com/dsa/avl-tree
-# http://wwwa.pikara.ne.jp/okojisan/avl-tree/index.html
-# used for set, multiset, map
-# cannot used for multimap.
-
-
 def __get_height(root: typing.Optional[Node[K, V]]) -> int:
     if root is None:
         return 0
@@ -37,48 +31,9 @@ def __get_size(root: typing.Optional[Node[K, V]]) -> int:
     return root.size
 
 
-def __get_balance(root: typing.Optional[Node[K, V]]) -> int:
-    if root is None:
-        return 0
-    return __get_height(root.right) - __get_height(root.left)
-
-
 def __update(root: Node[K, V]) -> None:
     root.height = max(__get_height(root.left), __get_height(root.right)) + 1
     root.size = __get_size(root.left) + __get_size(root.right) + 1
-
-
-def __left_rotate(root: Node[K, V]) -> Node[K, V]:
-    u = root.right
-    assert u is not None
-    u.left, root.right = root, u.left
-    __update(root)
-    return u
-
-
-def __right_rotate(root: Node[K, V]) -> Node[K, V]:
-    u = root.left
-    assert u is not None
-    u.right, root.left = root, u.right
-    __update(root)
-    return u
-
-
-def __balance_tree(root: Node[K, V]) -> Node[K, V]:
-    __update(root)
-    balance = __get_balance(root)
-    if balance < -1:  # lean to left direction
-        if __get_balance(root.left) > 0:
-            assert root.left is not None  # left exist (because balance < -1)
-            root.left = __left_rotate(root.left)
-        return __right_rotate(root)
-    elif balance > 1:
-        if __get_balance(root.right) < 0:
-            assert root.right is not None
-            root.right = __right_rotate(root.right)
-        return __left_rotate(root)
-    else:
-        return root
 
 
 def __pop_max_node(
@@ -88,7 +43,8 @@ def __pop_max_node(
         new_root, root.left = root.left, None
         return root, new_root
     max_node, root.right = __pop_max_node(root.right)
-    return max_node, __balance_tree(root)
+    __update(root)
+    return max_node, root
 
 
 def insert(root: typing.Optional[Node[K, V]], node: Node[K, V]) -> Node[K, V]:
@@ -98,7 +54,8 @@ def insert(root: typing.Optional[Node[K, V]], node: Node[K, V]) -> Node[K, V]:
         root.left = insert(root.left, node)
     else:
         root.right = insert(root.right, node)
-    return __balance_tree(root)
+    __update(root)
+    return root 
 
 
 def remove(
@@ -116,7 +73,8 @@ def remove(
             return root.right
         max_node, root.left = __pop_max_node(root.left)
         root.key, root.value = max_node.key, max_node.value
-    return __balance_tree(root)
+    __update(root)
+    return root
 
 
 def get_kth_node(root: Node[K, V], k: int) -> typing.Optional[Node[K, V]]:
