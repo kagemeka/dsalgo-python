@@ -34,7 +34,7 @@ def __get_height(root: typing.Optional[Node[K, V]]) -> int:
 def __get_size(root: typing.Optional[Node[K, V]]) -> int:
     if root is None:
         return 0
-    return root.size 
+    return root.size
 
 
 def __get_balance(root: typing.Optional[Node[K, V]]) -> int:
@@ -115,7 +115,7 @@ def remove(
         if root.left is None:
             return root.right
         max_node, root.left = __pop_max_node(root.left)
-        root.key, root.value = max_node.key, max_node.value 
+        root.key, root.value = max_node.key, max_node.value
     return __balance_tree(root)
 
 
@@ -130,15 +130,25 @@ def get_kth_node(root: Node[K, V], k: int) -> typing.Optional[Node[K, V]]:
     if root.right is None:
         return None
     return get_kth_node(root.right, k - i - 1)
-        
 
-root = None
 
-for i in range(5):
-    root = insert(root, Node(i, 0))
-    print(root)
+def get_max_node(root: Node[K, V]) -> Node[K, V]:
+    return root if root.right is None else get_max_node(root.right)
 
-root = remove(root, 3)
 
-print(root)
-print(get_kth_node(root, 4))
+def get_min_node(root: Node[K, V]) -> Node[K, V]:
+    return root if root.left is None else get_min_node(root.left)
+
+
+def find(
+    root: typing.Optional[Node[K, V]],
+    key: K,
+) -> typing.Optional[Node[K, V]]:
+    if root is None:
+        return None
+    if key == root.key:
+        return root
+    elif key < root.key:
+        return find(root.left, key)
+    else:
+        return find(root.right, key)
