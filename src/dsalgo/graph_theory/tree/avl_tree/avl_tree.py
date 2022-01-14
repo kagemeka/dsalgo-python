@@ -20,78 +20,72 @@ class Node(typing.Generic[K, V]):
 
 
 # https://www.programiz.com/dsa/avl-tree
-class AVLTree(typing.Generic[K, V]):
-    __root: typing.Optional[Node[K, V]]
+# used for set, multiset, map
 
-    def __init__(self) -> None:
-        self.__root = None
+# concrete datastructure such a set or multiset or map should have.
+# cannot implement multimap.
 
-    def insert(self, key: K, value: typing.Optional[V]) -> None:
-        self.__root = self.__insert(self.__root, key, value)
-        
-    def __insert(self, node: typing.Optional[Node[K, V]], key: K, value: V) -> Node[K, V]:
-        if node is None:
-            return Node(key, value)
-        
-        if key <= node.key:
-            node.left = self.__insert(node.left, key, value)
-        else:
-            node.right = self.__insert(node.right, key, value)
-        
-        node.height = max(
-            self.__get_height(node.left),
-            self.__get_height(node.right),
-        ) + 1
-        
-        balance = self.__get_balance(node)
-        
-        if balance < -1:  # balancing left direction
-            if self.__get_balance(node.left) <= 0:
-                return right_rotate(node)
-            assert node.left is not None
-            node.left = left_rotate(node.left)  # left exist (balance < -1)
-            return right_rotate(node)
-        elif balance > 1:
-            if self.__get_balance(node.right) >= 0:
-                return left_rotate(node)
-            assert node.right is not None
-            node.right = right_rotate(node.right)
-            return left_rotate(node)
-        else:
-            return node
-            
-    def __get_height(self, node: typing.Optional[Node[K, V]]) -> int:
-        if node is None:
-            return 0
-        return node.height
-    
-    def __get_balance(self, node: typing.Optional[Node[K, V]]) -> int:
-        if node is None:
-            return 0
-        return self.__get_height(node.right) - self.__get_height(node.right)
-    
-    def remove(self, key: K) -> None:
-        ...
+def insert(root: typing.Optional[Node[K, V]], node: Node[K, V]) -> Node[K, V]:
+    if root is None:
+        return node
+    if node.key <= root.key:
+        root.left = insert(root.left, node)
+    else:
+        root.right = insert(root.right, node)
+    root.height = max(__get_height(root.left), __get_height(root.right)) + 1    
+    balance = __get_balance(root)
+    if balance < -1:  # lean to left direction
+        if __get_balance(root.left) > 0:
+            assert root.left is not None  # left exist (because balance < -1)
+            root.left = left_rotate(root.left)
+        return right_rotate(root)
+    elif balance > 1:
+        if __get_balance(root.right) < 0:
+            assert root.right is not None
+            root.right = right_rotate(root.right)
+        return left_rotate(root)
+    else:
+        return root
     
 
-def left_rotate(node: Node[K, V]) -> Node[K, V]:
-    u = node.right 
+def remove(
+    root: typing.Optional[Node[K, V]], 
+    node: Node[K, V],
+) -> typing.Optional[Node[K, V]]:
+    if root is None:
+        return None
+    
+    
+
+def __get_height(root: typing.Optional[Node[K, V]]) -> int:
+    if root is None:
+        return 0
+    return root.height
+
+
+def __get_balance(root: typing.Optional[Node[K, V]]) -> int:
+    if root is None:
+        return 0
+    return __get_height(root.right) - __get_height(root.left)
+    
+
+def left_rotate(root: Node[K, V]) -> Node[K, V]:
+    u = root.right 
     assert u is not None
-    u.left, node.right = node, u.left
+    u.left, root.right = root, u.left
     return u
 
 
-def right_rotate(node: Node[K, V]) -> Node[K, V]:
-    u = node.left 
+def right_rotate(root: Node[K, V]) -> Node[K, V]:
+    u = root.left
     assert u is not None 
-    u.right, node.left = node, u.right
+    u.right, root.left = root, u.right
     return u
 
 
+root = None
+for _ in range(100000):
+    root = insert(root, Node(1, 1))
 
-tree = AVLTree[int, int]()
 
-tree.insert(1, 1)
-tree.insert(3, 2)
-
-print(tree._AVLTree__root)
+print(__get_height(root))

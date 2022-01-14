@@ -163,6 +163,7 @@ class FenwickTreeIntAdd:  # version not using dataclass for performance.
         return v
 
 
+
 if __name__ == "__main__":
     import doctest
 
