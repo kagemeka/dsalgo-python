@@ -6,7 +6,7 @@ F = typing.TypeVar('F')
 
 
 # monoid operation must be commutative.
-def rerooting(
+def tree_dp_for_all_roots(
     edges: typing.List[typing.Tuple[int, int, F]],
     monoid: Monoid[S],
     map_: typing.Callable[[F, S], S],
@@ -31,17 +31,17 @@ def rerooting(
                 map_(f, dp_from_childs[v]),
             )
 
-    tree_dp(0, -1) 
+    tree_dp(0, -1)
     dp_from_parent = [monoid.e() for _ in range(n)]
     
     def reroot(u: int, parent: int) -> None:
         child_edges = [edge for edge in graph[u] if edge[0] != parent]
         deg = len(child_edges)
-        dp_l = [monoid.e() for _ in range(deg)] 
-        dp_r = [monoid.e() for _ in range(deg)] 
+        dp_l = [monoid.e() for _ in range(deg)]
+        dp_r = [monoid.e() for _ in range(deg)]
         for i, (v, f) in enumerate(child_edges[:-1]):
             dp_l[i + 1] = monoid.op(dp_l[i], map_(f, dp_from_childs[v]))
-        for i, (v, f) in reversed(enumerate(child_edges[1:])):
+        for i, (v, f) in reversed(list(enumerate(child_edges[1:]))):
             dp_r[i] = monoid.op(dp_r[i + 1], map_(f, dp_from_childs[v]))
         for i, (v, f) in enumerate(child_edges):
             dp_from_parent[v] = map_(
