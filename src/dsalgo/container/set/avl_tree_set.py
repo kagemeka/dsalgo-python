@@ -62,6 +62,8 @@ s.insert(2)
 
 print(len(s))
 print(s.min_value())
+print(s.max_value())
+
 print(s.lower_bound(2))
 print(s.lower_bound(3))
 print(s.lower_bound(4))
