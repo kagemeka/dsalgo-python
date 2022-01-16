@@ -43,64 +43,51 @@ def scc_path_based(graph: typing.List[typing.List[int]]) -> typing.List[int]:
 
 
 
-def scc_tarjan_lowlink(graph: typing.List[typing.List[int]]) -> typing.List[int]:
+def scc_tarjan_lowlink(
+    graph: typing.List[typing.List[int]],
+) -> typing.List[int]:
+    n = len(graph)
+    stack: typing.List[int] = []
+    on_stack = [False] * n
+    order = [-1] * n 
+    lowlink = [-1] * n
+    ord = 0
+    labels = [-1] * n
+    label = 0
+    
+    def dfs(u: int) -> None:
+        nonlocal ord, label 
+        order[u] = lowlink[u] = ord
+        ord += 1
+        stack.append(u)
+        on_stack[u] = True
+        for v in graph[u]:
+            if order[v] == -1:
+                dfs(v)
+                lowlink[u] = min(lowlink[u], lowlink[v])
+            elif on_stack[v] and order[v] < lowlink[u]:
+                lowlink[u] = order[v]
+        
+        if lowlink[u] != order[u]: return
+        while True:
+            v = stack.pop()
+            on_stack[v] = False
+            labels[v] = label
+            if v == u:
+                break
+        label += 1
+    
+    for i in range(n):
+        if order[i] == -1:
+            dfs(i)
+    return labels   
+    
 
 g = [[1, 3], [2], [3], []]
 print(scc_path_based(g))
+print(scc_tarjan_lowlink(g))
 
 
-# /// scc Tarjan with lowlink
-# /// O(V + E)
-# /// references
-# /// - https://en.wikipedia.org/wiki/Tarjan%27s_strongly_connected_components_algorithm
-# pub fn tarjan(g: &Vec<Vec<usize>>) -> Vec<usize> {
-#     fn dfs(
-#         g: &Vec<Vec<usize>>, 
-#         order: &mut Vec<usize>,
-#         low: &mut Vec<usize>,
-#         label: &mut Vec<usize>,
-#         on_stack: &mut Vec<bool>,
-#         st: &mut Vec<usize>,
-#         u: usize,
-#         ord: &mut usize,
-#         l: &mut usize,
-#     ) {
-#         order[u] = *ord;
-#         low[u] = *ord;
-#         *ord += 1;
-#         st.push(u);
-#         on_stack[u] = true;
-#         for v in g[u].iter().map(|x| *x) {
-#             if order[v] == g.len() {
-#                 dfs(g, order, low, label, on_stack, st, v, ord, l);
-#                 if low[v] < low[u] { low[u] = low[v]; }
-#             } else if on_stack[v] && order[v] < low[u] {
-#                 low[u] = order[v];
-#             }
-#         }
-#         if low[u] == order[u] {
-#             loop {
-#                 let v = st.pop().unwrap();
-#                 on_stack[v] = false;
-#                 label[v] = *l;
-#                 if v == u { break; }
-#             }
-#             *l += 1;
-#         }
-#     }
-#     let n = g.len();
-#     let mut order = vec![n; n];
-#     let mut low = vec![n; n];
-#     let mut label = vec![n; n];
-#     let mut on_stack = vec![false; n];
-#     let mut st = Vec::with_capacity(n);
-#     let mut ord = 0;
-#     let mut l = 0;
-#     for i in 0..n {
-#         if order[i] == n { dfs(g, &mut order, &mut low, &mut label, &mut on_stack, &mut st, i, &mut ord, &mut l); }
-#     }
-#     label
-# }
 
 
 
