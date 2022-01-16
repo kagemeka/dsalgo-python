@@ -1,8 +1,8 @@
-import typing 
+import typing
 from dsalgo.algebra.abstract.structure import Monoid
 
-S = typing.TypeVar('S')
-F = typing.TypeVar('F')
+S = typing.TypeVar("S")
+F = typing.TypeVar("F")
 
 
 # monoid operation must be commutative.
@@ -18,7 +18,7 @@ def tree_dp_for_all_roots(
     for u, v, f in edges:
         graph[u].append((v, f))
         graph[v].append((u, f))
-        
+
     dp_from_childs = [monoid.e() for _ in range(n)]
 
     def tree_dp(u: int, parent: int) -> None:
@@ -33,7 +33,7 @@ def tree_dp_for_all_roots(
 
     tree_dp(0, -1)
     dp_from_parent = [monoid.e() for _ in range(n)]
-    
+
     def reroot(u: int, parent: int) -> None:
         child_edges = [edge for edge in graph[u] if edge[0] != parent]
         deg = len(child_edges)
@@ -49,7 +49,6 @@ def tree_dp_for_all_roots(
                 monoid.op(dp_from_parent[u], monoid.op(dp_l[i], dp_r[i])),
             )
             reroot(v, u)
-        
+
     reroot(0, -1)
     return [monoid.op(dp_from_childs[i], dp_from_parent[i]) for i in range(n)]
-            

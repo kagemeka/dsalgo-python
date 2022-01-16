@@ -55,7 +55,7 @@ def insert(root: typing.Optional[Node[K, V]], node: Node[K, V]) -> Node[K, V]:
     else:
         root.right = insert(root.right, node)
     __update(root)
-    return root 
+    return root
 
 
 def remove(

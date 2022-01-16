@@ -71,7 +71,3 @@ print(s.upper_bound(4))
 print(s.upper_bound(3))
 print(s.upper_bound(2))
 print(s.upper_bound(0))
-
-
-
-

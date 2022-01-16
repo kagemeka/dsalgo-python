@@ -1,4 +1,4 @@
-import typing 
+import typing
 
 
 def scc_path_based(graph: typing.List[typing.List[int]]) -> typing.List[int]:
@@ -9,7 +9,7 @@ def scc_path_based(graph: typing.List[typing.List[int]]) -> typing.List[int]:
     stack_1: typing.List[int] = []
     ord = 0
     label = 0
-    
+
     def dfs(u: int) -> None:
         nonlocal ord, label
         order[u] = ord
@@ -23,7 +23,7 @@ def scc_path_based(graph: typing.List[typing.List[int]]) -> typing.List[int]:
                 # v is start of a scc.
                 while order[stack_0[-1]] > order[v]:
                     stack_0.pop()
-        
+
         if stack_0[-1] != u:
             return
         while True:
@@ -34,13 +34,12 @@ def scc_path_based(graph: typing.List[typing.List[int]]) -> typing.List[int]:
                 break
         label += 1
         stack_0.pop()
-        
+
     for i in range(n):
         if order[i] == -1:
             dfs(i)
-            
-    return labels
 
+    return labels
 
 
 def scc_tarjan_lowlink(
@@ -49,14 +48,14 @@ def scc_tarjan_lowlink(
     n = len(graph)
     stack: typing.List[int] = []
     on_stack = [False] * n
-    order = [-1] * n 
+    order = [-1] * n
     lowlink = [-1] * n
     ord = 0
     labels = [-1] * n
     label = 0
-    
+
     def dfs(u: int) -> None:
-        nonlocal ord, label 
+        nonlocal ord, label
         order[u] = lowlink[u] = ord
         ord += 1
         stack.append(u)
@@ -67,8 +66,9 @@ def scc_tarjan_lowlink(
                 lowlink[u] = min(lowlink[u], lowlink[v])
             elif on_stack[v] and order[v] < lowlink[u]:
                 lowlink[u] = order[v]
-        
-        if lowlink[u] != order[u]: return
+
+        if lowlink[u] != order[u]:
+            return
         while True:
             v = stack.pop()
             on_stack[v] = False
@@ -76,91 +76,57 @@ def scc_tarjan_lowlink(
             if v == u:
                 break
         label += 1
-    
+
     for i in range(n):
         if order[i] == -1:
             dfs(i)
-    return labels   
-    
-
-g = [[1, 3], [2], [3], []]
-print(scc_path_based(g))
-print(scc_tarjan_lowlink(g))
+    return labels
 
 
-
-
-
-# /// scc Kosaraju 
-# /// O(V + E)
-# /// references
-# /// - https://en.wikipedia.org/wiki/Kosaraju%27s_algorithm
-# pub fn kosaraju(g: &Vec<Vec<usize>>) -> Vec<usize> {
-#     fn dfs(g: &Vec<Vec<usize>>, visited: &mut Vec<bool>, que: &mut Vec<usize>, u: usize) {
-#         visited[u] = true;
-#         for v in g[u].iter() {
-#             if !visited[*v] { dfs(g, visited, que, *v); }
-#         }
-#         que.push(u);
-#     }
-#     fn rev_dfs(g: &Vec<Vec<usize>>, label: &mut Vec<usize>, l: usize, u: usize) {
-#         label[u] = l;
-#         for v in g[u].iter() {
-#             if label[*v] == g.len() { rev_dfs(g, label, l, *v); }
-#         }
-#     }
-#     let n = g.len();
-#     let mut visited = vec![false; n];
-#     let mut que = Vec::with_capacity(n);
-#     let mut label = vec![n; n];
-#     let mut l = 0usize;
-#     for i in 0..n {
-#         if !visited[i] { dfs(g, &mut visited, &mut que, i); }
-#     }
-#     let mut t = vec![vec![]; n];
-#     for u in 0..n {
-#         for v in g[u].iter() { t[*v].push(u); }
-#     }
-#     for i in que.iter().rev() {
-#         if label[*i] != n { continue; }
-#         rev_dfs(&t, &mut label, l, *i);
-#         l += 1;
-#     }
-#     label 
-# }
-
-
-def scc_tarjan():
-    ...
-
-def scc_kosaraju(self):  # strongly connected components
-    n = self.__N
-    visited, q, label, l = [False] * n, [], [-1] * n, 0
-    t = self.__class__(n)
+def transpose_graph(
+    graph: typing.List[typing.List[int]],
+) -> typing.List[typing.List[int]]:
+    n = len(graph)
+    new_graph: typing.List[typing.List[int]] = [[] for _ in range(n)]
     for u in range(n):
-        for v in self.edges[u]:
-            t.add_edge(v, u)
+        for v in graph[u]:
+            new_graph[v].append(u)
+    return new_graph
 
-    def dfs(u: int) -> NoReturn:
+
+def scc_kosaraju(graph: typing.List[typing.List[int]]) -> typing.List[int]:
+    n = len(graph)
+    visited = [False] * n
+    que: typing.List[int] = []
+    t_graph = transpose_graph(graph)
+    labels = [-1] * n
+    label = 0
+
+    def dfs(u: int) -> None:
         visited[u] = True
-        for v in self.edges[u]:
+        for v in graph[u]:
             if not visited[v]:
                 dfs(v)
-        q.append(u)
+        que.append(u)
 
-    def rev_dfs(u: int, r: int):
-        label[u] = l
-        for v in t.edges[u]:
-            if label[v] == -1:
-                rev_dfs(v, r)
+    def rev_dfs(u: int, label: int):
+        labels[u] = label
+        for v in t_graph[u]:
+            if labels[v] == -1:
+                rev_dfs(v, label)
 
     for u in range(n):
         if not visited[u]:
             dfs(u)
-    for u in q[::-1]:
-        if label[u] != -1:
+    for u in que[::-1]:
+        if labels[u] != -1:
             continue
-        rev_dfs(u, l)
-        l += 1
-    return label
+        rev_dfs(u, label)
+        label += 1
+    return labels
 
+
+# g = [[1, 3], [2], [3], []]
+# print(scc_path_based(g))
+# print(scc_tarjan_lowlink(g))
+# print(scc_kosaraju(g))

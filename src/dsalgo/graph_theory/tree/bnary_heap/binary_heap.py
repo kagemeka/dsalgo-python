@@ -1,15 +1,15 @@
 import typing
 from dsalgo.algebra.abstract.order import Order
 
-T = typing.TypeVar('T', bound=Order)
+T = typing.TypeVar("T", bound=Order)
 
 
 class BinaryMinHeap(typing.Generic[T]):
     __data: typing.List[T]
-    
+
     def __init__(self) -> None:
         self.__data = []
-    
+
     def __len__(self) -> int:
         return len(self.__data)
 
@@ -18,11 +18,11 @@ class BinaryMinHeap(typing.Generic[T]):
 
     def __bool__(self) -> bool:
         return bool(self.__data)
-    
+
     def __swap(self, i: int, j: int) -> None:
         d = self.__data
         d[i], d[j] = d[j], d[i]
-    
+
     def push(self, x: T) -> None:
         d = self.__data
         i = len(d)
@@ -33,9 +33,9 @@ class BinaryMinHeap(typing.Generic[T]):
                 break
             self.__swap(i, j)
             i = j
-    
+
     def pop(self) -> T:
-        d = self.__data 
+        d = self.__data
         self.__swap(0, -1)
         x = d.pop()
         i = 0
