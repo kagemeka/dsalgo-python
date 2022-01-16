@@ -42,6 +42,9 @@ def scc_path_based(graph: typing.List[typing.List[int]]) -> typing.List[int]:
     return labels
 
 
+
+def scc_tarjan_lowlink(graph: typing.List[typing.List[int]]) -> typing.List[int]:
+
 g = [[1, 3], [2], [3], []]
 print(scc_path_based(g))
 
