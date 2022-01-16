@@ -73,14 +73,12 @@ def articulation_points_lowlink(
     order = [-1] * n
     lowlink = [-1] * n
     ord = 0
-    articulation_points: typing.List[int] = []
-
+    is_articulation = [False] * n
     def dfs(u: int, edge_id_to_u: int) -> None:
         nonlocal ord
         order[u] = lowlink[u] = ord
         ord += 1
         num_childs = 0
-        is_articulation = False
         for v, edge_id in graph[u]:
             if edge_id == edge_id_to_u:
                 continue
@@ -90,16 +88,13 @@ def articulation_points_lowlink(
             num_childs += 1
             dfs(v, edge_id)
             lowlink[u] = min(lowlink[u], lowlink[v])
-            is_articulation |= edge_id_to_u != -1 and lowlink[v] >= order[u]
-        is_articulation |= edge_id_to_u == -1 and num_childs >= 2 
-        if is_articulation:
-            articulation_points.append(u)
+            is_articulation[u] |= edge_id_to_u != -1 and lowlink[v] >= order[u]
+        is_articulation[u] |= edge_id_to_u == -1 and num_childs >= 2
     
     for i in range(n):
         if order[i] == -1:
             dfs(i, -1)
-    print(order, lowlink)
-    return sorted(articulation_points)
+    return [i for i in range(n) if is_articulation[i]]
 
 
 def strong_articulation_points():
