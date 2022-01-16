@@ -42,7 +42,7 @@ count = 'true' # have not adaped to boolean value yet.
 show-source = 'true'
 statistics = 'true'
 ignore = 'E203'
-
+exclude = "src/dsalgo/numba"
 
 [tool.isort]
 line_length = 79
