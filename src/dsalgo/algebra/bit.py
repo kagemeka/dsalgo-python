@@ -188,7 +188,7 @@ def bit_length(n: int) -> int:
     return length
 
 
-def bit_length_table(n: int) -> list[int]:
+def bit_length_table(n: int) -> typing.List[int]:
     """Bit length table.
 
     Args:

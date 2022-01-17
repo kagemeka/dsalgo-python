@@ -2,6 +2,15 @@
 import typing 
 from dsalgo.graph_theory.tree_bfs import tree_bfs 
 from dsalgo.graph_theory.union_find import UnionFind
+from dsalgo.algebra.abstract.structure import Semigroup
+from dsalgo.misc.sparse_table import sparse_table
+from dsalgo.graph_theory.euler_tour import (
+    euler_tour,
+    to_nodes,
+    compute_first_index,
+    compute_depth,
+)
+
 
 def lca_binary_lifting(
     tree_edges: typing.List[typing.Tuple[int, int]],
@@ -17,7 +26,7 @@ def lca_binary_lifting(
         for j in range(n):
             ancestor[i + 1][j] = ancestor[i][ancestor[i][j]]
     
-    def get(u: int, v: int) -> int:
+    def get_lca(u: int, v: int) -> int:
         if depth[u] > depth[v]:
             u, v = v, u
         d = depth[v] - depth[u]
@@ -32,7 +41,7 @@ def lca_binary_lifting(
                 u, v = nu, nv
         return parent[u]
     
-    return get 
+    return get_lca
 
 
 def lca_tarjan_offline(
@@ -74,90 +83,28 @@ def lca_tarjan_offline(
     return lca
 
 
-# pub fn with_hl_decomposition() {}
-
-
-# pub mod eulertour_rmq {
-
-#     use super::{SparseTable, DisjointSparseTable, euler_tour_node, Semigroup};
-#     use super::{SegmentTree, Monoid};
-
-
-#     pub struct WithSparseTable<'a, S> {
-#         first_idx: Vec<usize>,
-#         sp: DisjointSparseTable<'a, S>,
-#     }
-#     impl<'a> WithSparseTable<'a, (usize, usize)> {
-#         pub fn new(g: &Vec<(usize, usize)>, root: usize) -> Self {
-#             let (tour, first_idx, _, _, depth) = euler_tour_node(g, root);
-#             let sg = Semigroup::<'a, (usize, usize)> {
-#                 op: &|x, y| std::cmp::min(*x, *y),
-#                 commutative: true,
-#                 idempotent: true,
-#             };
-#             let mut a = Vec::with_capacity(tour.len());
-#             for &i in tour.iter() {
-#                 a.push((depth[i as usize], i as usize));
-#             }
-#             let sp = DisjointSparseTable::new(sg, &a);
-#             Self { first_idx: first_idx, sp: sp }
-#         }
-
-#         pub fn get(&self, u: usize, v: usize) -> usize {
-#             let mut l = self.first_idx[u];
-#             let mut r = self.first_idx[v];
-#             if l > r { std::mem::swap(&mut l, &mut r); }
-#             self.sp.get(l, r + 1).1
-#         }
-#     }
-
-
-#     pub struct WithSegmentTree<'a, S: Copy> {
-#         first_idx: Vec<usize>,
-#         seg: SegmentTree<'a, S>,
-#     }
-#     impl<'a> WithSegmentTree<'a, (usize, usize)> {
-#         pub fn new(g: &Vec<(usize, usize)>, root: usize) -> Self {
-#             let (tour, first_idx, _, _, depth) = euler_tour_node(g, root);
-#             let m = Monoid::<'a, (usize, usize)> {
-#                 op: &|x, y| std::cmp::min(*x, *y),
-#                 e: &|| (std::usize::MAX, 0),
-#                 commutative: true,
-#                 idempotent: false,
-#             };
-#             let mut a = Vec::with_capacity(tour.len());
-#             for &i in tour.iter() {
-#                 a.push((depth[i as usize], i as usize));
-#             }
-#             let seg = SegmentTree::from_vec(m, &a);
-#             Self { first_idx: first_idx, seg: seg }
-#         }
-
-#         pub fn get(&self, u: usize, v: usize) -> usize {
-#             let mut l = self.first_idx[u];
-#             let mut r = self.first_idx[v];
-#             if l > r { std::mem::swap(&mut l, &mut r); }
-#             self.seg.get(l, r + 1).1
-#         }
-#     }
-
-
-#     pub struct WithSqrtDecomposition {}
-
-# }
-
-# /// references
-# /// - https://ei1333.hateblo.jp/entry/2018/05/29/011140
-# /// - https://www.slideshare.net/iwiwi/2-12188845
-# pub struct WithHLD {}
-
-def lca_euler_tour_rmq(): 
+def lca_euler_tour_rmq(
+    tree_edges: typing.List[typing.Tuple[int, int]],
+    root: int,
+) -> typing.Callable[[int, int], int]:
     # sparse table
     # segment tree
     # sqrt decomposition
-    
     # here, using sparse table
-    ...
+    tour = euler_tour(tree_edges, root)
+    depth = compute_depth(tour)
+    tour = to_nodes(tour)
+    first_idx = compute_first_index(tour)
+    semigroup = Semigroup[typing.Tuple[int, int]](op=min)
+    get_min = sparse_table(semigroup, [(depth[i], i) for i in tour])
+    
+    def get_lca(u: int, v: int) -> int:
+        left, right = first_idx[u], first_idx[v]
+        if left > right:
+            left, right = right, left
+        return get_min(left, right + 1)[1]
+    
+    return get_lca
 
 
 def lca_farach_colton_bender():
