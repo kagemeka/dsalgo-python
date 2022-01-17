@@ -147,14 +147,14 @@ class FenwickTreeIntAdd:  # version not using dataclass for performance.
             data[j] += data[i]
         self.__data = data
 
-    def __set__(self, i: int, x: int) -> None:
+    def __setitem__(self, i: int, x: int) -> None:
         assert 0 <= i < len(self.__data) - 1
         i += 1
         while i < len(self.__data):
             self.__data[i] += x
             i += i & -i
 
-    def __get__(self, i: int) -> int:
+    def __getitem__(self, i: int) -> int:
         assert 0 <= i < len(self.__data)
         v = 0
         while i > 0:

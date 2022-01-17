@@ -1,7 +1,7 @@
 import typing
 
 
-class UnionFind:
+class UnionFind():
     def __init__(self, n: int) -> None:
         self.__data = [-1] * n
 
