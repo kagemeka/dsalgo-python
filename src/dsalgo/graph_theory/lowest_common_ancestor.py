@@ -1,7 +1,7 @@
 
 import typing 
 from dsalgo.graph_theory.tree_bfs import tree_bfs 
-
+from dsalgo.graph_theory.union_find import UnionFind
 
 def lca_binary_lifting(
     tree_edges: typing.List[typing.Tuple[int, int]],
@@ -35,55 +35,43 @@ def lca_binary_lifting(
     return get 
 
 
-
-# /// Lowest Common Ancestor with Tarjan's offline algorithm.
-# /// O(V + Q) preprocessing, O(1) per query.
-# /// references
-# /// - https://cp-algorithms.com/graph/lca_tarjan.html 
-# /// - https://en.wikipedia.org/wiki/Tarjan%27s_off-line_lowest_common_ancestors_algorithm
-# /// - https://tjkendev.github.io/procon-library/python/graph/lca-tarjan.html
-# pub fn tarjan_offline(g: &Vec<(usize, usize)>, uv: &Vec<(usize, usize)>, root: usize) -> Vec<usize> {
-#     fn dfs(
-#         g: &Vec<Vec<usize>>, 
-#         q: &Vec<Vec<(usize, usize)>>, 
-#         visited: &mut Vec<bool>, 
-#         uf: &mut UnionFind, 
-#         ancestor: &mut Vec<usize>, 
-#         lca: &mut Vec<usize>,
-#         u: usize,
-#     ) {
-#         visited[u] = true;
-#         ancestor[u] = u;
-#         for &v in g[u].iter() {
-#             if visited[v] { continue; }            
-#             dfs(g, q, visited, uf, ancestor, lca, v);
-#             uf.unite(u, v);
-#             ancestor[uf.find(u)] = u;
-#         }
-#         for &(v, i) in q[u].iter() {
-#             if visited[v] { lca[i] = ancestor[uf.find(v)]; }
-#         }
-#     }
-#     let n = g.len() + 1;
-#     let mut t = vec![vec![]; n];
-#     for &(u, v) in g.iter() {
-#         t[u].push(v);
-#         t[v].push(u);
-#     }
-#     let mut q = vec![vec![]; n];
-#     for (i, &(u, v)) in uv.iter().enumerate() {
-#         q[u].push((v, i));
-#         q[v].push((u, i));
-#     }
-#     let mut visited = vec![false; n];
-#     let mut uf = UnionFind::new(n);
-#     let mut ancestor = vec![n; n];
-#     let mut lca = vec![n; uv.len()];
-#     dfs(&t, &q, &mut visited, &mut uf, &mut ancestor, &mut lca, root);
-#     lca
-# }
-
-
+def lca_tarjan_offline(
+    tree_edges: typing.List[typing.Tuple[int, int]],
+    root: int,
+    query_pairs: typing.List[typing.Tuple[int, int]],
+) -> typing.List[int]:
+    n = len(tree_edges) + 1
+    graph: typing.List[typing.List[int]] = [[] for _ in range(n)]
+    for u, v in tree_edges:
+        graph[u].append(v)
+        graph[v].append(u)
+    queries: typing.List[typing.List[typing.Tuple[int, int]]] = [
+        [] for _ in range(n)
+    ]
+    for i, (u, v) in enumerate(query_pairs):
+        queries[u].append((v, i))
+        queries[v].append((u, i))
+    visited = [False] * n
+    uf = UnionFind(n)
+    ancestor = [n] * n
+    lca = [n] * len(query_pairs)
+    
+    def dfs(u: int) -> None:
+        visited[u] = True
+        ancestor[u] = u
+        for v in graph[u]:
+            if visited[v]:
+                continue
+            dfs(v)
+            uf.unite(u, v)
+            ancestor[uf.find(u)] = u
+        
+        for v, query_id in queries[u]:
+            if visited[v]:
+                lca[query_id] = ancestor[uf.find(v)]
+    
+    dfs(root)
+    return lca
 
 
 # pub fn with_hl_decomposition() {}
@@ -165,10 +153,14 @@ def lca_binary_lifting(
 
 def lca_euler_tour_rmq(): 
     # sparse table
+    # segment tree
+    # sqrt decomposition
+    
+    # here, using sparse table
     ...
 
 
-def lca_tarjan_offline():
+def lca_farach_colton_bender():
     ...
 
 
