@@ -153,9 +153,9 @@ def maxflow_edmonds_karp(
             v = parent[v]
             path.append(v)
         return path
-    
+
     inf = 1 << 63
-    
+
     def augment_flow(path: typing.List[int]) -> int:
         flow = inf
         for i in range(len(path) - 1):
@@ -168,15 +168,14 @@ def maxflow_edmonds_karp(
                 graph[v].append(u)
             residual_flow[v][u] += flow
         return flow
-    
-    flow = 0 
+
+    flow = 0
     while True:
         path = find_path()
         if len(path) == 1:
-            break 
+            break
         flow += augment_flow(path)
     return flow
-        
 
 
 def mpm():

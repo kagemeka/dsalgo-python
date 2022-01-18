@@ -1,8 +1,8 @@
-import typing 
+import typing
 from dsalgo.graph_theory.tree_bfs import tree_bfs
 
 
-def hl_decompose(
+def heavy_light_decompose(
     tree_edges: typing.List[typing.Tuple[int, int]],
     root: int,
 ) -> typing.List[int]:
@@ -12,29 +12,29 @@ def hl_decompose(
     for u, v in tree_edges:
         graph[u].append(v)
         graph[v].append(u)
-    size = [1] * n
     labels = [-1] * n
     label = 0
 
     def dfs(u: int, parent: int) -> int:
         nonlocal label
+        size_u = 1
         heavy_node, max_size = None, 0
         for v in graph[u]:
             if v == parent:
                 continue
-            size[u] += dfs(v, u)
-            if size[v] > max_size:
-                heavy_node, max_size = v, size[v]
+            size_v = dfs(v, u)
+            size_u += size_v
+            if size_v > max_size:
+                heavy_node, max_size = v, size_v
         if heavy_node is None:
             labels[u] = label
             label += 1
         else:
             labels[u] = labels[heavy_node]
-        return size[u]
-    
+        return size_u
+
     dfs(root, -1)
     return labels
-
 
 
 def compute_roots(

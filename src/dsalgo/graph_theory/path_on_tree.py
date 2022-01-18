@@ -1,4 +1,5 @@
-import typing 
+import typing
+
 
 def compute_path_on_tree(
     edges: typing.List[typing.Tuple[int, int]],
@@ -11,7 +12,7 @@ def compute_path_on_tree(
         graph[u].append(v)
         graph[v].append(u)
     rev_path: typing.List[int] = []
-    
+
     def dfs(u: int, parent: int) -> bool:
         if u == dst:
             rev_path.append(u)
@@ -22,10 +23,9 @@ def compute_path_on_tree(
             rev_path.append(u)
             return True
         return False
-    
+
     dfs(src, -1)
     return rev_path[::-1]
-
 
 
 # edges = [
@@ -41,5 +41,3 @@ def compute_path_on_tree(
 # dst = 5
 
 # print(compute_path_on_tree(edges, src, dst))
-
-    

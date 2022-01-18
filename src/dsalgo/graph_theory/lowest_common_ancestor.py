@@ -1,6 +1,5 @@
-
-import typing 
-from dsalgo.graph_theory.tree_bfs import tree_bfs 
+import typing
+from dsalgo.graph_theory.tree_bfs import tree_bfs
 from dsalgo.graph_theory.union_find import UnionFind
 from dsalgo.algebra.abstract.structure import Semigroup
 from dsalgo.misc.sparse_table import sparse_table
@@ -11,7 +10,7 @@ from dsalgo.graph_theory.euler_tour import (
     compute_depth,
 )
 from dsalgo.graph_theory.heavy_light_decomposition import (
-    hl_decompose,
+    heavy_light_decompose,
     compute_roots,
 )
 
@@ -29,7 +28,7 @@ def lca_binary_lifting(
     for i in range(k - 1):
         for j in range(n):
             ancestor[i + 1][j] = ancestor[i][ancestor[i][j]]
-    
+
     def get_lca(u: int, v: int) -> int:
         if depth[u] > depth[v]:
             u, v = v, u
@@ -44,7 +43,7 @@ def lca_binary_lifting(
             if nu != nv:
                 u, v = nu, nv
         return parent[u]
-    
+
     return get_lca
 
 
@@ -68,7 +67,7 @@ def lca_tarjan_offline(
     uf = UnionFind(n)
     ancestor = [n] * n
     lca = [n] * len(query_pairs)
-    
+
     def dfs(u: int) -> None:
         visited[u] = True
         ancestor[u] = u
@@ -78,11 +77,11 @@ def lca_tarjan_offline(
             dfs(v)
             uf.unite(u, v)
             ancestor[uf.find(u)] = u
-        
+
         for v, query_id in queries[u]:
             if visited[v]:
                 lca[query_id] = ancestor[uf.find(v)]
-    
+
     dfs(root)
     return lca
 
@@ -101,20 +100,20 @@ def lca_euler_tour_rmq(
     first_idx = compute_first_index(tour)
     semigroup = Semigroup[typing.Tuple[int, int]](op=min)
     get_min = sparse_table(semigroup, [(depth[i], i) for i in tour])
-    
+
     def get_lca(u: int, v: int) -> int:
         left, right = first_idx[u], first_idx[v]
         if left > right:
             left, right = right, left
         return get_min(left, right + 1)[1]
-    
+
     return get_lca
 
 
 def lca_farach_colton_bender():
     # https://cp-algorithms.com/graph/lca_farachcoltonbender.html
     # this is also use euler tour tequnique and RMQ(O(N) preprocessing and O(1) for each query)
-    
+
     ...
 
 
@@ -123,10 +122,10 @@ def lca_hld(
     root: int,
 ) -> typing.Callable[[int, int], int]:
     parent, depth = tree_bfs(tree_edges, root)
-    labels = hl_decompose(tree_edges, root)
+    labels = heavy_light_decompose(tree_edges, root)
     roots = compute_roots(tree_edges, root, labels)
     roots = [roots[label] for label in labels]
-    
+
     def get_lca(u: int, v: int) -> int:
         while True:
             if roots[u] == roots[v]:
@@ -134,7 +133,7 @@ def lca_hld(
             if depth[roots[u]] > depth[roots[v]]:
                 u, v = v, u
             v = parent[roots[v]]
-    
+
     return get_lca
 
 
@@ -155,6 +154,4 @@ def lca_hld(
 
 # get_lca = lca_hld(edges, root)
 
-# print(get_lca(3, 5)) 
-                
-            
+# print(get_lca(3, 5))

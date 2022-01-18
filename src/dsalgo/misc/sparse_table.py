@@ -1,6 +1,6 @@
 import typing
 
-from dsalgo.algebra.abstract.structure import Semigroup 
+from dsalgo.algebra.abstract.structure import Semigroup
 from dsalgo.algebra.bit import bit_length_table
 
 S = typing.TypeVar("S")
@@ -20,14 +20,14 @@ def sparse_table(
         data.append(data[i].copy())
         for j in range(n - (1 << i)):
             data[i + 1][j] = semigroup.op(data[i][j], data[i][j + (1 << i)])
-    
+
     def get(left: int, right: int) -> S:
         assert 0 <= left < right <= n
         if right - left == 1:
             return data[0][left]
         k = bit_length[right - 1 - left] - 1
         return semigroup.op(data[k][left], data[k][right - (1 << k)])
-    
+
     return get
 
 
@@ -56,14 +56,14 @@ def disjoint_sparse_table(
                     data[i][j + k],
                     data[i][j + k + 1],
                 )
-    
+
     def get(left: int, right: int) -> S:
         assert 0 <= left < right <= n
         if right - left == 1:
             return data[0][left]
         k = bit_length[left ^ (right - 1)] - 1
         return semigroup.op(data[k][left], data[k][right - 1])
-    
+
     return get
 
 

@@ -24,7 +24,7 @@ def traveling_salesperson(
                 d = dist[t][j] + graph[j][i]
                 if dist[s][i] is None or d < dist[s][i]:
                     dist[s][i] = d
-    
+
     mn: typing.Optional[int] = None
     for i in range(n):
         if i == src or dist[-1][i] is None or graph[i][src] is None:
@@ -33,6 +33,3 @@ def traveling_salesperson(
         if mn is None or d < mn:
             mn = d
     return mn
-    
-    
-     
