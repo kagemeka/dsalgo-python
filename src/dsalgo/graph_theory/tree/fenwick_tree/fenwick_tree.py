@@ -203,6 +203,10 @@ class DualFenwickTree(typing.Generic[S]):
         return self.__fw[i + 1]
 
 
+class FenwickTree2D(typing.Generic[S]):
+    ...
+
+
 if __name__ == "__main__":
     import doctest
 
