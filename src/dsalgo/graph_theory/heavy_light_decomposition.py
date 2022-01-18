@@ -7,7 +7,6 @@ def hl_decompose(
     root: int,
 ) -> typing.List[int]:
     # range query: O(\log^2{N})
-    # return labels
     n = len(tree_edges) + 1
     graph: typing.List[typing.List[int]] = [[] for _ in range(n)]
     for u, v in tree_edges:
@@ -16,32 +15,26 @@ def hl_decompose(
     size = [1] * n
     labels = [-1] * n
     label = 0
-    
-    def compute_size(u: int, parent: int) -> int:
-        for v in graph[u]:
-            if v != parent:
-                size[u] += compute_size(v, u)
-        return size[u]
 
-    def decompose(u: int, parent: int) -> None:  # return the size of sub tree
+    def dfs(u: int, parent: int) -> int:
         nonlocal label
-        labels[u] = label
         heavy_node, max_size = None, 0
         for v in graph[u]:
             if v == parent:
                 continue
+            size[u] += dfs(v, u)
             if size[v] > max_size:
                 heavy_node, max_size = v, size[v]
-        for v in graph[u]:
-            if v == parent:
-                continue
-            if v != heavy_node:
-                label += 1
-            decompose(v, u)
+        if heavy_node is None:
+            labels[u] = label
+            label += 1
+        else:
+            labels[u] = labels[heavy_node]
+        return size[u]
     
-    compute_size(root, -1)
-    decompose(root, -1)
+    dfs(root, -1)
     return labels
+
 
 
 def compute_roots(
@@ -61,21 +54,21 @@ def compute_roots(
     return roots
 
 
-edges = [
-    (0, 1),
-    (0, 6),
-    (0, 10),
-    (1, 2),
-    (1, 5),
-    (2, 3),
-    (2, 4),
-    (6, 7),
-    (7, 8),
-    (7, 9),
-    (10, 11),
-]
-root = 0
-labels = hl_decompose(edges, root)
-print(labels)
-roots = compute_roots(edges, root, labels)
-print(roots)
+# edges = [
+#     (0, 1),
+#     (0, 6),
+#     (0, 10),
+#     (1, 2),
+#     (1, 5),
+#     (2, 3),
+#     (2, 4),
+#     (6, 7),
+#     (7, 8),
+#     (7, 9),
+#     (10, 11),
+# ]
+# root = 0
+# labels = hl_decompose(edges, root)
+# print(labels)
+# roots = compute_roots(edges, root, labels)
+# print(roots)

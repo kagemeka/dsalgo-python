@@ -10,6 +10,10 @@ from dsalgo.graph_theory.euler_tour import (
     compute_first_index,
     compute_depth,
 )
+from dsalgo.graph_theory.heavy_light_decomposition import (
+    hl_decompose,
+    compute_roots,
+)
 
 
 def lca_binary_lifting(
@@ -114,5 +118,43 @@ def lca_farach_colton_bender():
     ...
 
 
-def lca_hld():
-    ...
+def lca_hld(
+    tree_edges: typing.List[typing.Tuple[int, int]],
+    root: int,
+) -> typing.Callable[[int, int], int]:
+    parent, depth = tree_bfs(tree_edges, root)
+    labels = hl_decompose(tree_edges, root)
+    roots = compute_roots(tree_edges, root, labels)
+    roots = [roots[label] for label in labels]
+    
+    def get_lca(u: int, v: int) -> int:
+        while True:
+            if roots[u] == roots[v]:
+                return u if depth[u] <= depth[v] else v
+            if depth[roots[u]] > depth[roots[v]]:
+                u, v = v, u
+            v = parent[roots[v]]
+    
+    return get_lca
+
+
+# edges = [
+#     (0, 1),
+#     (0, 6),
+#     (0, 10),
+#     (1, 2),
+#     (1, 5),
+#     (2, 3),
+#     (2, 4),
+#     (6, 7),
+#     (7, 8),
+#     (7, 9),
+#     (10, 11),
+# ]
+# root = 0
+
+# get_lca = lca_hld(edges, root)
+
+# print(get_lca(3, 5)) 
+                
+            
