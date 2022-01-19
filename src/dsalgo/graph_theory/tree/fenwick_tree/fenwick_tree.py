@@ -246,6 +246,15 @@ class FenwickTreeRangeAddRangeSum:
     - http://hos.ac/slides/20140319_bit.pdf
     - https://algo-logic.info/binary-indexed-tree/
     - https://ikatakos.com/pot/programming_algorithm/data_structure/binary_indexed_tree
+    
+    
+    Summary:
+    let s(i) := sum of range [0, i)
+    let s'(i, x) := sum of range [0, i) after adding x to range [l, r).
+    - 0 < i <= l: s'(i, x) = s(i)
+    - l < i <= r: s'(i, x) = s(i) + x(i - l) = s(i) + xi - xl
+    - r < i < n: s'(i, x) = s(i) + x(r - l) = s(i) + xr - xl
+    manage xr and -xl on fw_0, xi on fw_1.
     """
 
     def __init__(self, arr: typing.List[int]) -> None:
