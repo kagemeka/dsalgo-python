@@ -20,7 +20,7 @@ def verbal_arithemetic(
     digit = [-1] * len(letters)
     patterns = []
 
-    def search(i: int, j: int, s: int) -> NoReturn:
+    def search(i: int, j: int, s: int) -> None:
         if j >= m:
             if s == 0:
                 patterns.append(dict(zip(letters, digit)))

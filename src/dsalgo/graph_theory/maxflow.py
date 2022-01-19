@@ -111,10 +111,10 @@ def maxflow_ford_fulkerson(
     while True:
         for i in range(n):
             visited[i] = False
-            f = augment_flow(src, inf)
-            if f == 0:
-                break
-            flow += f
+        f = augment_flow(src, inf)
+        if f == 0:
+            break
+        flow += f
     return flow
 
 
@@ -137,56 +137,45 @@ def maxflow_edmonds_karp(
                 graph[u].append(v)
 
     def find_path() -> typing.List[int]:
-        ...
+        parent = [-1] * n
+        parent[src] = src
+        que = [src]
+        for u in que:
+            graph[u] = [v for v in graph[u] if residual_flow[u][v] != 0]
+            for v in graph[u]:
+                if parent[v] != -1:
+                    continue
+                parent[v] = u
+                que.append(v)
+        v = sink
+        path = [v]
+        while parent[v] != -1 and v != src:
+            v = parent[v]
+            path.append(v)
+        return path
 
+    inf = 1 << 63
 
-#     fn find_path(rf: &Vec<Vec<u64>>, g: &mut Vec<Vec<usize>>, src: usize, sink: usize) -> Vec<usize> {
-#         let n = g.len();
-#         let mut parent = vec![n; n];
-#         parent[src] = src;
-#         let mut que = std::collections::VecDeque::new();
-#         que.push_back(src);
-#         while let Some(u) = que.pop_front() {
-#             g[u].retain(|&v| rf[u][v] != 0);
-#             for &v in g[u].iter() {
-#                 if parent[v] != n { continue; }
-#                 parent[v] = u;
-#                 que.push_back(v);
-#             }
-#         }
-#         let mut v = sink;
-#         let mut path = vec![v];
-#         while parent[v] != n && parent[v] != v {
-#             v = parent[v];
-#             path.push(v);
-#         }
-#         path
-#     }
+    def augment_flow(path: typing.List[int]) -> int:
+        flow = inf
+        for i in range(len(path) - 1):
+            flow = min(flow, residual_flow[path[i + 1]][path[i]])
+        assert flow != inf
+        for i in range(len(path) - 1):
+            u, v = path[i + 1], path[i]
+            residual_flow[u][v] -= flow
+            if residual_flow[v][u] == 0:
+                graph[v].append(u)
+            residual_flow[v][u] += flow
+        return flow
 
-#     fn augment_flow(rf: &mut Vec<Vec<u64>>, g: &mut Vec<Vec<usize>>, path: &Vec<usize>) -> u64 {
-#         let mut flow = std::u64::MAX;
-#         for i in 0..path.len() - 1 {
-#             flow = std::cmp::min(flow, rf[path[i + 1]][path[i]]);
-#         }
-#         for i in 0..path.len() - 1 {
-#             let u = path[i + 1];
-#             let v = path[i];
-#             rf[u][v] -= flow;
-#             if rf[v][u] == 0 { g[v].push(u); }
-#             rf[v][u] += flow;
-#         }
-#         flow
-#     }
-
-#     let mut flow = 0;
-#     loop {
-#         let path = find_path(&rf, &mut g, src, sink);
-#         if path.len() == 1 { break; }
-#         let f = augment_flow(&mut rf, &mut g, &path);
-#         flow += f;
-#     }
-#     flow
-# }
+    flow = 0
+    while True:
+        path = find_path()
+        if len(path) == 1:
+            break
+        flow += augment_flow(path)
+    return flow
 
 
 def mpm():

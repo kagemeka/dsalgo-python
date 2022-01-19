@@ -1,4 +1,9 @@
-def compress_array(a: list[int]) -> tuple[(list[int],) * 2]:
+import typing
+
+
+def compress_array(
+    arr: typing.List[int],
+) -> typing.Tuple[typing.List[int], typing.List[int]]:
     r"""Compress array.
 
     return
@@ -7,5 +12,5 @@ def compress_array(a: list[int]) -> tuple[(list[int],) * 2]:
     """
     import bisect
 
-    v = sorted(set(a))
-    return [bisect.bisect_left(v, x) for x in a], v
+    v = sorted(set(arr))
+    return [bisect.bisect_left(v, x) for x in arr], v
