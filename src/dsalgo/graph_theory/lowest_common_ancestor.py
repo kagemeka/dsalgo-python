@@ -2,7 +2,7 @@ import typing
 from dsalgo.graph_theory.tree_bfs import tree_bfs
 from dsalgo.graph_theory.union_find import UnionFind
 from dsalgo.algebra.abstract.structure import Semigroup
-from dsalgo.misc.sparse_table import sparse_table
+from dsalgo.range_query.sparse_table import sparse_table
 from dsalgo.graph_theory.euler_tour import (
     euler_tour,
     to_nodes,

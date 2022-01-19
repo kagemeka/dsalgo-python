@@ -1,3 +1,1 @@
-import sys
-
-sys.setrecursionlimit(10 ** 6)
+# general Dynamic Programming
