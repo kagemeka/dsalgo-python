@@ -1,7 +1,8 @@
-import typing 
+import typing
 from dsalgo.algebra.abstract.structure import Monoid
 from dsalgo.number_theory.floor_sqrt import floor_sqrt
-S = typing.TypeVar('S')
+
+S = typing.TypeVar("S")
 
 
 class SqrtDecomposition(typing.Generic[S]):
@@ -21,10 +22,10 @@ class SqrtDecomposition(typing.Generic[S]):
         self.__sqrt = sqrt
         self.__original_size = n
         self.__monoid = monoid
-    
+
     def __len__(self) -> int:
         return self.__original_size
-    
+
     def __setitem__(self, i: int, x: S) -> None:
         assert 0 <= i < len(self)
         self.__data[i] = x
@@ -35,7 +36,7 @@ class SqrtDecomposition(typing.Generic[S]):
                 self.__buckets[idx],
                 self.__data[j],
             )
-            
+
     def __getitem__(self, i: int) -> S:
         assert 0 <= i < len(self)
         return self.__data[i]

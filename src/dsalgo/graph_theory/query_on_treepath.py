@@ -12,6 +12,7 @@ def query_on_path_binary_lifting(
     tree_edges: typing.List[typing.Tuple[int, int, S]],
 ) -> typing.Callable[[int, int], S]:
     # moniod operation must be commutative
+    # focused on edges.
     root = 0
     n = len(tree_edges) + 1
     graph: typing.List[typing.List[typing.Tuple[int, S]]] = [
