@@ -10,7 +10,7 @@ authors = ["Hiroshi Tsuyuki <kagemeka1@gmail.com>"]
 packages = [
     { include = "dsalgo", from = "src" },
 ]
-exclude = ["./**/*_test.py", "./**/test_*.py", "_*.py]
+exclude = ["./**/*_test.py", "./**/test_*.py", "_*.py"]
 include = ["__*__.py"]
 
 [tool.poetry.dependencies]
