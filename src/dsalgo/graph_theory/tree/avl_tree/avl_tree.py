@@ -53,6 +53,7 @@ def __left_rotate(root: Node[K, V]) -> Node[K, V]:
     assert u is not None
     u.left, root.right = root, u.left
     __update(root)
+    __update(u)
     return u
 
 
@@ -61,6 +62,7 @@ def __right_rotate(root: Node[K, V]) -> Node[K, V]:
     assert u is not None
     u.right, root.left = root, u.right
     __update(root)
+    __update(u)
     return u
 
 

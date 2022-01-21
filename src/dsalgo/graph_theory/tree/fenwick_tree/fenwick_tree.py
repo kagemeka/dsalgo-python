@@ -246,8 +246,8 @@ class FenwickTreeRangeAddRangeSum:
     - http://hos.ac/slides/20140319_bit.pdf
     - https://algo-logic.info/binary-indexed-tree/
     - https://ikatakos.com/pot/programming_algorithm/data_structure/binary_indexed_tree
-    
-    
+
+
     Summary:
     let s(i) := sum of range [0, i)
     let s'(i, x) := sum of range [0, i) after adding x to range [l, r).
