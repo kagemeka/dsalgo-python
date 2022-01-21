@@ -25,72 +25,72 @@ class Node(typing.Generic[K, V]):
 # cannot used for multimap.
 
 
-def __get_height(root: typing.Optional[Node[K, V]]) -> int:
+def _get_height(root: typing.Optional[Node[K, V]]) -> int:
     if root is None:
         return 0
     return root.height
 
 
-def __get_size(root: typing.Optional[Node[K, V]]) -> int:
+def _get_size(root: typing.Optional[Node[K, V]]) -> int:
     if root is None:
         return 0
     return root.size
 
 
-def __get_balance(root: typing.Optional[Node[K, V]]) -> int:
+def _get_balance(root: typing.Optional[Node[K, V]]) -> int:
     if root is None:
         return 0
-    return __get_height(root.right) - __get_height(root.left)
+    return _get_height(root.right) - _get_height(root.left)
 
 
-def __update(root: Node[K, V]) -> None:
-    root.height = max(__get_height(root.left), __get_height(root.right)) + 1
-    root.size = __get_size(root.left) + __get_size(root.right) + 1
+def _update(root: Node[K, V]) -> None:
+    root.height = max(_get_height(root.left), _get_height(root.right)) + 1
+    root.size = _get_size(root.left) + _get_size(root.right) + 1
 
 
-def __left_rotate(root: Node[K, V]) -> Node[K, V]:
+def _left_rotate(root: Node[K, V]) -> Node[K, V]:
     u = root.right
     assert u is not None
     u.left, root.right = root, u.left
-    __update(root)
-    __update(u)
+    _update(root)
+    _update(u)
     return u
 
 
-def __right_rotate(root: Node[K, V]) -> Node[K, V]:
+def _right_rotate(root: Node[K, V]) -> Node[K, V]:
     u = root.left
     assert u is not None
     u.right, root.left = root, u.right
-    __update(root)
-    __update(u)
+    _update(root)
+    _update(u)
     return u
 
 
-def __balance_tree(root: Node[K, V]) -> Node[K, V]:
-    __update(root)
-    balance = __get_balance(root)
+def _balance_tree(root: Node[K, V]) -> Node[K, V]:
+    _update(root)
+    balance = _get_balance(root)
     if balance < -1:  # lean to left direction
-        if __get_balance(root.left) > 0:
+        if _get_balance(root.left) > 0:
             assert root.left is not None  # left exist (because balance < -1)
-            root.left = __left_rotate(root.left)
-        return __right_rotate(root)
+            root.left = _left_rotate(root.left)
+        return _right_rotate(root)
     elif balance > 1:
-        if __get_balance(root.right) < 0:
+        if _get_balance(root.right) < 0:
             assert root.right is not None
-            root.right = __right_rotate(root.right)
-        return __left_rotate(root)
+            root.right = _right_rotate(root.right)
+        return _left_rotate(root)
     else:
         return root
 
 
-def __pop_max_node(
+def _pop_max_node(
     root: Node[K, V],
 ) -> typing.Tuple[Node[K, V], typing.Optional[Node[K, V]]]:
     if root.right is None:
         new_root, root.left = root.left, None
         return root, new_root
-    max_node, root.right = __pop_max_node(root.right)
-    return max_node, __balance_tree(root)
+    max_node, root.right = _pop_max_node(root.right)
+    return max_node, _balance_tree(root)
 
 
 def insert(root: typing.Optional[Node[K, V]], node: Node[K, V]) -> Node[K, V]:
@@ -100,7 +100,7 @@ def insert(root: typing.Optional[Node[K, V]], node: Node[K, V]) -> Node[K, V]:
         root.left = insert(root.left, node)
     else:
         root.right = insert(root.right, node)
-    return __balance_tree(root)
+    return _balance_tree(root)
 
 
 def remove(
@@ -116,14 +116,14 @@ def remove(
     else:
         if root.left is None:
             return root.right
-        max_node, root.left = __pop_max_node(root.left)
+        max_node, root.left = _pop_max_node(root.left)
         root.key, root.value = max_node.key, max_node.value
-    return __balance_tree(root)
+    return _balance_tree(root)
 
 
 def get_kth_node(root: Node[K, V], k: int) -> typing.Optional[Node[K, V]]:
     assert k >= 0
-    i = __get_size(root.left)
+    i = _get_size(root.left)
     if k == i:
         return root
     if k < i:
@@ -138,7 +138,7 @@ def lower_bound(root: typing.Optional[Node[K, V]], key: K) -> int:
     if root is None:
         return 0
     if root.key < key:
-        return __get_size(root.left) + 1 + lower_bound(root.right, key)
+        return _get_size(root.left) + 1 + lower_bound(root.right, key)
     return lower_bound(root.left, key)
 
 
@@ -146,7 +146,7 @@ def upper_bound(root: typing.Optional[Node[K, V]], key: K) -> int:
     if root is None:
         return 0
     if root.key <= key:
-        return __get_size(root.left) + 1 + upper_bound(root.right, key)
+        return _get_size(root.left) + 1 + upper_bound(root.right, key)
     return upper_bound(root.left, key)
 
 
@@ -162,3 +162,28 @@ def find(
         return find(root.left, key)
     else:
         return find(root.right, key)
+
+
+def iterate(root: typing.Optional[Node[K, V]]) -> typing.Iterator[Node[K, V]]:
+    def dfs(root: typing.Optional[Node[K, V]]) -> typing.Iterator[Node[K, V]]:
+        if root is None:
+            return
+        for node in dfs(root.left):
+            yield node
+        yield root
+        for node in dfs(root.right):
+            yield node
+
+    return dfs(root)
+
+
+__all__ = [
+    "insert",
+    "remove",
+    "lower_bound",
+    "upper_bound",
+    "find",
+    "get_kth_node",
+    "Node",
+    "iterate",
+]

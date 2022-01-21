@@ -8,6 +8,7 @@ from dsalgo.graph_theory.tree.avl_tree.avl_tree import (
     upper_bound,
     Node,
     K,
+    iterate,
 )
 
 
@@ -15,11 +16,18 @@ class AVLTreeSet(typing.Generic[K]):
     __root: typing.Optional[Node[K, None]]
 
     def __init__(self) -> None:
+        """Initialize.
+
+        No arguments.
+        """
         self.__root = None
-        self.__size = 0
 
     def __len__(self) -> int:
         return 0 if self.__root is None else self.__root.size
+
+    def __iter__(self) -> typing.Iterator[K]:
+        for node in iterate(self.__root):
+            yield node.key
 
     def __contains__(self, key: K) -> bool:
         return find(self.__root, key) is not None
@@ -33,15 +41,15 @@ class AVLTreeSet(typing.Generic[K]):
             self.__root = remove(self.__root, key)
 
     def __getitem__(self, k: int) -> typing.Optional[K]:
-        assert 0 <= k < len(self)
+        assert 0 <= k < len(self), "index ouf of bound."
         assert self.__root is not None
         node = get_kth_node(self.__root, k)
         return None if node is None else node.key
 
-    def max_value(self) -> typing.Optional[K]:
+    def max(self) -> typing.Optional[K]:
         return None if self.__root is None else self[len(self) - 1]
 
-    def min_value(self) -> typing.Optional[K]:
+    def min(self) -> typing.Optional[K]:
         return None if self.__root is None else self[0]
 
     def lower_bound(self, key: K) -> int:
@@ -49,24 +57,3 @@ class AVLTreeSet(typing.Generic[K]):
 
     def upper_bound(self, key: K) -> int:
         return upper_bound(self.__root, key)
-
-
-s = AVLTreeSet[int]()
-
-s.insert(1)
-s.insert(0)
-s.insert(4)
-s.insert(2)
-
-
-print(len(s))
-print(s.min_value())
-print(s.max_value())
-
-print(s.lower_bound(2))
-print(s.lower_bound(3))
-print(s.lower_bound(4))
-print(s.upper_bound(4))
-print(s.upper_bound(3))
-print(s.upper_bound(2))
-print(s.upper_bound(0))
