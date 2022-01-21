@@ -132,3 +132,10 @@ class AVLTreeSet(typing.Generic[K]):
             int: upper bound index.
         """
         return upper_bound(self.__root, key)
+
+
+if __name__ == '__main__':
+    import doctest
+
+    doctest.testmod(verbose=True)
+    
