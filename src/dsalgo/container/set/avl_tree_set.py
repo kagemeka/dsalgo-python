@@ -32,18 +32,17 @@ class AVLTreeSet(typing.Generic[K]):
         if key in self:
             self.__root = remove(self.__root, key)
 
-    def get_kth_value(self, k: int) -> typing.Optional[K]:
+    def __getitem__(self, k: int) -> typing.Optional[K]:
         assert 0 <= k < len(self)
         assert self.__root is not None
         node = get_kth_node(self.__root, k)
         return None if node is None else node.key
 
     def max_value(self) -> typing.Optional[K]:
-        n = len(self)
-        return None if self.__root is None else self.get_kth_value(n - 1)
+        return None if self.__root is None else self[len(self) - 1]
 
     def min_value(self) -> typing.Optional[K]:
-        return None if self.__root is None else self.get_kth_value(0)
+        return None if self.__root is None else self[0]
 
     def lower_bound(self, key: K) -> int:
         return lower_bound(self.__root, key)
