@@ -10,8 +10,8 @@ authors = ["Hiroshi Tsuyuki <kagemeka1@gmail.com>"]
 packages = [
     { include = "dsalgo", from = "src" },
 ]
-exclude = ["./**/*_test.py", "./**/test_*.py", "_*.py"]
-include = ["__*__.py"]
+exclude = ["./**/*_test.py", "./**/test_*.py", "./**/_*.py"]
+include = ["./**/__*__.py"]
 
 [tool.poetry.dependencies]
 python = ">=3.9,<3.10"
