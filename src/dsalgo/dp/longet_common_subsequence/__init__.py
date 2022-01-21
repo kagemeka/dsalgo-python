@@ -1,7 +1,8 @@
-from .longest_common_subsequence import (
+from ._longest_common_subsequence import (
     longest_common_subsequence,
 )
 
+
 __all__ = [
-    "longest_common_subsequence",
+    "_longest_common_subsequence",
 ]
