@@ -4,7 +4,7 @@ from dsalgo.graph_theory.tree.fenwick_tree.fenwick_tree_int_add_2d import (
 )
 
 
-class TestFenwickTreeIndAdd2D(unittest.TestCase):
+class Test(unittest.TestCase):
     def test(self) -> None:
         fw = FenwickTreeIntAdd2D((4, 5))
         fw.set(1, 2, 1)
