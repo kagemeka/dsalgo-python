@@ -35,7 +35,9 @@ def new_tree_root(max_height: int, key: int, value: V) -> Node[V]:
 def insert(root: Node[V], key: int, value: V) -> None:
     if key == root.key:
         raise Exception("you cannot insert the same key multiple times.")
-    if root.pivot & 1:
+    piv = root.pivot
+    lsb = piv & -piv
+    if not piv - (lsb - 1) <= key <= piv + (lsb - 1):
         raise Exception("the given key is out of bounds")
     if key < root.key:
         lo_key, lo_value = key, value
@@ -47,15 +49,13 @@ def insert(root: Node[V], key: int, value: V) -> None:
     if lo_key < root.pivot:
         root.key, root.value = hi_key, hi_value
         if root.left is None:
-            p = root.pivot
-            root.left = Node(p - (p & -p) // 2, lo_key, lo_value)
+            root.left = Node(piv - lsb // 2, lo_key, lo_value)
         else:
             insert(root.left, lo_key, lo_value)
     else:
         root.key, root.value = lo_key, lo_value
         if root.right is None:
-            p = root.pivot
-            root.right = Node(p + (p & -p) // 2, hi_key, hi_value)
+            root.right = Node(piv + lsb // 2, hi_key, hi_value)
         else:
             insert(root.right, hi_key, hi_value)
     root.size += 1

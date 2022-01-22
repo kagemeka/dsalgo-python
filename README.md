@@ -24,7 +24,7 @@ see [CONTRIBUTING.md](./.github/docs/CONTRIBUTING.md)
 
 
 ## Development status
-DsAlgo is now still alpha version and being developed actively (1-9-2022).
+DsAlgo is now still alpha version and being developed actively (1-22-2022).
 
 
 ### Environment
