@@ -1,4 +1,4 @@
-import typing 
+import typing
 from dsalgo.graph_theory.tree.fenwick_tree.fenwick_tree import (
     FenwickTreeIntAdd,
 )
@@ -52,7 +52,7 @@ class FenwickTreeRangeAddRangeSum:
         return fw0[right] + fw1[right] * right - fw0[left] - fw1[left] * left
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     import doctest
 
     doctest.testmod(verbose=True)

@@ -134,8 +134,7 @@ class AVLTreeSet(typing.Generic[K]):
         return upper_bound(self.__root, key)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     import doctest
 
     doctest.testmod(verbose=True)
-    

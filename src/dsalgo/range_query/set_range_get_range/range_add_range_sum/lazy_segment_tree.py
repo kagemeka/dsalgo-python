@@ -1,8 +1,9 @@
 import typing
 
 
-class LazySegmentTreeRangeAddRangeSum():
+class LazySegmentTreeRangeAddRangeSum:
     ...
+
 
 # set range add, get range sum
 def solve() -> NoReturn:
