@@ -1,4 +1,5 @@
 import typing
+
 from dsalgo.algebra.abstract.order import Order
 
 T = typing.TypeVar("T", bound=Order)
@@ -15,6 +16,10 @@ class BinaryMinHeap(typing.Generic[T]):
 
     def __repr__(self) -> str:
         return str(self.__data)
+
+    def __iter__(self) -> typing.Iterator[T]:
+        for x in self.__data:
+            yield x
 
     def __bool__(self) -> bool:
         return bool(self.__data)

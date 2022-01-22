@@ -1,8 +1,8 @@
 # using LCA
 # https://ikatakos.com/pot/programming_algorithm/graph_theory/lowest_common_ancestor
 import typing
-from dsalgo.algebra.abstract.structure import Monoid
 
+from dsalgo.algebra.abstract.structure import Monoid
 
 S = typing.TypeVar("S")
 

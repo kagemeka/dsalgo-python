@@ -1,4 +1,5 @@
 import unittest
+
 from dsalgo.graph_theory.tree.fenwick_tree.dual_fenwick_tree_int_add import (
     DualFenwickTreeIntAdd,
 )

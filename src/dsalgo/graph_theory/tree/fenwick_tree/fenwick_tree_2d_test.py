@@ -1,8 +1,7 @@
 import unittest
-from dsalgo.graph_theory.tree.fenwick_tree.fenwick_tree_2d import (
-    FenwickTree2D,
-)
+
 from dsalgo.algebra.abstract.structure import Monoid
+from dsalgo.graph_theory.tree.fenwick_tree.fenwick_tree_2d import FenwickTree2D
 
 
 class Test(unittest.TestCase):

@@ -7,7 +7,7 @@ T = typing.TypeVar("T")
 
 
 @nb.njit
-def heappush(hq: list[T], x: T) -> NoReturn:
+def heappush(hq: list[T], x: T) -> None:
     i = len(hq)
     hq.append(x)
     while i > 0:

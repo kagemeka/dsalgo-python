@@ -1,10 +1,9 @@
 from __future__ import annotations
-import typing
-
 
 import dataclasses
-from dsalgo.algebra.abstract.order import Order
+import typing
 
+from dsalgo.algebra.abstract.order import Order
 
 K = typing.TypeVar("K", bound=Order)
 V = typing.TypeVar("V")

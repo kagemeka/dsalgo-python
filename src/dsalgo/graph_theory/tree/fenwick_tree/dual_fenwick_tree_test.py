@@ -1,8 +1,9 @@
 import unittest
+
+from dsalgo.algebra.abstract.structure import Group
 from dsalgo.graph_theory.tree.fenwick_tree.dual_fenwick_tree import (
     DualFenwickTree,
 )
-from dsalgo.algebra.abstract.structure import Group
 
 
 class Test(unittest.TestCase):
