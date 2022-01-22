@@ -1,4 +1,5 @@
 import typing
+
 from dsalgo.algebra.abstract.structure import Monoid
 from dsalgo.number_theory.floor_sqrt import floor_sqrt
 

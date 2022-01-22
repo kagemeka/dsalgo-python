@@ -1,4 +1,5 @@
 import typing
+
 from dsalgo.algebra.abstract.structure import Monoid
 
 S = typing.TypeVar("S")

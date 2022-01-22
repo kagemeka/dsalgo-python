@@ -1,4 +1,5 @@
 import typing
+
 from dsalgo.graph_theory.tree.fenwick_tree.fenwick_tree import (
     FenwickTreeIntAdd,
 )

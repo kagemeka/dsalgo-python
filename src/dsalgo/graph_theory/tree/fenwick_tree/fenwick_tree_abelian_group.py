@@ -1,8 +1,7 @@
 import typing
-from dsalgo.algebra.abstract.structure import Monoid, Group
-from dsalgo.graph_theory.tree.fenwick_tree.fenwick_tree import (
-    FenwickTree,
-)
+
+from dsalgo.algebra.abstract.structure import Group, Monoid
+from dsalgo.graph_theory.tree.fenwick_tree.fenwick_tree import FenwickTree
 
 S = typing.TypeVar("S")
 

@@ -1,8 +1,7 @@
 import typing
-from socket import if_nameindex
 
 
-class FenwickTreeIntAdd:  # version not using dataclass for performance.
+class FenwickTree:
     def __init__(self, arr: typing.List[int]) -> None:
         n = len(arr)
         data = [0] * (n + 1)
@@ -11,7 +10,7 @@ class FenwickTreeIntAdd:  # version not using dataclass for performance.
             j = i + (i & -i)
             if j > n:
                 continue
-            data[j] += data[i]
+            data[j] = max(data[j], data[i])
         self.__data = data
 
     def __len__(self) -> int:
@@ -21,19 +20,13 @@ class FenwickTreeIntAdd:  # version not using dataclass for performance.
         assert 0 <= i < len(self.__data) - 1
         i += 1
         while i < len(self.__data):
-            self.__data[i] += x
+            self.__data[i] = max(self.__data[i], x)
             i += i & -i
 
     def __getitem__(self, i: int) -> int:
         assert 0 <= i < len(self.__data)
         v = 0
         while i > 0:
-            v += self.__data[i]
+            v = max(v, self.__data[i])
             i -= i & -i
         return v
-
-
-if __name__ == "__main__":
-    import doctest
-
-    doctest.testmod(verbose=True)
