@@ -182,3 +182,9 @@ class PivotTreeArray:
                 )
             )
         return 0 if pivot & 1 else self.__upper_bound(left_pivot, key)
+
+    def min(self) -> typing.Optional[int]:
+        return None if len(self) == 0 else self[0]
+
+    def max(self) -> typing.Optional[int]:
+        return None if len(self) == 0 else self[len(self) - 1]
