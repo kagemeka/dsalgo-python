@@ -1,5 +1,5 @@
 import typing
-from dsalgo.graph_theory.tree.avl_tree.avl_tree import (
+from dsalgo.graph_theory.tree.avl_tree.avl_tree_recurse import (
     insert,
     remove,
     get_kth_node,
