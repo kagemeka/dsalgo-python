@@ -5,8 +5,9 @@ Exportable = typing.Union[typing.Callable, typing.Type]
 
 def export_module(obj: Exportable) -> Exportable:
     import sys
+
     module = sys.modules[obj.__module__]
-    if hasattr(module, '__all__'):
+    if hasattr(module, "__all__"):
         name = obj.__name__
         all_ = module.__all__
         if name not in all_:

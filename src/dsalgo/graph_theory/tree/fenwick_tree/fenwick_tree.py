@@ -5,6 +5,7 @@ S = typing.TypeVar("S")
 
 
 class FenwickTree(typing.Generic[S]):
+
     """Fenwick Tree.
 
     Generic Type S must be commutative over its operations.
