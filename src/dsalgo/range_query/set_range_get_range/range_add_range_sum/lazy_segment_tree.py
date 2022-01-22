@@ -1,6 +1,10 @@
 import typing
 
 
+class LazySegmentTreeRangeAddRangeSum:
+    ...
+
+
 # set range add, get range sum
 def solve() -> NoReturn:
     s_op = lambda a, b: (a[0] + b[0], a[1] + b[1])
