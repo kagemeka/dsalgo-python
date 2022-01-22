@@ -22,7 +22,12 @@ class DualFenwickTree(typing.Generic[S]):
     """
 
     def __init__(self, group: Group[S], arr: typing.List[S]) -> None:
-        # given group must be also Abelian Group.
+        """Initialize.
+
+        Args:
+            group (Group[S]): Abelian Group.
+            arr (typing.List[S]): initial array.
+        """
         n = len(arr)
         assert n > 0
         delta = [arr[0]]
@@ -33,6 +38,13 @@ class DualFenwickTree(typing.Generic[S]):
         self.__group = group
 
     def set(self, left: int, right: int, x: S) -> None:
+        """Set range.
+
+        Args:
+            left (int): add x on [left, right)
+            right (int): add x on [left, right)
+            x (S): value to operate.
+        """
         n = len(self.__fw)
         assert 0 <= left < right <= n
         self.__fw[left] = x
@@ -40,6 +52,14 @@ class DualFenwickTree(typing.Generic[S]):
             self.__fw[right] = self.__group.invert(x)
 
     def __getitem__(self, i: int) -> S:
+        """Get value.
+
+        Args:
+            i (int): index of the given array.
+
+        Returns:
+            S: arr[i]
+        """
         assert 0 <= i < len(self.__fw)
         return self.__fw[i + 1]
 
