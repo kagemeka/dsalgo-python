@@ -6,7 +6,7 @@ from dsalgo.algebra.bit.bit_length import bit_length_table
 def disjoint_sparse_table_int_sum(
     arr: typing.List[int],
 ) -> typing.Callable[[int, int], int]:
-    """Disjoint Sparse Table int-xor.
+    """Disjoint Sparse Table int-sum.
 
     Args:
         arr (typing.List[int]): original array.
