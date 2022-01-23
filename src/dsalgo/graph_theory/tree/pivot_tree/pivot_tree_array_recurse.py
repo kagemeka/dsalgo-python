@@ -150,15 +150,9 @@ class PivotTreeArray:
         if root_key < key:
             i = 0 if pivot & 1 else self.__size[left_pivot]
             i += 1
-            return (
-                i
-                if pivot & 1
-                else i
-                + self.__lower_bound(
-                    _right_pivot(pivot),
-                    key,
-                )
-            )
+            if pivot & 1 == 0:
+                i += self.__lower_bound(_right_pivot(pivot), key)
+            return i
         return 0 if pivot & 1 else self.__lower_bound(left_pivot, key)
 
     def upper_bound(self, key: int) -> int:
