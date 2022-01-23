@@ -12,8 +12,7 @@ class Test(unittest.TestCase):
         self.assertEqual(get_min(0, 5), -1)
         self.assertEqual(get_min(0, 1), 3)
         self.assertEqual(get_min(0, 3), 1)
-        
-        
-if __name__ == '__main__':
+
+
+if __name__ == "__main__":
     unittest.main()
-    

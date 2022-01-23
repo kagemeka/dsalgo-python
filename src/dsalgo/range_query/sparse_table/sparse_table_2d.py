@@ -1,3 +1,2 @@
-
 def sparse_table_2d():
     ...

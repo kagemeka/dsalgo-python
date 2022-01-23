@@ -13,7 +13,9 @@ def sparse_table(
     """Sparse Table.
 
     Args:
-        semigroup (Semigroup[S]): operation must be idempotent.
+        semigroup (Semigroup[S]):
+            semigroup.
+            operation must be idepotent.
         arr (typing.List[S]): original array.
 
     Returns:
@@ -39,8 +41,7 @@ def sparse_table(
     return get
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     import doctest
 
     doctest.testmod(verbose=True)
-
