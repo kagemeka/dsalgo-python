@@ -2,7 +2,7 @@ import typing
 
 
 def sa_is_recurse(arr: typing.List[int]) -> typing.List[int]:
-    r"""SA-IS Algorithm.
+    r"""SA-IS(Suffix Array with Induced Sort) Algorithm.
 
     Args:
         arr (typing.List[int]): original array.
@@ -11,8 +11,14 @@ def sa_is_recurse(arr: typing.List[int]) -> typing.List[int]:
         typing.List[int]: suffix array.
 
     Complexity:
-        time: O(N + \max_{arr})
-        space: O(N + \max_{arr})
+        time: O(N + M)
+        space: O(N + M)
+        where:
+            N: size of arr.
+            M: max element of arr.
+
+    References:
+        - https://ieeexplore.ieee.org/document/4976463?arnumber=4976463
     """
     mn = min(arr)
     arr = [x - mn + 1 for x in arr]

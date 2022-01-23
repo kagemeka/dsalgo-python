@@ -4,11 +4,21 @@ import typing
 def compress_array(
     arr: typing.List[int],
 ) -> typing.Tuple[typing.List[int], typing.List[int]]:
-    """Compress array.
+    r"""Compress Array.
 
-    return
-        compressed_array
-        retrieve_array
+    Args:
+        arr (typing.List[int]): array to compress.
+
+    Returns:
+        typing.Tuple[typing.List[int], typing.List[int]]:
+            first: compressed array.
+            second: array to retrieve original value.
+
+    Complexity:
+        time: O(N\log{N})
+        space: O(N)
+        where:
+            N: size of arr.
     """
     import bisect
 
