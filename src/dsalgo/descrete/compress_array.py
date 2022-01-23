@@ -4,7 +4,7 @@ import typing
 def compress_array(
     arr: typing.List[int],
 ) -> typing.Tuple[typing.List[int], typing.List[int]]:
-    r"""Compress array.
+    """Compress array.
 
     return
         compressed_array

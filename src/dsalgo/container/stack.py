@@ -20,3 +20,9 @@ class Stack(typing.Generic[T]):
     def top(self) -> T:
         assert len(self) > 0
         return self.__data[-1]
+
+
+if __name__ == "__main__":
+    import doctest
+
+    doctest.testmod(verbose=True)

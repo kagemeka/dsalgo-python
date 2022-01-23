@@ -1,3 +1,11 @@
+from typing import Callable
+
+import scipy.misc
+import scipy.optimize
+
+from dsalgo.typing import Numeric
+
+
 def binary_search():
     ...
 
@@ -18,14 +26,6 @@ def find_root_newton(
     return newton_(f, x0, tol)
 
 
-from typing import Callable
-
-from scipy.misc import derivative
-from scipy.optimize import newton
-
-from .. import Numeric
-
-
 def newton_(
     f: Callable,
     x0: Numeric,
@@ -33,7 +33,7 @@ def newton_(
 ):
     x = x0
     while abs(f(x)) > tol:
-        der = derivative(
+        der = scipy.misc.derivative(
             func=f,
             x0=x,
             dx=tol,
