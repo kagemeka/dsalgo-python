@@ -1,10 +1,7 @@
 import numba as nb
 import numpy as np
 from kgmk.dsa.misc.online_update_query.set_point_get_range.abstract.segtree.jit import (
-    S,
-    build_seg,
-    get_range_seg,
-)
+    S, build_seg, get_range_seg)
 from kgmk.dsa.topology.euler_tour.edge.non_recursive.jit import euler_tour_edge
 
 # TODO cut below

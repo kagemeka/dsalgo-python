@@ -1,16 +1,10 @@
 import typing
 
 from dsalgo.algebra.abstract.structure import Semigroup
-from dsalgo.graph_theory.euler_tour import (
-    compute_depth,
-    compute_first_index,
-    euler_tour,
-    to_nodes,
-)
+from dsalgo.graph_theory.euler_tour import (compute_depth, compute_first_index,
+                                            euler_tour, to_nodes)
 from dsalgo.graph_theory.heavy_light_decomposition import (
-    compute_roots,
-    heavy_light_decompose,
-)
+    compute_roots, heavy_light_decompose)
 from dsalgo.graph_theory.tree_bfs import tree_bfs
 from dsalgo.graph_theory.union_find import UnionFind
 from dsalgo.range_query.sparse_table import sparse_table

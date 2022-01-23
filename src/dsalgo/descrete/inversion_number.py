@@ -1,9 +1,9 @@
 import typing
 
+from dsalgo.descrete.compress_array import compress_array
 from dsalgo.graph_theory.tree.fenwick_tree.fenwick_tree_int_add import (
     FenwickTreeIntAdd,
 )
-from dsalgo.descrete.compress_array import compress_array
 
 
 def compute_inversion_number(arr: typing.List[int]) -> int:

@@ -1,8 +1,6 @@
 import unittest
 
-from dsalgo.container.deque.circular_buffer_deque import (
-    CircularBufferDeque,
-)
+from dsalgo.container.deque.circular_buffer_deque import CircularBufferDeque
 
 
 class Test(unittest.TestCase):

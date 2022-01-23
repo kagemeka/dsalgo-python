@@ -2,11 +2,9 @@ import numba as nb
 import numpy as np
 from kgmk.dsa.topology.euler_tour.edge.non_recursive.jit import euler_tour_edge
 from kgmk.dsa.topology.graph.jit.sort_csgraph import sort_csgraph
-from kgmk.dsa.topology.union_find.parent_size_at_same.jit import (
-    uf_build,
-    uf_find,
-    uf_unite,
-)
+from kgmk.dsa.topology.union_find.parent_size_at_same.jit import (uf_build,
+                                                                  uf_find,
+                                                                  uf_unite)
 
 # TODO cut below
 

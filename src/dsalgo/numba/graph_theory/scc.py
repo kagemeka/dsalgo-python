@@ -1,5 +1,4 @@
 import numba as nb
-
 # TODO cut below
 import numpy as np
 from kgmk.dsa.topology.graph.jit.sort_csgraph import sort_csgraph

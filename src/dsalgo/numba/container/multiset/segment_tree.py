@@ -7,11 +7,7 @@ import typing
 import numba as nb
 import numpy as np
 from kgmk.dsa.misc.online_update_query.set_point_get_range.abstract.segtree.jit import (
-    build_seg,
-    get_seg,
-    max_right_seg,
-    operate_seg,
-)
+    build_seg, get_seg, max_right_seg, operate_seg)
 
 S = typing.TypeVar("S")
 
