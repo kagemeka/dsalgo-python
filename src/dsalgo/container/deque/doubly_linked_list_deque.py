@@ -2,10 +2,10 @@ import typing
 
 from dsalgo.container.linked_list.doubly_linked_list import (
     Node,
-    add_right,
     add_left,
-    pop_right,
+    add_right,
     pop_left,
+    pop_right,
 )
 
 T = typing.TypeVar("T")
