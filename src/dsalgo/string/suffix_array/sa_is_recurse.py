@@ -2,6 +2,18 @@ import typing
 
 
 def sa_is_recurse(arr: typing.List[int]) -> typing.List[int]:
+    r"""SA-IS Algorithm.
+
+    Args:
+        arr (typing.List[int]): original array.
+
+    Returns:
+        typing.List[int]: suffix array.
+
+    Complexity:
+        time: O(N + \max_{arr})
+        space: O(N + \max_{arr})
+    """
     mn = min(arr)
     arr = [x - mn + 1 for x in arr]
     arr.append(0)

@@ -1,7 +1,6 @@
 import typing
-from dsalgo.descrete.compress_array import (
-    compress_array,
-)
+
+from dsalgo.descrete.compress_array import compress_array
 
 
 def suffix_array_doubling(arr: typing.List[int]) -> typing.List[int]:
