@@ -5,9 +5,16 @@ requires = ["poetry_core >= 1.0.0"]
 [tool.poetry]
 authors = ["Hiroshi Tsuyuki <kagemeka1@gmail.com>"]
 description = "A package for datastructures and algorithms."
+documentation = "https://github.com/kagemeka/dsalgo-python"
 exclude = ["./**/*_test.py", "./**/test_*.py", "./**/tests/"]
+homepage = "https://github.com/kagemeka/dsalgo-python"
+keywords = ["algorithm", "datastructure"]
+license = "MIT"
+maintainers = ["Hiroshi Tsuyuki <kagemeka1@gmail.com>"]
 name = "dsalgo"
 packages = [{include = "dsalgo", from = "src"}]
+readme = "README.md"
+repository = "https://github.com/kagemeka/dsalgo-python"
 version = "0.1.0"
 
 [tool.poetry.dependencies]
@@ -28,6 +35,12 @@ isort = "^"
 mypy = "^"
 pydocstyle = "^"
 pytest = "^"
+
+[tool.poetry.scripts]
+
+[tool.poetry.plugins]
+
+[tool.poetry.urls]
 
 [tool.black]
 # compatible configurations -> https://black.readthedocs.io/en/stable/guides/using_black_with_other_tools.html
