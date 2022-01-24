@@ -16,7 +16,7 @@ class FenwickTreeMultiset:
 
         Args:
             max_value (int):
-                all values added to the set is [0, max_value)
+                all values added to the set musb in range [0, max_value).
         """
         self.__fw = build_with_size(
             Group[int](
