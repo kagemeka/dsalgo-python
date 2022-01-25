@@ -6,7 +6,6 @@ S = typing.TypeVar("S")
 
 
 class FenwickTree(typing.Generic[S]):
-
     """Fenwick Tree.
 
     Generic Type S must be commutative over its operations.
@@ -114,9 +113,15 @@ get:
 def build_with_size(monoid: Monoid[S], size: int) -> FenwickTree[S]:
     """Build a new FenwickTree of given size.
 
-    The Built one is filled with the value monoid.e().
+    Args:
+        monoid (Monoid[S]): opration must be commutative.
+        size (int): the size of original array.
+
+    Returns:
+        FenwickTree[S]:
+            The original array is filled with the value monoid.e().
     """
-    return FenwickTree(
+    return FenwickTree[S](
         monoid,
         [monoid.e() for _ in range(size)],
     )

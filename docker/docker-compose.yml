@@ -7,7 +7,6 @@ services:
       context: ..
       dockerfile: docker/Dockerfile
     image: kagemeka/dsalgo-python:latest
-    # runtime: nvidia
     restart: on-failure
     tty: true
     volumes:

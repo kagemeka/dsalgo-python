@@ -1,6 +1,8 @@
 import numba as nb
 import numpy as np
 
+from dsalgo.constant import INT_INF
+
 
 @nb.njit
 def maximum_flow_ford_fulkerson_dense(
@@ -9,7 +11,6 @@ def maximum_flow_ford_fulkerson_dense(
     sink: int,
 ) -> int:
     n = len(g)
-    inf = 1 << 60
     g = g.copy()
     prev = np.empty(n, np.int64)
     visited = np.zeros(n, np.bool8)
@@ -33,12 +34,12 @@ def maximum_flow_ford_fulkerson_dense(
 
     def augment_flow():
         v = sink
-        flow = inf
+        flow = INT_INF
         while prev[v] != -1:
             u = prev[v]
             flow = min(flow, g[u, v])
             v = u
-        if flow == inf:
+        if flow == INT_INF:
             return 0
         v = sink
         while prev[v] != -1:

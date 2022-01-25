@@ -1,5 +1,6 @@
 import typing
 
+from dsalgo.constant import INT_INF
 from dsalgo.graph_theory.connected_components import (
     connected_components_union_find,
 )
@@ -45,8 +46,7 @@ def mst_prim_sparse(
     import heapq
 
     hq = [(0, -1, 0)]
-    inf = 1 << 20
-    weight = [inf] * n
+    weight = [INT_INF] * n
     visited = [False] * n
     while hq:
         weight_to_u, pre, u = heapq.heappop(hq)
@@ -72,21 +72,20 @@ def mst_prime_dense(
     for u in range(1, n):
         for v in range(u):
             assert graph[u][v] == graph[v][u]
-    inf = 1 << 63
     mst_edges: typing.List[typing.Tuple[int, int, int]] = []
-    min_edge = [(-1, inf)] * n  # (previous node, weight)
+    min_edge = [(-1, INT_INF)] * n  # (previous node, weight)
     min_edge[0] = (-1, 0)
     visited = [False] * n
     for _ in range(n):
         pre = -1
         u = -1
-        weight_to_u = inf
+        weight_to_u = INT_INF
         for i in range(n):
             if visited[i] or min_edge[i][1] >= weight_to_u:
                 continue
             u = i
             pre, weight_to_u = min_edge[i]
-        assert weight_to_u < inf
+        assert weight_to_u < INT_INF
         visited[u] = True
         if pre != -1:
             mst_edges.append((pre, u, weight_to_u))

@@ -15,7 +15,7 @@ class FenwickTreeIntAdd:
 
         Args:
             arr (typing.List[int]): original array.
-        
+
         Complexity:
             time: O(N)
         """
@@ -34,7 +34,7 @@ class FenwickTreeIntAdd:
 
         Returns:
             int: length of original array.
-        
+
         Complexity:
             time: O(1)
         """
@@ -64,7 +64,7 @@ class FenwickTreeIntAdd:
 
         Returns:
             int: sum [0, i)
-        
+
         Complexity:
             time: O(\log{N})
         """

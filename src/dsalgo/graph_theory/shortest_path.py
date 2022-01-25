@@ -1,5 +1,7 @@
 import typing
 
+from dsalgo.constant import INT_INF
+
 
 def bfs_sparse(
     g: typing.List[typing.List[int]],
@@ -49,17 +51,16 @@ def dijkstra_dense(
     g: typing.List[typing.List[Numeric]],
     src: int,
 ) -> typing.List[Numeric]:
-    inf = 1 << 60
     n = len(g)
     assert 0 <= src < n
     for i in range(n):
         for j in range(n):
             assert g[i][j] >= 0
-    dist = [inf] * n
+    dist = [INT_INF] * n
     dist[src] = 0
     fixed = [False] * n
     for _ in range(n - 1):
-        u, du = -1, inf
+        u, du = -1, INT_INF
         for i in range(n):
             if fixed[i] or dist[i] >= du:
                 continue
@@ -127,8 +128,7 @@ def A_star_sparse(
     import heapq
 
     n = len(g)
-    inf = 1 << 60
-    cost = [inf] * n
+    cost = [INT_INF] * n
     hq = [(hf(src, dst) + 0, 0, src)]
     while hq:
         _, cu, u = heapq.heappop(hq)
@@ -141,8 +141,8 @@ def A_star_sparse(
             cv = cu + w
             if cv >= cost[v]:
                 continue
-            heapq.heappush(q, (hf(v, dst) + cv, -cv, v))
-    return inf
+            heapq.heappush(hq, (hf(v, dst) + cv, -cv, v))
+    return INT_INF
 
 
 def zero_one_bfs_sparse(

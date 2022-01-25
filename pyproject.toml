@@ -1,58 +1,69 @@
 [build-system]
-requires = ["poetry_core >= 1.0.0"]
 build-backend = "poetry.core.masonry.api"
+requires = ["poetry_core >= 1.0.0"]
 
 [tool.poetry]
-name = "dsalgo"
-version = "0.1.0"
-description = "A package for datastructures and algorithms."
 authors = ["Hiroshi Tsuyuki <kagemeka1@gmail.com>"]
-packages = [
-    { include = "dsalgo", from = "src" },
-]
+description = "A package for datastructures and algorithms."
+documentation = "https://github.com/kagemeka/dsalgo-python"
 exclude = ["./**/*_test.py", "./**/test_*.py", "./**/tests/"]
+homepage = "https://github.com/kagemeka/dsalgo-python"
+keywords = ["algorithm", "datastructure"]
+license = "MIT"
+maintainers = ["Hiroshi Tsuyuki <kagemeka1@gmail.com>"]
+name = "dsalgo"
+packages = [{include = "dsalgo", from = "src"}]
+readme = "README.md"
+repository = "https://github.com/kagemeka/dsalgo-python"
+version = "0.1.0"
 
 [tool.poetry.dependencies]
-python = ">=3.9,<3.10"
 networkx = "^2"
 numba = "^0"
 numpy = "^1"
+python = ">=3.9,<3.10"
 scipy = "^1"
 
 [tool.poetry.extras]
 
-
 [tool.poetry.dev-dependencies]
-flake8 = "^"
-mypy = "^"
+autopep8 = "^"
 black = "^"
 blacken-docs = "^"
+flake8 = "^"
 isort = "^"
-autopep8 = "^"
+mypy = "^"
 pydocstyle = "^"
 pytest = "^"
 
+[tool.poetry.scripts]
+
+[tool.poetry.plugins]
+
+[tool.poetry.urls]
 
 [tool.black]
-target-version = ['py38', 'py39']
+# compatible configurations -> https://black.readthedocs.io/en/stable/guides/using_black_with_other_tools.html
 line-length = 79
-
+target-version = ['py38', 'py39']
 
 [tool.flake8]
 count = 'true' # have not adaped to boolean value yet.
-show-source = 'true'
-statistics = 'true'
-ignore = 'E203'
-exclude = "src/dsalgo/numba"
+exclude = "src/dsalgo/numba" 
+ignore = 'E203' 
+show-source = 'true' 
+statistics = 'true' 
 
 [tool.isort]
+# all config files -> https://pycqa.github.io/isort/docs/configuration/config_files.html
+# full options -> https://pycqa.github.io/isort/docs/configuration/options.html
+profile = "black"
+# see all profiles -> https://pycqa.github.io/isort/docs/configuration/profiles.html
 line_length = 79
 
-
 [tool.mypy]
-strict_optional=true
 ignore_missing_imports = false
-
+strict_optional = true
 
 [tool.pytest]
 cache_dir = "/tmp/.pytest_cache"

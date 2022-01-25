@@ -3,13 +3,14 @@ import typing
 import numba as nb
 import numpy as np
 
+from dsalgo.constant import INT_INF
+
 
 @nb.njit
 def csgraph_from_dense(g: np.ndarray) -> np.ndarray:
-    inf = 1 << 60
     n = len(g)
     assert g.shape == (n, n)
-    exist_edge = g != inf
+    exist_edge = g != INT_INF
     m = exist_edge.sum()
     csgraph = np.zeros((m, 3), np.int64)
     k = 0

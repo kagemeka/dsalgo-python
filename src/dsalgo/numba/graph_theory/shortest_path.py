@@ -3,7 +3,9 @@ import typing
 
 import numba as nb
 import numpy as np
-from kagemeka.dsa.jit.graph_theory.graph import csgraph_is_sorted
+
+from dsalgo.constant import INT_INF
+from dsalgo.numba.graph_theory.graph import csgraph_is_sorted
 
 
 @nb.njit
@@ -14,10 +16,9 @@ def bfs(
     src: int,
 ) -> tuple[(np.ndarray,) * 2]:
     assert g.shape == (len(g), 2)
-    inf = 1 << 60
     assert csgraph_is_sorted(g)
     predecessor = np.full(n, -1, np.int64)
-    dist = np.full(n, inf, np.int64)
+    dist = np.full(n, INT_INF, np.int64)
     dist[src] = 0
     que = [0]
     for u in que:
@@ -40,8 +41,7 @@ def count_paths_bfs(
     src: int,
     mod: int,
 ) -> tuple[(np.ndarray,) * 2]:
-    inf = 1 << 60
-    dist = np.full(n, inf, np.int64)
+    dist = np.full(n, INT_INF, np.int64)
     dist[src] = 0
     paths = np.zeros(n, np.int64)
     paths[src] = 1
@@ -65,14 +65,13 @@ def count_paths_bfs(
 def dijkstra_dense(g: np.ndarray, src: int) -> tuple[(np.ndarray,) * 2]:
     n = len(g)
     assert g.shape == (n, n)
-    inf = 1 << 60
-    assert inf >= g.max()
+    assert INT_INF >= g.max()
     predecessor = np.full(n, -1, np.int64)
-    dist = np.full(n, inf, np.int64)
+    dist = np.full(n, INT_INF, np.int64)
     dist[src] = 0
     visited = np.zeros_like(dist, np.bool8)
     while True:
-        u, du = -1, inf
+        u, du = -1, INT_INF
         for i in range(n):
             if not visited[i] and dist[i] < du:
                 u, du = i, dist[i]
@@ -93,12 +92,11 @@ def dijkstra_sparse(
     n: int, g: np.ndarray, src: int
 ) -> tuple[(np.ndarray,) * 2]:
     assert g.shape == (len(g), 3)
-    inf = 1 << 60
-    assert inf > g[:, 2].max() * n
+    assert INT_INF > g[:, 2].max() * n
     g = g[np.argsort(g[:, 0], kind="mergesort")]
     edge_idx = np.searchsorted(g[:, 0], np.arange(n + 1))
     predecessor = np.full(n, -1, np.int64)
-    dist = np.full(n, inf, np.int64)
+    dist = np.full(n, INT_INF, np.int64)
     dist[src] = 0
     hq = [(0, src)]
     while hq:
@@ -123,11 +121,10 @@ def count_paths_dijkstra_sparse(
     src: int,
     mod: int,
 ) -> tuple[(np.ndarray,) * 2]:
-    inf = 1 << 60
-    assert inf > g[:, 2].max() * n
+    assert INT_INF > g[:, 2].max() * n
     g = g[np.argsort(g[:, 0], kind="mergesort")]
     edge_idx = np.searchsorted(g[:, 0], np.arange(n + 1))
-    dist = np.full(n, inf, np.int64)
+    dist = np.full(n, INT_INF, np.int64)
     dist[src] = 0
     paths = np.zeros(n, np.int64)
     paths[src] = 1
@@ -157,10 +154,9 @@ def bellman_ford_sparse(
 ) -> tuple[(np.ndarray,) * 2]:
     m = len(g)
     assert g.shape == (m, 3)
-    inf = 1 << 60
-    assert inf > g[:, 2].max() * n
+    assert INT_INF > g[:, 2].max() * n
     predecessor = np.full(n, -1, np.int64)
-    dist = np.full(n, inf, np.int64)
+    dist = np.full(n, INT_INF, np.int64)
     dist[src] = 0
     for _ in range(n - 1):
         for i in range(m):
@@ -210,12 +206,11 @@ def floyd_warshall(g: np.ndarray) -> NoReturn:
 @nb.njit
 def desepo_pape(n: int, g: np.ndarray, src: int) -> np.ndarray:
     assert g.shape == (len(g), 3)
-    inf = 1 << 60
-    assert inf > g[:, 2].max() * n
+    assert INT_INF > g[:, 2].max() * n
     sort_idx = np.argsort(g[:, 0], kind="mergesort")
     g = g[sort_idx]
     edge_idx = np.searchsorted(g[:, 0], np.arange(n + 1))
-    dist = np.full(n, inf, np.int64)
+    dist = np.full(n, INT_INF, np.int64)
     dist[src] = 0
     dq = np.zeros(1 << 20, np.int64)
     dq_l, dq_r = 0, -1

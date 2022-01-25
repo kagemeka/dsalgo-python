@@ -1,6 +1,8 @@
 import bisect
 import typing
 
+from dsalgo.constant import INT_INF
+
 
 def longest_increasing_sequence(arr: typing.List[int]) -> typing.List[int]:
     """Longest Increasing Sequence.
@@ -11,11 +13,10 @@ def longest_increasing_sequence(arr: typing.List[int]) -> typing.List[int]:
     Returns:
         typing.List[int]: result.
     """
-    inf = 1 << 60
-    lis = [inf] * len(arr)
+    lis = [INT_INF] * len(arr)
     for x in arr:
         lis[bisect.bisect_left(lis, x)] = x
-    return lis[: bisect.bisect_left(lis, inf)]
+    return lis[: bisect.bisect_left(lis, INT_INF)]
 
 
 def longest_non_decreasing_sequence(arr: typing.List[int]) -> typing.List[int]:
@@ -27,8 +28,7 @@ def longest_non_decreasing_sequence(arr: typing.List[int]) -> typing.List[int]:
     Returns:
         typing.List[int]: result.
     """
-    inf = 1 << 60
-    lis = [inf] * len(arr)
+    lis = [INT_INF] * len(arr)
     for x in arr:
         lis[bisect.bisect_right(lis, x)] = x
-    return lis[: bisect.bisect_left(lis, inf)]
+    return lis[: bisect.bisect_left(lis, INT_INF)]
