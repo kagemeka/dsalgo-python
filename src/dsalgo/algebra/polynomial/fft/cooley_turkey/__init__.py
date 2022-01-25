@@ -5,7 +5,7 @@ import typing
 class FFT:
     def __butterfly(
         self,
-    ) -> NoReturn:
+    ) -> None:
         n = self.__n
         a = self.__a
         b = 1
@@ -40,12 +40,12 @@ class FFT:
     def __init__(
         self,
         inverse: bool = False,
-    ) -> typing.NoReturn:
+    ) -> None:
         self.__inv = inverse
 
     def __reverse_bits(
         self,
-    ) -> typing.NoReturn:
+    ) -> None:
         a = self.__a
         n, h = self.__n, self.__h
         idx = [-1] * n

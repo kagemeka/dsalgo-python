@@ -1,5 +1,6 @@
 import typing
 import unittest
+
 from dsalgo.graph_theory.components.strongly_connected_components.path_based import (
     scc_path_based,
 )

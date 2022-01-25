@@ -33,5 +33,5 @@ class ModConvolveToomCook:
         h = scipy.signal.fftconvolve(f, g)
         return np.rint(h).astype(np.int64) % self.__mod
 
-    def __init__(self, mod: int) -> NoReturn:
+    def __init__(self, mod: int) -> None:
         self.__mod = mod

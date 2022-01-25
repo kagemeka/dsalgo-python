@@ -2,7 +2,7 @@ import typing
 
 import numba as nb
 import numpy as np
-from kagemeka.dsa.jit.graph_theory.tree.segment_tree import S
+from dsalgo.numba.graph_theory.tree.segment_tree import S
 
 
 # set point update, get range minimum

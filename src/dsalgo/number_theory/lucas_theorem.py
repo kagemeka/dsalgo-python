@@ -1,4 +1,3 @@
-from kagemeka.dsa.algebra.numeral_system import base_convert_from_ten
 
 
 def lucas_theorem(p: int, n: int, k: int) -> int:

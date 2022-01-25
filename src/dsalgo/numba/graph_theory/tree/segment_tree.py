@@ -9,7 +9,7 @@ import typing
 
 import numba as nb
 import numpy as np
-from kagemeka.dsa.jit.algebra.bit import bit_length
+from dsalgo.numba.algebra.bit import bit_length
 
 # segment tree normal
 S = typing.TypeVar("S")
@@ -38,7 +38,7 @@ def seg_set(
     seg: np.ndarray,
     i: int,
     x: S,
-) -> NoReturn:
+) -> None:
     r"""Set.
 
     a_i := x
@@ -123,7 +123,7 @@ def build_seg(a: np.ndarray) -> np.ndarray:
 
 
 @nb.njit
-def set_seg(seg: np.ndarray, i: int, x: S) -> NoReturn:
+def set_seg(seg: np.ndarray, i: int, x: S) -> None:
     r"""Set interface."""
     seg_set(seg_op, seg, i, x)
 
@@ -135,7 +135,7 @@ def get_seg(seg: np.ndarray, l: int, r: int) -> S:
 
 
 @nb.njit
-def operate_seg(seg: np.ndarray, i: int, x: S) -> NoReturn:
+def operate_seg(seg: np.ndarray, i: int, x: S) -> None:
     r"""Operate interface.
 
     a_i := op(a_i, x)
@@ -199,7 +199,7 @@ def __seg_apply(
     lazy: np.ndarray,
     i: int,
     f: F,
-) -> NoReturn:
+) -> None:
     seg[i] = map_(f, seg[i])
     if i < len(lazy):
         lazy[i] = op_f(f, lazy[i])
@@ -213,7 +213,7 @@ def __seg_propagate(
     seg: np.ndarray,
     lazy: np.ndarray,
     i: int,
-) -> NoReturn:
+) -> None:
     __seg_apply(op_f, map_, seg, lazy, i << 1, lazy[i])
     __seg_apply(op_f, map_, seg, lazy, i << 1 | 1, lazy[i])
     lazy[i] = e_f()
@@ -224,7 +224,7 @@ def __seg_merge(
     op_s: typing.Callable[[S, S], S],
     seg: np.ndarray,
     i: int,
-) -> NoReturn:
+) -> None:
     seg[i] = op_s(seg[i << 1], seg[i << 1 | 1])
 
 
@@ -239,7 +239,7 @@ def seg_set(
     l: int,
     r: int,
     f: F,
-) -> NoReturn:
+) -> None:
     r"""Set x on [l, r).
 
     \forall{l \le i \lt r}\ a_i := map_(f, a_i).
@@ -319,7 +319,7 @@ def seg_update(
     lazy: np.ndarray,
     i: int,
     x: S,
-) -> NoReturn:
+) -> None:
     r"""Replace a_i with x."""
     n = len(seg) >> 1
     assert 0 <= i < n  # 0 <= i < size actually
@@ -342,7 +342,7 @@ def build_seg(a: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
 @nb.njit
 def set_seg(
     seg: np.ndarray, lazy: np.ndarray, l: int, r: int, f: F
-) -> NoReturn:
+) -> None:
     r"""Set interface."""
     seg_set(seg_op_s, seg_op_f, seg_e_f, seg_map, seg, lazy, l, r, f)
 
@@ -358,7 +358,7 @@ def get_seg(seg: np.ndarray, lazy: np.ndarray, l: int, r: int) -> S:
 @nb.njit
 def update_point_seg(
     seg: np.ndarray, lazy: np.ndarray, i: int, x: S
-) -> NoReturn:
+) -> None:
     r"""Update interface."""
     seg_update(seg_op_s, seg_op_f, seg_e_f, seg_map, seg, lazy, i, x)
 

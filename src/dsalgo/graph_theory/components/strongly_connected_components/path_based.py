@@ -1,4 +1,4 @@
-import typing 
+import typing
 
 
 def scc_path_based(graph: typing.List[typing.List[int]]) -> typing.List[int]:

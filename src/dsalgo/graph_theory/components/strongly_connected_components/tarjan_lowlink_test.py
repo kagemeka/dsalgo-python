@@ -1,5 +1,6 @@
 import typing
 import unittest
+
 from dsalgo.graph_theory.components.strongly_connected_components.tarjan_lowlink import (
     scc_tarjan_lowlink,
 )
@@ -17,4 +18,3 @@ class Test(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-
