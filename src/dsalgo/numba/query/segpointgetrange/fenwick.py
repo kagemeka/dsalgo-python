@@ -2,7 +2,7 @@ import typing
 
 import numba as nb
 import numpy as np
-from kagemeka.dsa.jit.graph_theory.tree.fenwick_tree import S
+from dsalgo.numba.graph_theory.tree.fenwick_tree import S
 
 # TODO cut below
 
@@ -24,7 +24,7 @@ def fw_inverse(a: int) -> int:
 
 
 # set point gcd get range gcd
-from kgmk.dsa.math.gcd.non_recursive.jit import gcd
+from dsalgo.numba.number_theory.gcd_lcm import gcd
 
 
 @nb.njit
@@ -38,7 +38,7 @@ def fw_e() -> int:
 
 
 # set point lcm, get max lcm
-from kgmk.dsa.math.lcm.jit import lcm
+from dsalgo.numba.number_theory.gcd_lcm import lcm
 
 
 @nb.njit

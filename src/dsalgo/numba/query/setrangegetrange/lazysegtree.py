@@ -2,7 +2,7 @@ import typing
 
 import numba as nb
 import numpy as np
-from kagemeka.dsa.jit.graph_theory.tree.segment_tree import F, S
+from dsalgo.numba.graph_theory.tree.segment_tree import F, S
 
 
 # set range add, get range mininum.

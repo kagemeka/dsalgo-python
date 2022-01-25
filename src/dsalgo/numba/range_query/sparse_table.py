@@ -8,7 +8,7 @@ import typing
 
 import numba as nb
 import numpy as np
-from kgmk.dsa import bit_length_table
+from dsalgo.numba.algebra.bit import bit_length_table
 
 S = typing.TypeVar("S")
 

@@ -6,7 +6,7 @@ def make_choose(p: int, n: int) -> typing.Callable[[int, int], int]:
 
 
 class ModChooseNP:
-    def __init__(self, mod: int, n: int) -> NoReturn:
+    def __init__(self, mod: int, n: int) -> None:
         self.__mod = mod
         self.__fact = factorial_np(mod, n)
         self.__ifact = factorial_inverse_np(mod, n)
@@ -40,7 +40,7 @@ class NChooseNP:
         n: int,
         rmax: int,
         modulo: int,
-    ) -> NoReturn:
+    ) -> None:
         r, m = rmax, modulo
         fn = ModFactorial(m)
         a = np.arange(

@@ -116,7 +116,7 @@ class PrimeFactorizeLPF:
             cnt[p] += 1
         return cnt
 
-    def __init__(self, n: int) -> NoReturn:
+    def __init__(self, n: int) -> None:
         self.__lpf = least_prime_factor(n)
 
 

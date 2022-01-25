@@ -32,11 +32,11 @@ black = "^"
 blacken-docs = "^"
 flake8 = "^"
 isort = "^"
+mkdocs = "^"
 mypy = "^"
+pdoc3 = "^"
 pydocstyle = "^"
 pytest = "^"
-mkdocs = "^"
-pdoc3 = "^"
 
 [tool.poetry.scripts]
 

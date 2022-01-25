@@ -1,4 +1,4 @@
-import nb as nb
+import numba as nb
 import numpy as np
 
 

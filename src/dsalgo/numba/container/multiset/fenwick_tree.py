@@ -6,7 +6,7 @@ import typing
 
 import numba as nb
 import numpy as np
-from kgmk.dsa.misc.online_update_query.set_point_get_range.abstract.fenwick.jit import (
+from dsalgo.numba.misc.online_update_query.set_point_get_range.abstract.fenwick import (
     build_fw,
     get_fw,
     get_range_fw,

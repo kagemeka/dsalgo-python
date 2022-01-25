@@ -6,7 +6,7 @@ import numpy as np
 class FFT:
     def __butterfly(
         self,
-    ) -> NoReturn:
+    ) -> None:
         n = self.__n
         a = self.__a
         b = 1
@@ -38,12 +38,12 @@ class FFT:
     def __init__(
         self,
         inverse: bool = False,
-    ) -> NoReturn:
+    ) -> None:
         self.__inv = inverse
 
     def __reverse_bits(
         self,
-    ) -> NoReturn:
+    ) -> None:
         i = np.arange(self.__n)
         h = self.__h
         bits = i[:, None] >> np.arange(h) & 1

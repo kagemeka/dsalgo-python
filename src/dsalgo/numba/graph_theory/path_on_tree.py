@@ -1,6 +1,6 @@
 import numba as nb
 import numpy as np
-from kagemeka.dsa.jit.graph_theory.euler_tour import euler_tour_edge
+from dsalgo.numba.graph_theory.euler_tour import euler_tour_edge
 
 
 @nb.njit
