@@ -1,0 +1,5 @@
+site_name: DsAlgo Python
+site_url: https://dsalgo.com/
+nav:
+    - Home: index.md
+    - About: about.md

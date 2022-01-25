@@ -1,6 +1,6 @@
 import typing
 
-from dsalgo.graph_theory.tree_bfs import tree_bfs
+from dsalgo.graph_theory.tree_algo.tree_bfs import tree_bfs
 
 
 def heavy_light_decompose(

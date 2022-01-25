@@ -1,7 +1,7 @@
 import typing
 
 
-def count_toposort(
+def count_topological_sort(
     graph: typing.List[typing.List[int]],
     mod: typing.Optional[int] = None,
 ) -> int:

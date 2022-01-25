@@ -21,11 +21,12 @@ def verbal_arithmetic(
             set(),
         ),
     )
+    if len(letters) > hi - lo:
+        return []
     words = [
         [bisect.bisect_left(letters, letter) for letter in word]
         for word in words
     ]
-
     n, m = len(words), max(map(len, words))
     values = [-1] * (hi - lo)
     digits = [-1] * len(letters)

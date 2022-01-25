@@ -5,6 +5,9 @@ core
 __pycache__
 /build/
 /dist/
+/site/
+/docs/
+/html/
 *.so
 .vscode
 .pytest_cache
