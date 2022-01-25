@@ -1,56 +1,98 @@
 import bisect
 import functools
-import itertools
 import operator
 import typing
 
 
-def verbal_arithemetic(
-    words: list[str],
-    result: str,
-    zero_ok: bool = True,
-) -> list[dict[str, int]]:
+def verbal_arithmetic(
+    words: typing.List[typing.List[int]],
+    result: typing.List[int],
+    lo: int = 0,
+    hi: int = 10,  # digit := [lo, hi),
+    leading_zero: bool = True,
+) -> typing.List[typing.Dict[int, int]]:
     r"""Solve verbal arthmetic."""
     words = words.copy()
     words.append(result)
-    letters = sorted(functools.reduce(operator.or_, map(set, words), set()))
-    words = [[bisect.bisect_left(letters, l) for l in w] for w in words]
+    letters: typing.List[int] = sorted(
+        functools.reduce(
+            operator.or_,
+            map(lambda w: set(w), words),
+            set(),
+        ),
+    )
+    if len(letters) > hi - lo:
+        return []
+    words = [
+        [bisect.bisect_left(letters, letter) for letter in word]
+        for word in words
+    ]
     n, m = len(words), max(map(len, words))
-    value = [-1] * 10
-    digit = [-1] * len(letters)
-    patterns = []
+    values = [-1] * (hi - lo)
+    digits = [-1] * len(letters)
+    patterns: typing.List[typing.Dict[int, int]] = []
 
-    def search(i: int, j: int, s: int) -> None:
-        if j >= m:
-            if s == 0:
-                patterns.append(dict(zip(letters, digit)))
+    def search(row: int, column: int, sum_column: int) -> None:
+        if column >= m:
+            if sum_column == 0:
+                patterns.append(dict(zip(letters, digits)))
             return
-        if i == n:
-            if s % 10 == 0:
-                search(0, j + 1, s // 10)
+        if row == n:
+            if sum_column % 10 == 0:
+                search(0, column + 1, sum_column // 10)
             return
-        w = words[i]
-        if j >= len(w):
-            search(i + 1, j, s)
+        word = words[row]
+        if column >= len(word):
+            search(row + 1, column, sum_column)
             return
-        sign = (i < n - 1) * 2 - 1
-        v = w[~j]
+        sign = (row < n - 1) * 2 - 1
+        v = word[~column]
 
-        def no_heading_zero(d: int) -> bool:
-            return d != 0 or j < len(w) - 1 or zero_ok and j == 0
+        def no_leading_zero(digit: int) -> bool:
+            return (
+                digit != 0
+                or column < len(word) - 1
+                or leading_zero
+                and row == 0
+            )
 
-        if digit[v] != -1:
-            if no_heading_zero(digit[v]):
-                search(i + 1, j, s + sign * digit[v])
+        if digits[v] != -1:
+            if no_leading_zero(digits[v]):
+                search(row + 1, column, sum_column + sign * digits[v])
             return
-        for d in range(10):
-            if value[d] != -1:
+        for digit in range(lo, hi):
+            if values[digit - lo] != -1:
                 continue
-            if not no_heading_zero(d):
+            if not no_leading_zero(digit):
                 continue
-            digit[v], value[d] = d, v
-            search(i + 1, j, s + sign * d)
-            digit[v] = value[d] = -1
+            digits[v], values[digit - lo] = digit, v
+            search(row + 1, column, sum_column + sign * digit)
+            digits[v] = values[digit - lo] = -1
 
     search(0, 0, 0)
     return patterns
+
+
+def to_int(
+    words: typing.List[str],
+    result: str,
+) -> typing.Tuple[typing.List[typing.List[int]], typing.List[int]]:
+    return (
+        [list(map(ord, word)) for word in words],
+        list(map(ord, result)),
+    )
+
+
+def to_str(answer: typing.Dict[int, int]) -> typing.Dict[str, int]:
+    return {chr(value): digit for value, digit in answer.items()}
+
+
+def verbal_arithmetic_from_str(
+    words: typing.List[str],
+    result: str,
+    lo: int = 0,
+    hi: int = 10,
+    leading_zero: bool = True,
+) -> typing.List[typing.Dict[str, int]]:
+    answer = verbal_arithmetic(*to_int(words, result), lo, hi, leading_zero)
+    return list(map(to_str, answer))
