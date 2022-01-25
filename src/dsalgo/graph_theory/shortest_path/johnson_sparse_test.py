@@ -26,6 +26,15 @@ class Test(unittest.TestCase):
             ],
         )
 
+    def test_negative_cycle(self) -> None:
+        graph = [
+            [(1, -1)],
+            [(2, -1)],
+            [(0, -1)],
+        ]
+        with self.assertRaises(NegativeCycleError):
+            johnson_sparse(graph)
+
 
 if __name__ == "__main__":
     unittest.main()
