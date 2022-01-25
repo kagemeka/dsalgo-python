@@ -5,7 +5,7 @@ from dsalgo.container.multiset.fenwick_tree_multiset import FenwickTreeMultiset
 
 class Test(unittest.TestCase):
     def test(self) -> None:
-        ms = FenwickTreeMultiset(max_value=1 << 20)
+        ms = FenwickTreeMultiset(max_value=1 << 10)
         self.assertIsNone(ms.min())
         self.assertIsNone(ms.max())
         ms.insert(5)
@@ -17,7 +17,7 @@ class Test(unittest.TestCase):
         self.assertEqual(ms.max(), 1000)
         self.assertEqual(ms.min(), 5)
         with self.assertRaises(AssertionError):
-            ms.insert(1 << 20)
+            ms.insert(1 << 10)
         self.assertEqual(ms.lower_bound(5), 0)
         self.assertEqual(ms.upper_bound(5), 2)
         self.assertEqual(ms.lower_bound(6), 2)

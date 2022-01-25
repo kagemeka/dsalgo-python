@@ -1,4 +1,5 @@
 import unittest
+
 from dsalgo.number_theory.euclidean.least_common_multiple import lcm
 
 

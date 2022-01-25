@@ -1,6 +1,4 @@
-from dsalgo.number_theory.euclidean.greatest_common_divisor import (
-    gcd,
-)
+from dsalgo.number_theory.euclidean.greatest_common_divisor import gcd
 
 
 def lcm(a: int, b: int) -> int:
