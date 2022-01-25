@@ -1,5 +1,7 @@
 import typing
 
+# nHk (homogeneous)
+
 
 def repeated_combinations(
     n: int,
