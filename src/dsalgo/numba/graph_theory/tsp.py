@@ -1,14 +1,15 @@
 import numba as nb
 import numpy as np
 
+from dsalgo.constant import INT_INF
+
 
 @nb.njit
 def tsp_dense(g: np.ndarray, src: int) -> int:
     n = len(g)
     assert g.shape == (n, n)
-    inf = 1 << 60
-    assert inf > g.sum()
-    dist = np.full((1 << n, n), inf, np.int64)
+    assert INT_INF > g.sum()
+    dist = np.full((1 << n, n), INT_INF, np.int64)
     dist[1 << src, src] = 0
     for s in range(1 << n):
         for i in range(n):
@@ -26,12 +27,11 @@ def tsp_dense(g: np.ndarray, src: int) -> int:
 def tsp_sparse(n: int, g: np.ndarray, src: int) -> int:
     m = len(g)
     assert g.shape == (m, 3)
-    inf = 1 << 60
-    assert inf > g[:, 2].sum()
+    assert INT_INF > g[:, 2].sum()
     sort_idx = np.argsort(g[:, 0], kind="mergesort")
     g = g[sort_idx]
     idx = np.searchsorted(g[:, 0], np.arange(n + 1))
-    dist = np.full((1 << n, n), inf, np.int64)
+    dist = np.full((1 << n, n), INT_INF, np.int64)
     dist[1 << src, src] = 0
     for s in range(1 << n):
         for i in range(n):
@@ -43,7 +43,7 @@ def tsp_sparse(n: int, g: np.ndarray, src: int) -> int:
                     continue
                 u = s | 1 << j
                 dist[u, j] = min(dist[u, j], dist[s, i] + w)
-    mn = inf
+    mn = INT_INF
     for i in range(n):
         if i == src:
             continue

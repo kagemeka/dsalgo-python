@@ -1,6 +1,6 @@
 import unittest
 
-from dsalgo.dp.longet_common_subsequence import longest_common_subsequence
+from dsalgo.dp.longest_common_subsequence import longest_common_subsequence
 
 
 class Test(unittest.TestCase):

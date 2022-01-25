@@ -1,12 +1,13 @@
 import numba as nb
 import numpy as np
 
+from dsalgo.constant import INT_INF
+
 
 @nb.njit
 def maximum_flow_dinic_dense(g: np.ndarray, src: int, sink: int) -> int:
     n = len(g)
     g = g.copy()
-    inf = 1 << 60
     level = np.full(n, -1, np.int64)
 
     def update_level():
@@ -26,7 +27,7 @@ def maximum_flow_dinic_dense(g: np.ndarray, src: int, sink: int) -> int:
 
     def compute_flow():
         flow_in[:] = 0
-        flow_in[src] = inf
+        flow_in[src] = INT_INF
         flow_out[:] = 0
         prev[:] = -1
         st = [src]

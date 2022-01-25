@@ -3,7 +3,8 @@ import heapq
 import numba as nb
 import numpy as np
 
-from ....graph.jit.csgraph_to_directed import csgraph_to_directed
+from dsalgo.constant import INT_INF
+from dsalgo.numba.graph.csgraph_to_directed import csgraph_to_directed
 
 # TODO cut below
 
@@ -12,8 +13,7 @@ from ....graph.jit.csgraph_to_directed import csgraph_to_directed
 def mst_prim_dense(g: np.ndarray) -> np.ndarray:
     n = len(g)
     assert g.shape == (n, n)
-    inf = 1 << 60
-    assert g.max() <= inf
+    assert g.max() <= INT_INF
     g = dense_graph_to_undirected(g)
     mst = np.zeros((n, 3), np.int64)
     mst_idx = -1
@@ -24,11 +24,11 @@ def mst_prim_dense(g: np.ndarray) -> np.ndarray:
         mst_idx += 1
 
     min_edge = np.full((n, 2), -1, np.int64)
-    min_edge[:, 1] = inf
+    min_edge[:, 1] = INT_INF
     min_edge[0, 1] = 0
     visited = np.zeros(n, np.bool8)
     for _ in range(n):
-        pre, u, wu = -1, -1, inf
+        pre, u, wu = -1, -1, INT_INF
         for i in range(n):
             if visited[i]:
                 continue
@@ -36,7 +36,7 @@ def mst_prim_dense(g: np.ndarray) -> np.ndarray:
             if w >= wu:
                 continue
             pre, u, wu = p, i, w
-        assert wu < inf
+        assert wu < INT_INF
         add_edge(pre, u, wu)
         visited[u] = True
         for v in range(n):
@@ -53,8 +53,7 @@ def mst_prim_dense(g: np.ndarray) -> np.ndarray:
 def mst_prim_sparse(n: int, csgraph: np.ndarray) -> np.ndarray:
     m = len(csgraph)
     assert csgraph.shape == (m, 3)
-    inf = 1 << 60
-    assert np.all(csgraph[:, 2] < inf)
+    assert np.all(csgraph[:, 2] < INT_INF)
     csgraph = csgraph_to_directed(csgraph)
     m *= 2
     sort_idx = np.argsort(csgraph[:, 0], kind="mergesort")
@@ -70,7 +69,7 @@ def mst_prim_sparse(n: int, csgraph: np.ndarray) -> np.ndarray:
         mst_idx += 1
 
     hq = [(0, -1, 0)]
-    weight = np.full(n, inf, np.int64)
+    weight = np.full(n, INT_INF, np.int64)
     weight[0] = 0
     visited = np.zeros_like(weight, np.bool8)
     while hq:

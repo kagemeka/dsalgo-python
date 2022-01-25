@@ -1,5 +1,7 @@
 import typing
 
+from dsalgo.constant import INT_INF
+
 
 # O(EV^2)
 def maxflow_dinic(
@@ -55,13 +57,12 @@ def maxflow_dinic(
             flow_out += flow
         return flow_out
 
-    inf = 1 << 63
     flow = 0
     while True:
         update_level()
         if level[sink] == -1:
             break
-        flow += flow_to_sink(src, inf)
+        flow += flow_to_sink(src, INT_INF)
     return flow
 
 
@@ -106,12 +107,11 @@ def maxflow_ford_fulkerson(
             residual_flow[v][u] += flow
         return flow
 
-    inf = 1 << 63
     flow = 0
     while True:
         for i in range(n):
             visited[i] = False
-        f = augment_flow(src, inf)
+        f = augment_flow(src, INT_INF)
         if f == 0:
             break
         flow += f
@@ -154,13 +154,11 @@ def maxflow_edmonds_karp(
             path.append(v)
         return path
 
-    inf = 1 << 63
-
     def augment_flow(path: typing.List[int]) -> int:
-        flow = inf
+        flow = INT_INF
         for i in range(len(path) - 1):
             flow = min(flow, residual_flow[path[i + 1]][path[i]])
-        assert flow != inf
+        assert flow != INT_INF
         for i in range(len(path) - 1):
             u, v = path[i + 1], path[i]
             residual_flow[u][v] -= flow

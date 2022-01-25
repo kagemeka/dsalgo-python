@@ -1,17 +1,15 @@
 import numba as nb
 import numpy as np
 
-from ....graph.jit.csgraph_to_directed import csgraph_to_directed
-
-# TODO cut below
+from dsalgo.constant import INT_INF
+from dsalgo.numba.graph_theory.csgraph_to_directed import csgraph_to_directed
 
 
 @nb.njit
 def mst_boruvka_dfs(n: int, csgraph: np.ndarray) -> np.ndarray:
     m = len(csgraph)
     assert csgraph.shape == (m, 3)
-    inf = 1 << 60
-    assert csgraph[:, 2].max() < inf
+    assert csgraph[:, 2].max() < INT_INF
 
     csgraph = csgraph_to_directed(csgraph)
     rev_edge_idx = np.zeros(m * 2, np.int64)
@@ -100,7 +98,11 @@ def mst_boruvka_dfs(n: int, csgraph: np.ndarray) -> np.ndarray:
 import numba as nb
 import numpy as np
 
-from ....union_find.parent_size_at_same.jit import uf_build, uf_find, uf_unite
+from dsalgo.numba.graph_theory.union_find.parent_size_at_same.jit import (
+    uf_build,
+    uf_find,
+    uf_unite,
+)
 
 # TODO cut below
 
@@ -109,8 +111,7 @@ from ....union_find.parent_size_at_same.jit import uf_build, uf_find, uf_unite
 def mst_boruvka_uf(n: int, csgraph: np.ndarray) -> np.ndarray:
     m = len(csgraph)
     assert csgraph.shape == (m, 3)
-    inf = 1 << 60
-    assert csgraph[:, 2].max() < inf
+    assert csgraph[:, 2].max() < INT_INF
     edge_is_added = np.zeros(m, np.bool8)
     min_edge_idx = np.zeros(n, np.int64)
     uf = uf_build(n)
