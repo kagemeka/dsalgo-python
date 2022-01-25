@@ -1,7 +1,7 @@
 import typing
 
 from dsalgo.constant import INT_INF
-from dsalgo.graph_theory.components.connected_components import (
+from dsalgo.graph_theory.components.connected_components.connected_components import (
     connected_components_union_find,
 )
 from dsalgo.graph_theory.union_find import UnionFind
