@@ -6,17 +6,18 @@ import typing
 
 import numba as nb
 import numpy as np
+from kgmk.dsa.misc.online_update_query.set_point_get_range.add_sum.fenwick.jit import (
+    fw_e,
+    fw_inverse,
+    fw_op,
+)
+
 from dsalgo.numba.misc.online_update_query.set_point_get_range.abstract.fenwick import (
     build_fw,
     get_fw,
     get_range_fw,
     max_right_fw,
     set_fw,
-)
-from kgmk.dsa.misc.online_update_query.set_point_get_range.add_sum.fenwick.jit import (
-    fw_e,
-    fw_inverse,
-    fw_op,
 )
 
 
