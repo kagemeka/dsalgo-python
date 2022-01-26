@@ -1,5 +1,8 @@
 import typing
-from dsalgo.number_theory.equation.extended_euclidean import extended_euclidean
+
+from dsalgo.number_theory.equation.extended_euclidean import (
+    extended_euclidean_recurse,
+)
 
 
 def chinese_remainder_theorem_coprime(
@@ -34,6 +37,7 @@ def chinese_remainder_theorem_coprime(
         because mod_0 and mod_1 are coprime,
         there is a solution for the equation below.
         mod_0p + mod_1q = \gcd(mod_0, mod_1) = 1
+        (Bezout's identity)
 
         mod_0p \equiv 1 \mod mod_1
         mod_1q \equiv 1 \mod mod_0
@@ -47,20 +51,36 @@ def chinese_remainder_theorem_coprime(
         if not 0 <= x < mod_0mod_1, let x := x \mod mod_0mod_1
 
     """
-    gcd, x, y = extended_euclidean(mod_0, mod_1)
+    assert 0 <= rem_0 < mod_0 > 1 and 0 <= rem_1 < mod_1 > 1
+    gcd, x, y = extended_euclidean_recurse(mod_0, mod_1)
     assert gcd == 1
     result = rem_1 * mod_0 * x + rem_0 * mod_1 * y
     return result % (mod_0 * mod_1)
 
 
+# https://en.wikipedia.org/wiki/Chinese_remainder_theorem
+# https://manabitimes.jp/math/838
 def chinese_remainder_theorem(
     mod_0: int,
     rem_0: int,
     mod_1: int,
     rem_1: int,
+) -> typing.Optional[int]:
+    assert 0 <= rem_0 < mod_0 > 1 and 0 <= rem_1 < mod_1 > 1
+    gcd, x, y = extended_euclidean_recurse(mod_0, mod_1)
+    if (rem_0 - rem_1) % gcd:
+        return None
+    lcm = mod_0 // gcd * mod_1
+    return (rem_0 - (rem_0 - rem_1) // gcd * mod_0 * x) % lcm
+
+
+def general_crt_coprime(
+    pairs: typing.List[typing.Tuple[int, int]],
 ) -> int:
     ...
 
 
-def chinese_remainder_theorem_multi():
+def general_crt(
+    pairs: typing.List[typing.Tuple[int, int]],
+) -> typing.Optional[int]:
     ...
