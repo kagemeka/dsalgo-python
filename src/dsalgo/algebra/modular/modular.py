@@ -1,4 +1,4 @@
-from dsalgo.algebra.modular.invert import invert_fermat
+from dsalgo.algebra.modular.multiplicative_inverse import invert_fermat
 
 
 def add(mod: int, lhs: int, rhs: int) -> int:
