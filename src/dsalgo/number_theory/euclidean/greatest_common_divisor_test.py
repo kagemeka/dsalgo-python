@@ -2,18 +2,20 @@ import unittest
 
 from dsalgo.number_theory.euclidean.greatest_common_divisor import (
     array_gcd,
-    gcd,
+    greatest_common_divisor,
 )
 
 
 class Test(unittest.TestCase):
     def test_gcd(self) -> None:
-        self.assertEqual(gcd(5, 7), 1)
-        self.assertEqual(gcd(5, 0), 5)
-        self.assertEqual(gcd(4, 0), 4)
-        self.assertEqual(gcd(4, 0), gcd(0, 4))
-        self.assertEqual(gcd(9, 6), 3)
-        self.assertEqual(gcd(0, 0), 0)
+        self.assertEqual(greatest_common_divisor(5, 7), 1)
+        self.assertEqual(greatest_common_divisor(5, 0), 5)
+        self.assertEqual(greatest_common_divisor(4, 0), 4)
+        self.assertEqual(
+            greatest_common_divisor(4, 0), greatest_common_divisor(0, 4)
+        )
+        self.assertEqual(greatest_common_divisor(9, 6), 3)
+        self.assertEqual(greatest_common_divisor(0, 0), 0)
 
     def test_array_gcd(self) -> None:
         self.assertEqual(
