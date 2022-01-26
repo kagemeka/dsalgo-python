@@ -1,15 +1,66 @@
+import typing
+from dsalgo.number_theory.equation.extended_euclidean import extended_euclidean
+
+
 def chinese_remainder_theorem_coprime(
-    rem_0: int,
     mod_0: int,
-    rem_1: int,
+    rem_0: int,
     mod_1: int,
+    rem_1: int,
+) -> int:
+    r"""Chinese Remainder Theorem for coprime values.
+
+    Args:
+        mod_0 (int): modulo 0
+        rem_0 (int): remainder 0
+        mod_1 (int): modulo 1
+        rem_1 (int): remainder 1
+
+    Returns:
+        int: x
+            where:
+                x \equiv rem_0 \mod mod_0
+                x \equiv rem_1 \mod mod_1
+
+    Constraints:
+    - mod_0 and mod_1 should bu coprime.
+
+    Algorithm Summary:
+        compute x satisfying
+            - x \equiv rem_0 \mod mod_0
+            - x \equiv rem_1 \mod mod_1
+            - 0 <= x < mod_0mod_1
+
+        because mod_0 and mod_1 are coprime,
+        there is a solution for the equation below.
+        mod_0p + mod_1q = \gcd(mod_0, mod_1) = 1
+
+        mod_0p \equiv 1 \mod mod_1
+        mod_1q \equiv 1 \mod mod_0
+
+        here, let
+        x := rem_1mod_0p + rem_0mod_1q
+        this satisfies,
+        x \equiv rem_0 \mod_0
+        x \equiv rem_1 \mod_1
+
+        if not 0 <= x < mod_0mod_1, let x := x \mod mod_0mod_1
+
+    """
+    gcd, x, y = extended_euclidean(mod_0, mod_1)
+    assert gcd == 1
+    result = rem_1 * mod_0 * x + rem_0 * mod_1 * y
+    return result % (mod_0 * mod_1)
+
+
+def chinese_remainder_theorem(
+    mod_0: int,
+    rem_0: int,
+    mod_1: int,
+    rem_1: int,
 ) -> int:
     ...
 
 
-def chinese_remainder_theorem_of_two():
-    ...
-
-
-def chinese_remainder_theorem():
+def chinese_remainder_theorem_multi():
     ...
