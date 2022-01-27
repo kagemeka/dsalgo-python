@@ -1,24 +1,28 @@
 import unittest
 
 from dsalgo.number_theory.equation.chinese_remainder_theorem import (
-    chinese_remainder_theorem,
-    chinese_remainder_theorem_coprime,
-    general_crt,
-    general_crt_coprime,
+    crt,
+    crt_2,
+    crt_2_coprime,
+    safe_crt_2,
 )
 
 
 class Test(unittest.TestCase):
-    def test_coprime(self) -> None:
-        x = chinese_remainder_theorem_coprime(15, 2, 17, 8)
+    def test_2_coprime(self) -> None:
+        result = crt_2_coprime(15, 2, 17, 8)
+        assert result is not None
+        mod, x = result
         self.assertEqual(x % 15, 2)
         self.assertEqual(x % 17, 8)
         self.assertGreaterEqual(x, 0)
         self.assertLess(x, 15 * 17)
         self.assertEqual(x, 212)
 
-    def test(self) -> None:
-        x = chinese_remainder_theorem(10, 3, 14, 7)
+    def test_2(self) -> None:
+        result = crt_2(10, 3, 14, 7)
+        assert result is not None
+        mod, x = result
         self.assertIsNotNone(x)
         self.assertEqual(x % 10, 3)
         self.assertEqual(x % 14, 7)
@@ -26,21 +30,11 @@ class Test(unittest.TestCase):
         self.assertLess(x, 10 // 2 * 14)
         self.assertEqual(x, 63)
 
-        self.assertIsNone(chinese_remainder_theorem(10, 3, 14, 6))
+        self.assertIsNone(crt_2(10, 3, 14, 6))
 
         self.assertEqual(
-            chinese_remainder_theorem(15, 2, 17, 8),
-            212,
-        )
-
-    def test_general_coprime(self) -> None:
-        pairs = [
-            (15, 2),
-            (17, 8),
-        ]
-        self.assertEqual(
-            general_crt_coprime(pairs),
-            212,
+            crt_2(15, 2, 17, 8),
+            (255, 212),
         )
 
     def test_general(self) -> None:
@@ -49,15 +43,33 @@ class Test(unittest.TestCase):
             (17, 8),
         ]
         self.assertEqual(
-            general_crt(pairs),
-            212,
+            crt(pairs),
+            (255, 212),
         )
 
         pairs = [
             (10, 3),
             (14, 6),
         ]
-        self.assertIsNone(general_crt(pairs))
+        self.assertIsNone(crt(pairs))
+
+    def test_safe_2(self) -> None:
+        result = safe_crt_2(10, 3, 14, 7)
+        assert result is not None
+        mod, x = result
+        self.assertIsNotNone(x)
+        self.assertEqual(x % 10, 3)
+        self.assertEqual(x % 14, 7)
+        self.assertGreaterEqual(x, 0)
+        self.assertLess(x, 10 // 2 * 14)
+        self.assertEqual(x, 63)
+
+        self.assertIsNone(safe_crt_2(10, 3, 14, 6))
+
+        self.assertEqual(
+            safe_crt_2(15, 2, 17, 8),
+            (255, 212),
+        )
 
 
 if __name__ == "__main__":

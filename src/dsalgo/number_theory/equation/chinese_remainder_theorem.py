@@ -1,5 +1,8 @@
 import typing
 
+from dsalgo.number_theory.equation._extended_euclidean_mod import (
+    extended_euclidean_mod,
+)
 from dsalgo.number_theory.equation.extended_euclidean import (
     extended_euclidean_recurse,
 )
@@ -8,12 +11,12 @@ from dsalgo.number_theory.euclidean.least_common_multiple import (
 )
 
 
-def chinese_remainder_theorem_coprime(
+def crt_2_coprime(
     mod_0: int,
     rem_0: int,
     mod_1: int,
     rem_1: int,
-) -> int:
+) -> typing.Tuple[int, int]:
     r"""Chinese Remainder Theorem for coprime values.
 
     Args:
@@ -23,13 +26,13 @@ def chinese_remainder_theorem_coprime(
         rem_1 (int): remainder 1
 
     Returns:
-        int: x
+        typing.Tuple[int, int]: lcm = mod_0mod_1, x
             where:
                 x \equiv rem_0 \mod mod_0
                 x \equiv rem_1 \mod mod_1
 
     Constraints:
-    - mod_0 and mod_1 should bu coprime.
+    - mod_0 and mod_1 should be coprime.
 
     Algorithm Summary:
         compute x satisfying
@@ -58,47 +61,69 @@ def chinese_remainder_theorem_coprime(
     gcd, x, _ = extended_euclidean_recurse(mod_0, mod_1)
     assert gcd == 1
     lcm = mod_0 * mod_1
-    return (rem_0 + (rem_1 - rem_0) * mod_0 * x) % lcm
+    return lcm, (rem_0 + x * (rem_1 - rem_0) * mod_0) % lcm
 
 
 # https://en.wikipedia.org/wiki/Chinese_remainder_theorem
 # https://manabitimes.jp/math/838
-def chinese_remainder_theorem(
+def crt_2(
     mod_0: int,
     rem_0: int,
     mod_1: int,
     rem_1: int,
-) -> typing.Optional[int]:
+) -> typing.Optional[typing.Tuple[int, int]]:
     assert 0 <= rem_0 < mod_0 > 1 and 0 <= rem_1 < mod_1 > 1
     gcd, x, _ = extended_euclidean_recurse(mod_0, mod_1)
-    if (rem_0 - rem_1) % gcd:
+    if (rem_1 - rem_0) % gcd:
         return None
     lcm = mod_0 // gcd * mod_1
-    return (rem_0 - (rem_0 - rem_1) // gcd * mod_0 * x) % lcm
+    s = (rem_1 - rem_0) // gcd
+    return lcm, (rem_0 + x * s * mod_0) % lcm
 
 
-def general_crt_coprime(
+def crt(
     mod_rem_pairs: typing.List[typing.Tuple[int, int]],
-) -> int:
+) -> typing.Optional[typing.Tuple[int, int]]:
     assert len(mod_rem_pairs) >= 1
     mod, rem = mod_rem_pairs[0]
     for m, r in mod_rem_pairs[1:]:
         assert 0 <= r < m > 1
-        rem = chinese_remainder_theorem_coprime(mod, rem, m, r)
-        mod *= m
-    return rem
-
-
-def general_crt(
-    mod_rem_pairs: typing.List[typing.Tuple[int, int]],
-) -> typing.Optional[int]:
-    assert len(mod_rem_pairs) >= 1
-    mod, rem = mod_rem_pairs[0]
-    for m, r in mod_rem_pairs[1:]:
-        assert 0 <= r < m > 1
-        result = chinese_remainder_theorem(mod, rem, m, r)
+        result = crt_2(mod, rem, m, r)
         if result is None:
             return None
-        rem = result
-        mod = least_common_multiple(mod, m)
-    return rem
+        mod, rem = result
+    return mod, rem
+
+
+def safe_crt_2(
+    mod_0: int,
+    rem_0: int,
+    mod_1: int,
+    rem_1: int,
+) -> typing.Optional[typing.Tuple[int, int]]:
+    r"""Compute CRT without overflow unless lcm(mod_0, mod_1) overflows.
+
+    avoid overflow unless lcm(mod_0, mod_1) overflow.
+
+    Args:
+        mod_0 (int): modulo 0
+        rem_0 (int): remainder 0
+        mod_1 (int): modulo 1
+        rem_1 (int): remainder 1
+
+    Returns:
+        typing.Optional[int]: [description]
+
+    Algorithm Summary:
+
+        x := rem_0 + p * mod_0
+        x \equiv rem_0 \mod mod_0
+
+    """
+    assert 0 <= rem_0 < mod_0 > 1 and 0 <= rem_1 < mod_1 > 1
+    gcd, inv_u0 = extended_euclidean_mod(mod_1, mod_0)
+    if (rem_1 - rem_0) % gcd:
+        return None
+    u1 = mod_1 // gcd
+    x = ((rem_1 - rem_0) // gcd) % u1 * inv_u0 % u1
+    return mod_0 * u1, rem_0 + x * mod_0

@@ -45,36 +45,28 @@ def invert_extended_euclidean_direct(mod: int, n: int) -> int:
 
     Algorithm Summary:
         consider for the equation nx + my = 1.
-        y is not needed to be computed.
-        s_k := q_kx_k + y_k
-        t_k := x_k
-        x_{k-1} := s_k
-        y_{k-1} := t_k
-        y_k = s_k - q_kt_k = x_{k-1} - q_ky_{k-1} = x_{k-1} - q_kx_k
-        x_k = t_k = y_{k-1} = x_{k-2} - q_{k-1}x_{k-1} = ...
-        (x_0 := 1, x_1 := y_0 = 0, y is not appeared.)
+        (x_i, y_i)^T = [
+            [0, 1],
+            [1, -q_i],
+        ](x_{i-1}, y_{i-1})^T
 
-        (x_{i+1}, x_i)^T = [
-            [-q_i, 1],
-            [1, 0],
-        ](x_i, x_{i-1})^T
+        (x_0, y_0)^T = (1, 0)^T  # one of the solution.
 
-        (x_1, x_0)^T = (y_0, x_0)^T = (0, 1)^T
-
-        it's only enough to save only second row data.
-
-        transition of (A_10, A_11).
-        (0, 1) identity -> (-q_k, 1) -> (-q_k(-q_{k-1}) + 1, -q_k)
+        finally, y is not needed to be computed.
+        it's only enough to store only first row's data.
     """
     assert mod > 1
     a, b = n % mod, mod
-    x10, x11 = 0, 1
+    x00, x01 = 1, 0  # first row of matrix identity element.
     while b:
         q, r = divmod(a, b)
-        x10, x11 = -q * x10 + x11, x10
+        x00, x01 = x01, x00 - q * x01
         a, b = b, r
-    assert a == 1
-    return x11 % mod
+    assert a == 1  # gcd
+    if x00 < 0:
+        x00 += mod
+    assert 0 <= x00 < mod
+    return x00
 
 
 if __name__ == "__main__":
