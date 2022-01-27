@@ -4,6 +4,7 @@ from dsalgo.number_theory.equation.chinese_remainder_theorem import (
     crt,
     crt_2,
     crt_2_coprime,
+    safe_crt,
     safe_crt_2,
 )
 
@@ -37,7 +38,7 @@ class Test(unittest.TestCase):
             (255, 212),
         )
 
-    def test_general(self) -> None:
+    def test(self) -> None:
         pairs = [
             (15, 2),
             (17, 8),
@@ -70,6 +71,22 @@ class Test(unittest.TestCase):
             safe_crt_2(15, 2, 17, 8),
             (255, 212),
         )
+
+    def test_safe(self) -> None:
+        pairs = [
+            (15, 2),
+            (17, 8),
+        ]
+        self.assertEqual(
+            safe_crt(pairs),
+            (255, 212),
+        )
+
+        pairs = [
+            (10, 3),
+            (14, 6),
+        ]
+        self.assertIsNone(safe_crt(pairs))
 
 
 if __name__ == "__main__":

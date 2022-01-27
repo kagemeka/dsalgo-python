@@ -112,13 +112,37 @@ def safe_crt_2(
         rem_1 (int): remainder 1
 
     Returns:
-        typing.Optional[int]: [description]
+        typing.Optional[typing.Tuple[int, int]]:
+            return (lcm = mod_0mod_1, x)
+            where:
+                x \equiv rem_0 \mod mod_0
+                x \equiv rem_1 \mod mod_1
+            if x does not exist, return None.
 
     Algorithm Summary:
 
         x := rem_0 + p * mod_0
         x \equiv rem_0 \mod mod_0
+        let the answer x = r.
+        r := rem_0 + x * mod_0 and compute x.
+        m := lcm(mod_0, mod_1)
+        because 0 <= r < m and r >= max(rem_0, rem_1),
+        0 <= x < (m - rem_0) / mod_0 <= m / mod_0.
 
+        because x \equiv rem_1 \mod mod_1,
+        r = rem_0 + x * mod_0 \equiv rem_1 \mod mod_1
+        <-> x * mod_0 \equiv rem_1 - rem_0 \mod mod_1
+
+        g := gcd(mod_0, mod_1)
+        mod_0 := g * u0
+        mod_1 := g * u1
+
+        if x exist, rem_1 \equiv rem_0 \mod g.
+        thus x * g * u0 \equiv g * (rem_1 - rem_0) / g \mod (g * u1)
+        <-> x * u0 \equiv (rem_1 - rem_0) / g \mod u1
+        <-> x \equiv (rem_1 - rem_0) / g * u0^{-1} \mod u1
+
+        finally, it's only enough to compute u0^{-1} \mod u1 without overflow.
     """
     assert 0 <= rem_0 < mod_0 > 1 and 0 <= rem_1 < mod_1 > 1
     gcd, inv_u0 = extended_euclidean_mod(mod_1, mod_0)
@@ -127,3 +151,17 @@ def safe_crt_2(
     u1 = mod_1 // gcd
     x = ((rem_1 - rem_0) // gcd) % u1 * inv_u0 % u1
     return mod_0 * u1, rem_0 + x * mod_0
+
+
+def safe_crt(
+    mod_rem_pairs: typing.List[typing.Tuple[int, int]],
+) -> typing.Optional[typing.Tuple[int, int]]:
+    assert len(mod_rem_pairs) >= 1
+    mod, rem = mod_rem_pairs[0]
+    for m, r in mod_rem_pairs[1:]:
+        assert 0 <= r < m > 1
+        result = safe_crt_2(mod, rem, m, r)
+        if result is None:
+            return None
+        mod, rem = result
+    return mod, rem
