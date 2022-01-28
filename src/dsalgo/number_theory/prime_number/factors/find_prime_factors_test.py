@@ -1,13 +1,15 @@
 import unittest
 
-from dsalgo.number_theory.prime_number.prime_factorize import prime_factorize
+from dsalgo.number_theory.prime_number.factors.find_prime_factors import (
+    find_prime_factors,
+)
 
 
 class Test(unittest.TestCase):
     def test(self) -> None:
         self.assertEqual(
-            prime_factorize(105),
-            [(3, 1), (5, 1), (7, 1)],
+            find_prime_factors(105),
+            [3, 5, 7],
         )
 
 

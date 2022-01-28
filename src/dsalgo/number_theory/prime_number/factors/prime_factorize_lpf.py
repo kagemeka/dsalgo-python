@@ -1,6 +1,6 @@
 import typing
 
-from dsalgo.number_theory.prime_number.least_prime_factor import (
+from dsalgo.number_theory.prime_number.finding.least_prime_factor import (
     least_prime_factor,
 )
 

@@ -20,11 +20,11 @@ class Test(unittest.TestCase):
             (17, 8),
         ]
         self.assertEqual(
-            garner_form_mod(pairs, 998_244_353),
+            garner_form_mod(998_244_353, pairs),
             212,
         )
         self.assertEqual(
-            garner_form_mod(pairs, 100),
+            garner_form_mod(100, pairs),
             12,
         )
 

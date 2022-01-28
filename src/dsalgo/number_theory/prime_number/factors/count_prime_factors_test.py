@@ -1,6 +1,6 @@
 import unittest
 
-from dsalgo.number_theory.prime_number.count_prime_factors import (
+from dsalgo.number_theory.prime_number.factors.count_prime_factors import (
     count_prime_factors,
 )
 

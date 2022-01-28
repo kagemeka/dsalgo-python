@@ -1,6 +1,6 @@
 import unittest
 
-from dsalgo.number_theory.prime_number.sieve_of_eratosthenes import (
+from dsalgo.number_theory.prime_number.primality.sieve_of_eratosthenes import (
     sieve_of_eratosthenes,
 )
 

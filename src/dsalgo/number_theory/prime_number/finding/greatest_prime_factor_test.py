@@ -1,6 +1,6 @@
 import unittest
 
-from dsalgo.number_theory.prime_number.greatest_prime_factor import (
+from dsalgo.number_theory.prime_number.finding.greatest_prime_factor import (
     greatest_prime_factor,
 )
 

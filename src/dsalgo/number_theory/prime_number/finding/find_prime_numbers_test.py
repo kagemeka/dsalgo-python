@@ -1,6 +1,6 @@
 import unittest
 
-from dsalgo.number_theory.prime_number.find_prime_numbers import (
+from dsalgo.number_theory.prime_number.finding.find_prime_numbers import (
     find_prime_numbers,
 )
 

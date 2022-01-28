@@ -29,21 +29,28 @@ def garner_form(
 
 
 def garner_form_mod(
-    mod_rem_pairs: typing.List[typing.Tuple[int, int]],
     mod: int,
+    mod_rem_pairs: typing.List[typing.Tuple[int, int]],
 ) -> typing.Optional[int]:
     mod_rem_pairs = [pair for pair in mod_rem_pairs if pair != (1, 0)]
     n = len(mod_rem_pairs)
     assert n >= 1
     modulos = [mod for mod, _ in mod_rem_pairs] + [mod]
-    values = [0] * (n + 1)
+    mod_values = [0] * (n + 1)  # mod_values[i] = x_i \mod modulos[i]
     mod_prod = [1] * (n + 1)
+    # mod_prod[i] = (\prod_{j=0}^{j=i-1} modulos[j]) \mod modulos[i]
     for i, (mod, rem) in enumerate(mod_rem_pairs):
         inv = invert_extended_euclidean_direct(mod, mod_prod[i])
         if inv is None:
             return None
-        t = (rem - values[i]) * inv % mod
+        t = (rem - mod_values[i]) * inv % mod
         for j in range(i + 1, n + 1):
-            values[j] = (values[j] + t * mod_prod[j]) % modulos[j]
+            mod_values[j] = (mod_values[j] + t * mod_prod[j]) % modulos[j]
             mod_prod[j] = mod_prod[j] * mod % modulos[j]
-    return values[-1]
+    return mod_values[-1]
+
+
+# https://qiita.com/drken/items/ae02240cd1f8edfc86fd
+# https://cp-algorithms.com/algebra/chinese-remainder-theorem.html
+# https://math314.hateblo.jp/entry/2015/05/07/014908
+# https://kirika-comp.hatenablog.com/entry/2017/12/18/143923

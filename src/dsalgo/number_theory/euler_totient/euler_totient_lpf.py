@@ -1,6 +1,6 @@
 import typing
 
-from dsalgo.number_theory.prime_number.find_prime_factors_lpf import (
+from dsalgo.number_theory.prime_number.factors.find_prime_factors_lpf import (
     find_prime_factors_lpf,
 )
 

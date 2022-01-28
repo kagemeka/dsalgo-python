@@ -1,6 +1,6 @@
 import unittest
 
-from dsalgo.number_theory.prime_number.prime_factorize_lpf import (
+from dsalgo.number_theory.prime_number.factors.prime_factorize_lpf import (
     prime_factorize_lpf,
 )
 
