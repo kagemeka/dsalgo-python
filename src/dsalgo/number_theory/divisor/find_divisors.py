@@ -2,6 +2,20 @@ import typing
 
 
 def find_divisors(n: int) -> typing.List[int]:
+    r"""Find Divisors of n.
+
+    Args:
+        n (int): target.
+
+    Returns:
+        typing.List[int]: divisors in asending order.
+
+    Complexity:
+        time: O(\sqrt{N} + C\log{C})
+        space: O(C)
+        where:
+            C := number of divisors.
+    """
     divisors = []
     for i in range(1, n + 1):
         if i * i > n:

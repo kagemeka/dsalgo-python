@@ -32,7 +32,8 @@ def extended_euclidean_mod(mod: int, n: int) -> typing.Tuple[int, int]:
         q, r = divmod(a, b)
         x00, x01 = x01, x00 - q * x01
         a, b = b, r
+    gcd = a
     if x00 < 0:
-        x00 += mod // a
-    assert 0 <= x00 < mod // a
-    return a, x00
+        x00 += mod // gcd
+    assert 0 <= x00 < mod // gcd
+    return gcd, x00

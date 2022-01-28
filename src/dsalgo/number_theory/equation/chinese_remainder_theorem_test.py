@@ -11,9 +11,7 @@ from dsalgo.number_theory.equation.chinese_remainder_theorem import (
 
 class Test(unittest.TestCase):
     def test_2_coprime(self) -> None:
-        result = crt_2_coprime(15, 2, 17, 8)
-        assert result is not None
-        mod, x = result
+        x = crt_2_coprime(15, 2, 17, 8)
         self.assertEqual(x % 15, 2)
         self.assertEqual(x % 17, 8)
         self.assertGreaterEqual(x, 0)
@@ -21,9 +19,7 @@ class Test(unittest.TestCase):
         self.assertEqual(x, 212)
 
     def test_2(self) -> None:
-        result = crt_2(10, 3, 14, 7)
-        assert result is not None
-        mod, x = result
+        x = crt_2(10, 3, 14, 7)
         self.assertIsNotNone(x)
         self.assertEqual(x % 10, 3)
         self.assertEqual(x % 14, 7)
@@ -35,7 +31,7 @@ class Test(unittest.TestCase):
 
         self.assertEqual(
             crt_2(15, 2, 17, 8),
-            (255, 212),
+            212,
         )
 
     def test(self) -> None:
@@ -45,7 +41,7 @@ class Test(unittest.TestCase):
         ]
         self.assertEqual(
             crt(pairs),
-            (255, 212),
+            212,
         )
 
         pairs = [
@@ -55,9 +51,7 @@ class Test(unittest.TestCase):
         self.assertIsNone(crt(pairs))
 
     def test_safe_2(self) -> None:
-        result = safe_crt_2(10, 3, 14, 7)
-        assert result is not None
-        mod, x = result
+        x = safe_crt_2(10, 3, 14, 7)
         self.assertIsNotNone(x)
         self.assertEqual(x % 10, 3)
         self.assertEqual(x % 14, 7)
@@ -69,7 +63,7 @@ class Test(unittest.TestCase):
 
         self.assertEqual(
             safe_crt_2(15, 2, 17, 8),
-            (255, 212),
+            212,
         )
 
     def test_safe(self) -> None:
@@ -79,7 +73,7 @@ class Test(unittest.TestCase):
         ]
         self.assertEqual(
             safe_crt(pairs),
-            (255, 212),
+            212,
         )
 
         pairs = [

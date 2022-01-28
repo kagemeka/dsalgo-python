@@ -1,21 +1,21 @@
+import typing
+
 from dsalgo.number_theory.equation.extended_euclidean import (
     extended_euclidean_recurse,
 )
 
 
-def invert_extended_euclidean(mod: int, n: int) -> int:
+def invert_extended_euclidean(mod: int, n: int) -> typing.Optional[int]:
     r"""Modular Inverse with extended eucledian GCD algorithm.
 
     Args:
-        mod (int): [description]
-        n (int): [description]
+        mod (int): an modulo.
+        n (int): arbitral integer.
 
     Returns:
-        int: [description]
-
-    Constraints:
-        - mod and n are coprime, in other words, gcd(mod, n) must be 1.
-
+        typing.Optional[int]:
+            modular inverse of n.
+            if the inverse does not exist, return None.
 
     Algorithm Summary:
         definition of modular inver of n
@@ -29,19 +29,25 @@ def invert_extended_euclidean(mod: int, n: int) -> int:
     """
     assert mod > 1
     gcd, x, _ = extended_euclidean_recurse(n % mod, mod)
-    assert gcd == 1
-    return x % mod
+    if gcd != 1:
+        return None
+    if x < 0:
+        x += mod
+    assert 0 <= x < mod
+    return x
 
 
-def invert_extended_euclidean_direct(mod: int, n: int) -> int:
+def invert_extended_euclidean_direct(mod: int, n: int) -> typing.Optional[int]:
     """Compute Modular inverse directly with Extended Euclidean Algorithm.
 
     Args:
-        mod (int): [description]
-        n (int): [description]
+        mod (int): an modulo.
+        n (int): arbitral integer.
 
     Returns:
-        int: [description]
+        typing.Optional[int]:
+            modular inverse of n.
+            if the inverse does not exist, return None.
 
     Algorithm Summary:
         consider for the equation nx + my = 1.
@@ -62,7 +68,8 @@ def invert_extended_euclidean_direct(mod: int, n: int) -> int:
         q, r = divmod(a, b)
         x00, x01 = x01, x00 - q * x01
         a, b = b, r
-    assert a == 1  # gcd
+    if a != 1:
+        return None
     if x00 < 0:
         x00 += mod
     assert 0 <= x00 < mod
