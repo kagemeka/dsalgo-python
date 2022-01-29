@@ -2,12 +2,12 @@ import random
 import typing
 
 
-def is_composite_trivial(n: int) -> bool:
+def _is_trivial_composite(n: int) -> bool:
     assert n >= 1
     return n == 1 or n & 1 == 0 and n != 2
 
 
-def is_composite(n: int, base: int) -> bool:
+def _is_composite(n: int, base: int) -> bool:
     assert n >= 3
     r, d = 0, n - 1
     while d & 1 == 0:
@@ -25,17 +25,28 @@ def is_composite(n: int, base: int) -> bool:
 
 def _miller_rabin_fixed_bases(n: int, bases: typing.List[int]) -> bool:
     assert n >= 1
-    if is_composite_trivial(n):
+    if _is_trivial_composite(n):
         return False
     if n == 2:
         return True
     for base in bases:
-        if is_composite(n, base):
+        if _is_composite(n, base):
             return False
     return True
 
 
 def miller_rabin_test(n: int, check_times: int = 20) -> bool:
+    """Miller Rabin Primality Test.
+
+    Args:
+        n (int): an natural number.
+        check_times (int, optional):
+            how many times it shoud be checked?
+            Defaults to 20.
+
+    Returns:
+        bool: True if n is a pseudo prime else False.
+    """
     assert n >= 1
     if n == 1:
         return False
@@ -44,7 +55,17 @@ def miller_rabin_test(n: int, check_times: int = 20) -> bool:
 
 
 def miller_rabin_test_32(n: int) -> bool:
-    #   https://en.wikipedia.org/wiki/Miller%E2%80%93Rabin_primality_test#Testing_against_small_sets_of_bases
+    """Miller Rabin Primality Test for 32 bit natural number.
+
+    Args:
+        n (int): 32 bit natural number.
+
+    Returns:
+        bool: True if n is prime else False.
+
+    References:
+    - https://en.wikipedia.org/wiki/Miller%E2%80%93Rabin_primality_test#Testing_against_small_sets_of_bases
+    """
     BASES: typing.Final[
         typing.Tuple[
             typing.Literal[2],
@@ -56,7 +77,17 @@ def miller_rabin_test_32(n: int) -> bool:
 
 
 def miller_rabin_test_64(n: int) -> bool:
-    #   https://en.wikipedia.org/wiki/Miller%E2%80%93Rabin_primality_test#Testing_against_small_sets_of_bases
+    """Miller Rabin Primality Test for 64 bit natural number.
+
+    Args:
+        n (int): 64 bit natural number.
+
+    Returns:
+        bool: True if n is prime else False.
+
+    References:
+    - https://en.wikipedia.org/wiki/Miller%E2%80%93Rabin_primality_test#Testing_against_small_sets_of_bases
+    """
     BASES: typing.Final[typing.List[int]] = [
         2,
         3,
@@ -75,7 +106,17 @@ def miller_rabin_test_64(n: int) -> bool:
 
 
 def miller_rabin_test_64_v2(n: int) -> bool:
-    # http://miller-rabin.appspot.com/
+    """Miller Rabin Primality Test for 64 bit natural number.
+
+    Args:
+        n (int): 64 bit natural number.
+
+    Returns:
+        bool: True if n is prime else False.
+
+    References:
+    - http://miller-rabin.appspot.com/
+    """
     BASES: typing.Final[typing.List[int]] = [
         2,
         325,
