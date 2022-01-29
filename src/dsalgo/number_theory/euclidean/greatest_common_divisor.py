@@ -1,3 +1,4 @@
+import math
 import typing
 
 
@@ -16,5 +17,5 @@ def array_gcd(arr: typing.List[int]) -> typing.Optional[int]:
         return None
     gcd = arr[0]
     for x in arr:
-        gcd = greatest_common_divisor(gcd, x)
+        gcd = math.gcd(gcd, x)
     return gcd
