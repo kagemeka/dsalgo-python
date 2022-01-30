@@ -1,4 +1,5 @@
 import typing
+
 from dsalgo.graph_theory.components.connected_components.union_find import (
     connected_components_union_find,
 )

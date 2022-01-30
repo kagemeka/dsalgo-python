@@ -9,6 +9,7 @@ import typing
 
 import numba as nb
 import numpy as np
+
 from dsalgo.numba.algebra.bit import bit_length
 
 # segment tree normal
@@ -340,9 +341,7 @@ def build_seg(a: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
 
 
 @nb.njit
-def set_seg(
-    seg: np.ndarray, lazy: np.ndarray, l: int, r: int, f: F
-) -> None:
+def set_seg(seg: np.ndarray, lazy: np.ndarray, l: int, r: int, f: F) -> None:
     r"""Set interface."""
     seg_set(seg_op_s, seg_op_f, seg_e_f, seg_map, seg, lazy, l, r, f)
 
@@ -356,9 +355,7 @@ def get_seg(seg: np.ndarray, lazy: np.ndarray, l: int, r: int) -> S:
 
 
 @nb.njit
-def update_point_seg(
-    seg: np.ndarray, lazy: np.ndarray, i: int, x: S
-) -> None:
+def update_point_seg(seg: np.ndarray, lazy: np.ndarray, i: int, x: S) -> None:
     r"""Update interface."""
     seg_update(seg_op_s, seg_op_f, seg_e_f, seg_map, seg, lazy, i, x)
 

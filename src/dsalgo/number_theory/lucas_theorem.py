@@ -1,5 +1,3 @@
-
-
 def lucas_theorem(p: int, n: int, k: int) -> int:
     r"""Lucas's Theorem.
     references

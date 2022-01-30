@@ -2,6 +2,7 @@ import typing
 
 import numba as nb
 import numpy as np
+
 from dsalgo.numba.graph_theory.tree.segment_tree import F, S
 
 

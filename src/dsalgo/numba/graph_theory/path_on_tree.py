@@ -1,5 +1,6 @@
 import numba as nb
 import numpy as np
+
 from dsalgo.numba.graph_theory.euler_tour import euler_tour_edge
 
 

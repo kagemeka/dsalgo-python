@@ -1,10 +1,7 @@
 import numba as nb
 import numpy as np
-from dsalgo.numba.algebra.modular import (
-    cumprod,
-    factorial,
-    factorial_inverse,
-)
+
+from dsalgo.numba.algebra.modular import cumprod, factorial, factorial_inverse
 
 
 @nb.njit

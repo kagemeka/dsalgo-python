@@ -4,7 +4,9 @@ import abc
 import typing
 from socket import if_nameindex
 
-from dsalgo.algebra.modular.invert import invert_fermat
+from dsalgo.algebra.modular.multiplicative_inverse.fermat_little_theorem import (
+    invert_fermat,
+)
 
 
 # class ModularElement(typing.Protocol):
