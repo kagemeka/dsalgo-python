@@ -46,6 +46,10 @@ def miller_rabin_test(n: int, check_times: int = 20) -> bool:
 
     Returns:
         bool: True if n is a pseudo prime else False.
+
+    References:
+    - https://en.wikipedia.org/wiki/Miller%E2%80%93Rabin_primality_test
+    - https://ja.wikipedia.org/wiki/%E3%83%9F%E3%83%A9%E3%83%BC%E2%80%93%E3%83%A9%E3%83%93%E3%83%B3%E7%B4%A0%E6%95%B0%E5%88%A4%E5%AE%9A%E6%B3%95
     """
     assert n >= 1
     if n == 1:

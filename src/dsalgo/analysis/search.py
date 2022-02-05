@@ -21,7 +21,7 @@ def find_root_newton(
     tol: float = 1e-8,
 ):
     def f(x):
-        return x ** n - y
+        return x**n - y
 
     return newton_(f, x0, tol)
 

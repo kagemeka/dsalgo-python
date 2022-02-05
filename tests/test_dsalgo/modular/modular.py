@@ -7,7 +7,7 @@ from kgmk.dsa.algebra.modular.mod_factory import ModFactory
 
 
 def test():
-    mod = 10 ** 9 + 7
+    mod = 10**9 + 7
     Mint = ModFactory()(mod)
     # mint = ModFactory(mod)
     a = Mint(-1)
@@ -26,7 +26,7 @@ def test():
     e += 1
     print(e, d)
     print(Mint(2) ** -1)
-    print(2 ** b)
+    print(2**b)
 
     fn = ModFactorial(mod)
     # fact = fn(1 << 20)

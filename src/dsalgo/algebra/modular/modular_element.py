@@ -88,7 +88,7 @@ class ModularElement(abc.ABC):
         return self.__class__(pow(self.value, n, self.mod))
 
     def __ipow__(self, n: int) -> ModularElement:
-        return self ** n
+        return self**n
 
     def __eq__(self, rhs: object) -> bool:
         if not isinstance(rhs, ModularElement):

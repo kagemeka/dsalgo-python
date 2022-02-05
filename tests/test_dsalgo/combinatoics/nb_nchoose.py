@@ -2,7 +2,7 @@ from kgmk.dsa.combinatorics.nchoose.jit import nchoose
 
 
 def test():
-    mod = 10 ** 9 + 7
+    mod = 10**9 + 7
     n = 1 << 30
     r = 1 << 20
     c = nchoose(n, r, mod)

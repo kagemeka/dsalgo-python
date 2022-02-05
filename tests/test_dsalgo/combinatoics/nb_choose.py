@@ -17,7 +17,7 @@ def choose(
 
 def test():
     global mod
-    mod = 10 ** 9 + 7
+    mod = 10**9 + 7
     n = 1 << 20
     global fact, ifact
     fact = factorial(n, mod)

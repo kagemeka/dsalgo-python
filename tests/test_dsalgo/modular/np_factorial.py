@@ -3,7 +3,7 @@ from kgmk.dsa.algebra.modular.factorial.np import ModFactorial
 
 
 def test():
-    mod = 10 ** 9 + 7
+    mod = 10**9 + 7
     np.dot(1, 1)
     fn = ModFactorial(mod)
     a = fn(1 << 22)

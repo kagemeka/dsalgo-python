@@ -3,7 +3,7 @@ from kgmk.dsa.algebra.modular.matrix.jit import matpow, mdot
 
 
 def test():
-    mod = 10 ** 9 + 7
+    mod = 10**9 + 7
     a = np.arange(
         1,
         10001,

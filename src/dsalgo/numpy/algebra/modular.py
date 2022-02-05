@@ -8,7 +8,7 @@ def cumprod_np(a: np.ndarray, mod: int) -> np.ndarray:
     """
     n = a.size
     assert a.ndim == 1
-    m = int(n ** 0.5) + 1
+    m = int(n**0.5) + 1
     a = np.resize(a, (m, m))
     for i in range(m - 1):
         a[:, i + 1] = a[:, i + 1] * a[:, i] % mod
