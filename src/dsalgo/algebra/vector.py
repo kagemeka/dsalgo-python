@@ -68,7 +68,7 @@ class Vector(abc.ABC):
 
     @property
     def norm(self):
-        s = sum(x ** 2 for x in self.asdict().values())
+        s = sum(x**2 for x in self.asdict().values())
         return math.sqrt(s)
 
     @classmethod

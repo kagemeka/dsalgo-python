@@ -3,7 +3,7 @@ from kgmk.dsa.algebra.modular.matrix.np import ModMatrix
 
 
 def test():
-    mod = 10 ** 9 + 7
+    mod = 10**9 + 7
     a = np.arange(1, 10).reshape(3, 3)
     print(a.dtype)
     fn = ModMatrix(mod)

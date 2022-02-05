@@ -29,7 +29,7 @@ def mod_nHk(
 
 # nonlocal
 def __solve():
-    mod = 10 ** 9 + 7
+    mod = 10**9 + 7
     n = 100
     fact = factorial(mod, n)
     ifact = factorial_inverse(mod, n)

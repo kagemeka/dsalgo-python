@@ -2,7 +2,7 @@ from kgmk.dsa.combinatorics.nchoose import NChoose
 
 
 def test():
-    mod = 10 ** 9 + 7
+    mod = 10**9 + 7
     n = 1 << 30
     r = 1 << 20
     c = NChoose(n, r, mod)

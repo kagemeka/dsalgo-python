@@ -152,7 +152,7 @@ def repeated_combinations_bfs(n: int, k: int) -> np.ndarray:
 
 @nb.njit((nb.i8, nb.i8))
 def repeated_permutations_bfs(n: int, k: int) -> np.ndarray:
-    res = np.empty((n ** k, k), np.int64)
+    res = np.empty((n**k, k), np.int64)
     idx_to_add = 0
 
     def add_result(a):
@@ -174,7 +174,7 @@ def repeated_permutations_bfs(n: int, k: int) -> np.ndarray:
 
 @nb.njit((nb.i8, nb.i8))
 def repeated_permutations_dfs(n: int, k: int) -> np.ndarray:
-    res = np.empty((n ** k, k), np.int64)
+    res = np.empty((n**k, k), np.int64)
     idx_to_add = 0
 
     def add_result(a):
