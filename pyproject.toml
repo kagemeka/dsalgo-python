@@ -56,10 +56,10 @@ target-version = ['py38', 'py39']
 
 [tool.flake8]
 count = 'true' # have not adaped to boolean value yet.
-exclude = "src/dsalgo/numba" 
-ignore = 'E203' 
-show-source = 'true' 
-statistics = 'true' 
+exclude = "src/dsalgo/numba"
+ignore = 'E203'
+show-source = 'true'
+statistics = 'true'
 
 [tool.isort]
 # all config files -> https://pycqa.github.io/isort/docs/configuration/config_files.html
@@ -78,7 +78,7 @@ disallow_any_unimported = false
 disallow_incomplete_defs = true
 disallow_subclassing_any = true
 disallow_untyped_calls = false
-disallow_untyped_decorators = true
+disallow_untyped_decorators = false
 disallow_untyped_defs = true
 error_summary = true
 ignore_missing_imports = true

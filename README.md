@@ -35,7 +35,7 @@ DsAlgo is now still alpha version and being developed actively (1-22-2022).
 - [poetry](https://python-poetry.org/)
 - [pre-commit](https://pre-commit.com/)
 
-### Linter 
+### Linter
 - [flake8](https://flake8.pycqa.org/en/latest/index.html)
 - [mypy](http://mypy-lang.org/)
 - [pydocstyle](http://www.pydocstyle.org/en/stable/)

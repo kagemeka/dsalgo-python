@@ -1,5 +1,5 @@
 """TODO
-- disjoint sparse table 
+- disjoint sparse table
 - 2d sparse table
 """
 

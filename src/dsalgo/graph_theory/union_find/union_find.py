@@ -4,6 +4,8 @@ import typing
 class UnionFind:
     """UnionFind DataStructure."""
 
+    __data: typing.List[int]
+
     def __init__(self, size: int) -> None:
         """Initialize with size.
 
@@ -62,7 +64,7 @@ class UnionFind:
             node (int): an arbitrary node.
 
         Returns:
-            int: [description]
+            int: size of the component containing the given node.
         """
         assert 0 <= node < len(self)
         return -self.__data[self.find_root(node)]
