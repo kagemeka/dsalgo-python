@@ -56,10 +56,10 @@ target-version = ['py38', 'py39']
 
 [tool.flake8]
 count = 'true' # have not adaped to boolean value yet.
-exclude = "src/dsalgo/numba" 
-ignore = 'E203' 
-show-source = 'true' 
-statistics = 'true' 
+exclude = "src/dsalgo/numba"
+ignore = 'E203'
+show-source = 'true'
+statistics = 'true'
 
 [tool.isort]
 # all config files -> https://pycqa.github.io/isort/docs/configuration/config_files.html
