@@ -1,0 +1,11 @@
+"""
+Container
+"""
+
+# st = PivotTreeArraySet(5)
+# st.insert(1)
+# st.remove(2)
+# print(len(st))
+# print(st.max(), st.min())
+# st.remove(1)
+# print(len(st))
