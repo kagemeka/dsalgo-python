@@ -4,11 +4,11 @@ accumulate
 
 import typing
 
-T = typing.TypeVar("T")
+from dsalgo.type import T
 
 
 def accumulate(
-    e: T,
+    identity_element: T,
 ) -> typing.Callable[
     [typing.Callable[[T, T], T]],
     typing.Callable[[typing.Iterable[T]], T],
@@ -18,8 +18,8 @@ def accumulate(
     ) -> typing.Callable[[typing.Iterable[T]], T]:
         import functools
 
-        def wrapped(a: typing.Iterable[T]) -> T:
-            return functools.reduce(op, a, e)
+        def wrapped(arr: typing.Iterable[T]) -> T:
+            return functools.reduce(op, arr, identity_element)
 
         return wrapped
 

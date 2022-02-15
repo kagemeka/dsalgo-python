@@ -21,3 +21,35 @@ def counting_sort_index(arr: list[int]) -> list[int]:
 
 def counting_sort(arr: list[int]) -> list[int]:
     return [arr[i] for i in counting_sort_index(arr)]
+
+
+def bucket_sort(arr: list[int]) -> list[int]:
+    ...
+
+
+def bubble_sort(arr: list[int]) -> list[int]:
+    ...
+
+
+def cocktail_shaker_sort(arr: list[int]) -> list[int]:
+    ...
+
+
+def insertion_sort(arr: list[int]) -> list[int]:
+    ...
+
+
+def heap_sort(arr: list[int]) -> list[int]:
+    ...
+
+
+def quick_sort(arr: list[int]) -> list[int]:
+    ...
+
+
+def radix_sort(arr: list[int]) -> list[int]:
+    ...
+
+
+def merge_sort(arr: list[int]) -> list[int]:
+    ...

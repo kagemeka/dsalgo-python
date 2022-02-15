@@ -1,6 +1,6 @@
 import unittest
 
-from dsalgo.counting_sort import counting_sort, counting_sort_index
+from dsalgo.sort import counting_sort, counting_sort_index
 
 
 class Test(unittest.TestCase):
