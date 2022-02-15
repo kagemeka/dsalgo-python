@@ -10,11 +10,11 @@ class FenwickTreeIntAdd:
             N: length of original array.
     """
 
-    def __init__(self, arr: typing.List[int]) -> None:
+    def __init__(self, arr: list[int]) -> None:
         """Initialize.
 
         Args:
-            arr (typing.List[int]): original array.
+            arr (list[int]): original array.
 
         Complexity:
             time: O(N)

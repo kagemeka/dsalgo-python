@@ -5,16 +5,16 @@ import typing
 
 
 def verbal_arithmetic(
-    words: typing.List[typing.List[int]],
-    result: typing.List[int],
+    words: list[list[int]],
+    result: list[int],
     lo: int = 0,
     hi: int = 10,  # digit := [lo, hi),
     leading_zero: bool = True,
-) -> typing.List[typing.Dict[int, int]]:
+) -> list[typing.Dict[int, int]]:
     r"""Solve verbal arthmetic."""
     words = words.copy()
     words.append(result)
-    letters: typing.List[int] = sorted(
+    letters: list[int] = sorted(
         functools.reduce(
             operator.or_,
             map(lambda w: set(w), words),
@@ -30,7 +30,7 @@ def verbal_arithmetic(
     n, m = len(words), max(map(len, words))
     values = [-1] * (hi - lo)
     digits = [-1] * len(letters)
-    patterns: typing.List[typing.Dict[int, int]] = []
+    patterns: list[typing.Dict[int, int]] = []
 
     def search(row: int, column: int, sum_column: int) -> None:
         if column >= m:
@@ -74,9 +74,9 @@ def verbal_arithmetic(
 
 
 def to_int(
-    words: typing.List[str],
+    words: list[str],
     result: str,
-) -> typing.Tuple[typing.List[typing.List[int]], typing.List[int]]:
+) -> typing.Tuple[list[list[int]], list[int]]:
     return (
         [list(map(ord, word)) for word in words],
         list(map(ord, result)),
@@ -88,11 +88,11 @@ def to_str(answer: typing.Dict[int, int]) -> typing.Dict[str, int]:
 
 
 def verbal_arithmetic_from_str(
-    words: typing.List[str],
+    words: list[str],
     result: str,
     lo: int = 0,
     hi: int = 10,
     leading_zero: bool = True,
-) -> typing.List[typing.Dict[str, int]]:
+) -> list[typing.Dict[str, int]]:
     answer = verbal_arithmetic(*to_int(words, result), lo, hi, leading_zero)
     return list(map(to_str, answer))

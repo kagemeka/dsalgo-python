@@ -1,4 +1,9 @@
+from __future__ import annotations
+
 import typing
+
+from dsalgo.type import T
+
 
 Exportable = typing.Union[typing.Callable, typing.Type]
 
@@ -15,3 +20,8 @@ def export_module(obj: Exportable) -> Exportable:
     else:
         module.__all__ = [obj.__name__]
     return obj
+
+
+def unwrap(item: T | None) -> T:
+    assert item is not None
+    return item

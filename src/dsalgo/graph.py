@@ -14,8 +14,8 @@ class Edge(typing.Generic[T]):
 
 @dataclasses.dataclass
 class Graph(typing.Generic[T, U]):
-    nodes: typing.List[typing.Optional[T]]
-    edges: typing.List[typing.List[Edge[U]]]
+    nodes: list[typing.Optional[T]]
+    edges: list[list[Edge[U]]]
 
 
 def add_edge(graph: Graph[T, U], edge: Edge[U]) -> None:
@@ -31,8 +31,8 @@ def create_graph(n: int) -> Graph[T, U]:
 
 @dataclasses.dataclass
 class UndirectedGraph(typing.Generic[T, U]):
-    nodes: typing.List[typing.Optional[T]]
-    edges: typing.List[Edge[U]]
+    nodes: list[typing.Optional[T]]
+    edges: list[Edge[U]]
 
 
 def create_undirected_graph(n: int) -> UndirectedGraph[T, U]:
@@ -54,8 +54,8 @@ def to_directed(
 
 @dataclasses.dataclass
 class DenseGraph(typing.Generic[T, U]):
-    nodes: typing.List[typing.Optional[T]]
-    edge_datas: typing.List[typing.List[typing.Optional[U]]]
+    nodes: list[typing.Optional[T]]
+    edge_datas: list[list[typing.Optional[U]]]
 
 
 def create_dense_graph(n: int) -> DenseGraph[T, U]:

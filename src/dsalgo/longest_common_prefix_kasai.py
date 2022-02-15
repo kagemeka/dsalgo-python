@@ -2,17 +2,17 @@ import typing
 
 
 def lcp_array_kasai(
-    arr: typing.List[int],
-    suffix_array: typing.List[int],
-) -> typing.List[int]:
+    arr: list[int],
+    suffix_array: list[int],
+) -> list[int]:
     """Longest Common Prefix Array Kasai's Algorithm.
 
     Args:
-        arr (typing.List[int]): original array.
-        suffix_array (typing.List[int]): suffix_array of the original array.
+        arr (list[int]): original array.
+        suffix_array (list[int]): suffix_array of the original array.
 
     Returns:
-        typing.List[int]: longest common prefix array.
+        list[int]: longest common prefix array.
 
     Complexity:
         time: O(N)

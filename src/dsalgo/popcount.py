@@ -65,14 +65,14 @@ def popcount_cached(n: int) -> int:
     return popcount_cached(n >> 1) + (n & 1)
 
 
-def popcount_table(n: int) -> typing.List[int]:
+def popcount_table(n: int) -> list[int]:
     """Popcount table.
 
     Args:
         n (int): an unsigned integer.
 
     Returns:
-        typing.List[int]: popcount table.
+        list[int]: popcount table.
 
     Complexity:
         time: O(N)

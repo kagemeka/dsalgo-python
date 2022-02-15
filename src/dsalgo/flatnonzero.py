@@ -5,5 +5,5 @@ Discrete
 import typing
 
 
-def flatnonzero(arr: typing.List[bool]) -> typing.List[int]:
+def flatnonzero(arr: list[bool]) -> list[int]:
     return [i for i, x in enumerate(arr) if x]

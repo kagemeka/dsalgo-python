@@ -7,11 +7,11 @@ import typing
 
 
 def tree_bfs(
-    tree_edges: typing.List[typing.Tuple[int, int]],
+    tree_edges: list[typing.Tuple[int, int]],
     root: int,
-) -> typing.Tuple[typing.List[int], typing.List[int]]:
+) -> typing.Tuple[list[int], list[int]]:
     n = len(tree_edges) + 1
-    graph: typing.List[typing.List[int]] = [[] for _ in range(n)]
+    graph: list[list[int]] = [[] for _ in range(n)]
     for u, v in tree_edges:
         graph[u].append(v)
         graph[v].append(u)

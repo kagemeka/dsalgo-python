@@ -8,14 +8,14 @@ Tag
 import typing
 
 
-def find_divisors(n: int) -> typing.List[int]:
+def find_divisors(n: int) -> list[int]:
     r"""Find Divisors of n.
 
     Args:
         n (int): target.
 
     Returns:
-        typing.List[int]: divisors in asending order.
+        list[int]: divisors in asending order.
 
     Complexity:
         time: O(\sqrt{N} + C\log{C})

@@ -2,7 +2,7 @@ import typing
 
 
 class FenwickTree:
-    def __init__(self, arr: typing.List[int]) -> None:
+    def __init__(self, arr: list[int]) -> None:
         n = len(arr)
         data = [0] * (n + 1)
         data[1:] = arr.copy()

@@ -26,7 +26,7 @@ class DinamicArrayQueue(typing.Generic[T]):
 
     def __init__(self) -> None:
         """Initialize."""
-        self.__arr: typing.List[T] = []
+        self.__arr: list[T] = []
         self.__i = 0
 
     def append(self, v: T) -> None:

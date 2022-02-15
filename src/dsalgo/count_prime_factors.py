@@ -11,7 +11,7 @@ from dsalgo.number_theory.prime_number.finding.find_prime_numbers import (
 )
 
 
-def count_prime_factors(max_value: int) -> typing.List[int]:
+def count_prime_factors(max_value: int) -> list[int]:
     count = [0] * max_value
     for p in find_prime_numbers(max_value):
         for i in range(p, max_value, p):

@@ -8,13 +8,13 @@ S = typing.TypeVar("S")
 
 def disjoint_sparse_table(
     semigroup: Semigroup[S],
-    arr: typing.List[S],
+    arr: list[S],
 ) -> typing.Callable[[int, int], S]:
     """Disjoint Sparse Table.
 
     Args:
         semigroup (Semigroup[S]): semigroup.
-        arr (typing.List[S]): original array.
+        arr (list[S]): original array.
 
     Returns:
         typing.Callable[[int, int], S]: function to get product [left, right).

@@ -7,7 +7,7 @@ S = typing.TypeVar("S")
 
 
 class SqrtDecomposition(typing.Generic[S]):
-    def __init__(self, monoid: Monoid[S], arr: typing.List[S]) -> None:
+    def __init__(self, monoid: Monoid[S], arr: list[S]) -> None:
         n = len(arr)
         sqrt = floor_sqrt(n)
         num_buckets = (n + sqrt - 1) // sqrt

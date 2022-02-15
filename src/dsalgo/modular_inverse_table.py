@@ -7,11 +7,11 @@ Tag
 import typing
 
 
-def inverse_table_naive(p: int, n: int) -> typing.List[int]:
+def inverse_table_naive(p: int, n: int) -> list[int]:
     ...
 
 
-def inverse_table(p: int, n: int) -> typing.List[int]:
+def inverse_table(p: int, n: int) -> list[int]:
     """Modular Inverse table.
 
     Args:
@@ -19,7 +19,7 @@ def inverse_table(p: int, n: int) -> typing.List[int]:
         mod (int): [description]
 
     Returns:
-        typing.List[int]: [description]
+        list[int]: [description]
     """
     b, a = factorial(n, mod), factorial_inverse(n, mod)
     for i in range(n - 1):

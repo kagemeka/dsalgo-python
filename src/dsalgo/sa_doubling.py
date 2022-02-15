@@ -1,9 +1,10 @@
 import typing
 
-from dsalgo.descrete.compress_array import compress_array
+# from dsalgo.descrete.compress_array import compress_array
+from dsalgo.compress_array import compress_array
 
 
-def suffix_array_doubling(arr: typing.List[int]) -> typing.List[int]:
+def suffix_array_doubling(arr: list[int]) -> list[int]:
     n = len(arr)
     (rank, _), k = compress_array(arr), 1
     while True:

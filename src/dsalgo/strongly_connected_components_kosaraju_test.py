@@ -8,7 +8,7 @@ from dsalgo.graph_theory.components.strongly_connected_components.strongly_conne
 
 class Test(unittest.TestCase):
     def test(self) -> None:
-        graph: typing.List[typing.List[int]] = [[1, 3], [2], [3], []]
+        graph: list[list[int]] = [[1, 3], [2], [3], []]
         labels = scc_kosaraju(graph)
         self.assertEqual(
             labels,

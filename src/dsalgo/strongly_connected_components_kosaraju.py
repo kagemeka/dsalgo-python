@@ -2,20 +2,20 @@ import typing
 
 
 def transpose_graph(
-    graph: typing.List[typing.List[int]],
-) -> typing.List[typing.List[int]]:
+    graph: list[list[int]],
+) -> list[list[int]]:
     n = len(graph)
-    new_graph: typing.List[typing.List[int]] = [[] for _ in range(n)]
+    new_graph: list[list[int]] = [[] for _ in range(n)]
     for u in range(n):
         for v in graph[u]:
             new_graph[v].append(u)
     return new_graph
 
 
-def scc_kosaraju(graph: typing.List[typing.List[int]]) -> typing.List[int]:
+def scc_kosaraju(graph: list[list[int]]) -> list[int]:
     n = len(graph)
     visited = [False] * n
-    que: typing.List[int] = []
+    que: list[int] = []
     t_graph = transpose_graph(graph)
     labels = [-1] * n
     label = 0

@@ -8,11 +8,11 @@ from dsalgo.graph_theory.tree.fenwick_tree.fenwick_tree_int_add import (
 class DualFenwickTreeIntAdd:
     """DualFenwickTreeIntAdd."""
 
-    def __init__(self, arr: typing.List[int]) -> None:
+    def __init__(self, arr: list[int]) -> None:
         """Initialize.
 
         Args:
-            arr (typing.List[int]): initial array.
+            arr (list[int]): initial array.
         """
         n = len(arr)
         assert n > 0

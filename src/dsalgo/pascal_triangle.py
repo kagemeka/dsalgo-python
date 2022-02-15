@@ -13,7 +13,7 @@ def pascal_triangle(
     monoid: Monoid[T],
     default: typing.Callable[[], T],
     size: int,
-) -> typing.List[typing.List[T]]:
+) -> list[list[T]]:
     """Pascal's Triangle.
 
     Args:
@@ -22,7 +22,7 @@ def pascal_triangle(
         size (int): [description]: size of triangle.
 
     Returns:
-        typing.List[typing.List[T]]: pascal's triangle.
+        list[list[T]]: pascal's triangle.
     """
     p = [[monoid.e() for _ in range(size)] for _ in range(size)]
     for i in range(size):

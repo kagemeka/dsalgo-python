@@ -10,7 +10,7 @@ T = typing.TypeVar("T")
 def longest_common_subsequence(
     a: typing.Sequence[T],
     b: typing.Sequence[T],
-) -> typing.List[T]:
+) -> list[T]:
     """Longest Common Subsequence.
 
     Args:

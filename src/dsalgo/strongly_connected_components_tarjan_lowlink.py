@@ -2,10 +2,10 @@ import typing
 
 
 def scc_tarjan_lowlink(
-    graph: typing.List[typing.List[int]],
-) -> typing.List[int]:
+    graph: list[list[int]],
+) -> list[int]:
     n = len(graph)
-    stack: typing.List[int] = []
+    stack: list[int] = []
     on_stack = [False] * n
     order = [-1] * n
     lowlink = [-1] * n

@@ -8,7 +8,7 @@ S = typing.TypeVar("S")
 
 def sparse_table(
     semigroup: Semigroup[S],
-    arr: typing.List[S],
+    arr: list[S],
 ) -> typing.Callable[[int, int], S]:
     """Sparse Table.
 
@@ -16,7 +16,7 @@ def sparse_table(
         semigroup (Semigroup[S]):
             semigroup.
             operation must be idepotent.
-        arr (typing.List[S]): original array.
+        arr (list[S]): original array.
 
     Returns:
         typing.Callable[[int, int], S]: function to get product [left, right).

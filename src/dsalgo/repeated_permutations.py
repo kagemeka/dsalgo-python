@@ -9,7 +9,7 @@ def repeated_permutations_dfs(
     n: int,
     repeat: int,
 ) -> typing.Iterator[typing.Tuple[int, ...]]:
-    p: typing.List[int] = [n] * repeat
+    p: list[int] = [n] * repeat
 
     def dfs(fixed_count: int) -> typing.Iterator[typing.Tuple[int, ...]]:
         nonlocal p

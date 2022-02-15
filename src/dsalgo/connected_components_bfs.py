@@ -3,9 +3,9 @@ import typing
 
 def connected_components_bfs(
     n: int,
-    edges: typing.List[typing.Tuple[int, int]],
-) -> typing.List[int]:
-    graph: typing.List[typing.List[int]] = [[] for _ in range(n)]
+    edges: list[typing.Tuple[int, int]],
+) -> list[int]:
+    graph: list[list[int]] = [[] for _ in range(n)]
     for u, v in edges:
         graph[u].append(v)
         graph[v].append(u)

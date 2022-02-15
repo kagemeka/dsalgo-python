@@ -1,14 +1,14 @@
 import typing
 
 
-def sa_is_recurse(arr: typing.List[int]) -> typing.List[int]:
+def sa_is_recurse(arr: list[int]) -> list[int]:
     r"""SA-IS(Suffix Array with Induced Sort) Algorithm.
 
     Args:
-        arr (typing.List[int]): original array.
+        arr (list[int]): original array.
 
     Returns:
-        typing.List[int]: suffix array.
+        list[int]: suffix array.
 
     Complexity:
         time: O(N + M)
@@ -34,7 +34,7 @@ def sa_is_recurse(arr: typing.List[int]) -> typing.List[int]:
     for x in arr:
         bucket[x] += 1
 
-    def induce(lms: typing.List[int]) -> typing.List[int]:
+    def induce(lms: list[int]) -> list[int]:
         nonlocal n, arr, m, bucket, is_s
         sa = [-1] * n
         sa_idx = bucket.copy()

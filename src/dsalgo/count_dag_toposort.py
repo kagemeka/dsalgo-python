@@ -7,13 +7,13 @@ import typing
 
 
 def count_topological_sort(
-    graph: typing.List[typing.List[int]],
+    graph: list[list[int]],
     mod: typing.Optional[int] = None,
 ) -> int:
     """Count of Topological Sorting.
 
     Args:
-        graph (typing.List[typing.List[int]]): DAG.
+        graph (list[list[int]]): DAG.
         mod (typing.Optional[int], optional): Modulo. Defaults to None.
 
     Returns:

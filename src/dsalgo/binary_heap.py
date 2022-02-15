@@ -6,7 +6,7 @@ T = typing.TypeVar("T", bound=Order)
 
 
 class BinaryMinHeap(typing.Generic[T]):
-    __data: typing.List[T]
+    __data: list[T]
 
     def __init__(self) -> None:
         self.__data = []

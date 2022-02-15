@@ -9,7 +9,7 @@ S = typing.TypeVar("S")
 
 
 class FenwickTreePointSetRangeGet(typing.Generic[S]):
-    def __init__(self, group: Group[S], arr: typing.List[S]) -> None:
+    def __init__(self, group: Group[S], arr: list[S]) -> None:
         self.__fw = FenwickTreeAbelianGroup(group, arr)
 
     def __setitem__(self, i: int, x: S) -> None:

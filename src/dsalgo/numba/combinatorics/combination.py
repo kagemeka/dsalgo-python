@@ -22,7 +22,7 @@ def next_combination(s: int) -> int:
 @nb.njit
 def combinations(n: int, r: int) -> np.ndarray:
     a = np.arange(n)
-    ls: typing.List[typing.List[int]] = []
+    ls: list[list[int]] = []
     if r < 0 or r > n:
         return np.array(ls)
     rng = np.arange(r)[::-1]
@@ -45,7 +45,7 @@ def combinations(n: int, r: int) -> np.ndarray:
 
 @nb.jit
 def combinations_with_next_comb(n: int, r: int) -> np.ndarray:
-    ls: typing.List[typing.List[int]] = []
+    ls: list[list[int]] = []
     if r < 0 or r > n:
         return np.array(ls)
     lim = 1 << n

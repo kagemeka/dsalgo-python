@@ -8,7 +8,7 @@ from dsalgo.graph_theory.tree.binary_heap.binary_heap import BinaryMinHeap
 class Test(unittest.TestCase):
     def test(self) -> None:
         hq = BinaryMinHeap[int]()
-        hq_std: typing.List[int] = []
+        hq_std: list[int] = []
         for i in range(10, -1, -1):
             hq.push(i)
             heapq.heappush(hq_std, i)

@@ -5,15 +5,15 @@ import typing
 
 
 def compress_array(
-    arr: typing.List[int],
-) -> typing.Tuple[typing.List[int], typing.List[int]]:
+    arr: list[int],
+) -> typing.Tuple[list[int], list[int]]:
     r"""Compress Array.
 
     Args:
-        arr (typing.List[int]): array to compress.
+        arr (list[int]): array to compress.
 
     Returns:
-        typing.Tuple[typing.List[int], typing.List[int]]:
+        typing.Tuple[list[int], list[int]]:
             first: compressed array.
             second: array to retrieve original value.
 

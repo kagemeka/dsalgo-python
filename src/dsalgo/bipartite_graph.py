@@ -6,7 +6,7 @@ Graph Theory
 import typing
 
 
-def is_bipartite(graph: typing.List[typing.List[int]]) -> bool:
+def is_bipartite(graph: list[list[int]]) -> bool:
     n = len(graph)
     assert n >= 1
     label = [-1] * n
@@ -24,7 +24,7 @@ def is_bipartite(graph: typing.List[typing.List[int]]) -> bool:
     return True
 
 
-def label_bipartite(g: typing.List[typing.List[int]]) -> typing.List[int]:
+def label_bipartite(g: list[list[int]]) -> list[int]:
     assert is_bipartite(g)
     n = len(g)
     label = [-1] * n

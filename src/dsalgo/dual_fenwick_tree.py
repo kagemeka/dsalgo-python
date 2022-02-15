@@ -20,12 +20,12 @@ class DualFenwickTree(typing.Generic[S]):
         0
     """
 
-    def __init__(self, group: Group[S], arr: typing.List[S]) -> None:
+    def __init__(self, group: Group[S], arr: list[S]) -> None:
         """Initialize.
 
         Args:
             group (Group[S]): Abelian Group.
-            arr (typing.List[S]): initial array.
+            arr (list[S]): initial array.
         """
         n = len(arr)
         assert n > 0

@@ -13,14 +13,12 @@ F = typing.TypeVar("F")
 
 # monoid operation must be commutative.
 def tree_dp_for_all_roots(
-    edges: typing.List[typing.Tuple[int, int, F]],
+    edges: list[typing.Tuple[int, int, F]],
     monoid: Monoid[S],
     map_: typing.Callable[[F, S], S],
-) -> typing.List[S]:
+) -> list[S]:
     n = len(edges) + 1
-    graph: typing.List[typing.List[typing.Tuple[int, F]]] = [
-        [] for _ in range(n)
-    ]
+    graph: list[list[typing.Tuple[int, F]]] = [[] for _ in range(n)]
     for u, v, f in edges:
         graph[u].append((v, f))
         graph[v].append((u, f))

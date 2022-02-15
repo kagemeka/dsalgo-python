@@ -8,7 +8,7 @@ S = typing.TypeVar("S")
 
 
 class SegmentTree(typing.Generic[S]):
-    def __init__(self, monoid: Monoid[S], arr: typing.List[S]) -> None:
+    def __init__(self, monoid: Monoid[S], arr: list[S]) -> None:
         size = len(arr)
         n = 1 << (size - 1).bit_length()
         data = [monoid.e() for _ in range(n << 1)]

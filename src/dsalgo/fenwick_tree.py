@@ -21,15 +21,15 @@ class FenwickTree(typing.Generic[S]):
         5
     """
 
-    def __init__(self, monoid: Monoid[S], arr: typing.List[S]) -> None:
+    def __init__(self, monoid: Monoid[S], arr: list[S]) -> None:
         """Init Fenwick Tree.
 
         Args:
             monoid (Monoid[S]): monoid is an abstruct data structure.
-            arr (typing.List[S]): initial array.
+            arr (list[S]): initial array.
         """
         n = len(arr)
-        data: typing.List[S] = [monoid.e() for _ in range(n + 1)]
+        data: list[S] = [monoid.e() for _ in range(n + 1)]
         data[1:] = arr.copy()
         for i in range(1, n + 1):
             j = i + (i & -i)

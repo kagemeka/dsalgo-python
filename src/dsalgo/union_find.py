@@ -8,7 +8,7 @@ import typing
 class UnionFind:
     """UnionFind DataStructure."""
 
-    __data: typing.List[int]
+    __data: list[int]
 
     def __init__(self, size: int) -> None:
         """Initialize with size.
@@ -74,14 +74,14 @@ class UnionFind:
         return -self.__data[self.find_root(node)]
 
 
-def get_labels(uf: UnionFind) -> typing.List[int]:
+def get_labels(uf: UnionFind) -> list[int]:
     """Get labels of nodes.
 
     Args:
         uf (UnionFind): an union find instance.
 
     Returns:
-        typing.List[int]: labels.
+        list[int]: labels.
     """
     n = len(uf)
     labels = [-1] * n

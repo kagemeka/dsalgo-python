@@ -9,12 +9,12 @@ S = typing.TypeVar("S")
 class FenwickTreeAbelianGroup(FenwickTree[S]):
     """FenwickTreeAbelianGroup."""
 
-    def __init__(self, group: Group[S], arr: typing.List[S]) -> None:
+    def __init__(self, group: Group[S], arr: list[S]) -> None:
         """Initialize.
 
         Args:
             group (Group[S]): Abelian Group.
-            arr (typing.List[S]): original array.
+            arr (list[S]): original array.
         """
         monoid = Monoid[S](group.op, group.e)
         super().__init__(monoid, arr)

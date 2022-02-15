@@ -5,7 +5,7 @@ T = typing.TypeVar("T")
 
 class Stack(typing.Generic[T]):
     def __init__(self) -> None:
-        self.__data: typing.List[T] = []
+        self.__data: list[T] = []
 
     def __len__(self) -> int:
         return len(self.__data)

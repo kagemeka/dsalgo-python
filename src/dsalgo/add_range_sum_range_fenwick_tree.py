@@ -31,7 +31,7 @@ class FenwickTreeRangeAddRangeSum:
     manage xr and -xl on fw_0, xi on fw_1.
     """
 
-    def __init__(self, arr: typing.List[int]) -> None:
+    def __init__(self, arr: list[int]) -> None:
         n = len(arr)
         self.__fw_0 = FenwickTreeIntAdd(arr)
         self.__fw_1 = FenwickTreeIntAdd([0] * n)

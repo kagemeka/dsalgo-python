@@ -13,7 +13,7 @@ class CircularBufferDeque(typing.Generic[T]):
     one of the ways to implement Double-Ended-Queue with Dynamic Array.
     """
 
-    __data: typing.List[typing.Optional[T]]
+    __data: list[typing.Optional[T]]
     __left: int
     __right: int
     __size: int

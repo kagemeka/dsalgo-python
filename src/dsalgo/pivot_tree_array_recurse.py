@@ -10,8 +10,8 @@ def _right_pivot(pivot: int) -> int:
 
 
 class PivotTreeArray:
-    __data: typing.List[typing.Optional[int]]
-    __size: typing.List[int]
+    __data: list[typing.Optional[int]]
+    __size: list[int]
     __max_height: int
 
     def __init__(self, max_height: int) -> None:

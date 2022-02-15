@@ -6,8 +6,8 @@ import typing
 
 
 def next_permutation(
-    arr: typing.List[int],
-) -> typing.Optional[typing.List[int]]:
+    arr: list[int],
+) -> typing.Optional[list[int]]:
     n, arr = len(arr), arr.copy()
     last_asc_idx = n
     for i in range(n - 2, -1, -1):

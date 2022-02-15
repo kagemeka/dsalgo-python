@@ -7,13 +7,13 @@ import typing
 
 def base_convert_to_ten(
     base: int,
-    digits: typing.List[int],
+    digits: list[int],
 ) -> int:
     """Convert digits to base ten integer.
 
     Args:
         base (int): original base.
-        digits (typing.List[int]): digits.
+        digits (list[int]): digits.
 
     Returns:
         int: base ten integer.
@@ -36,7 +36,7 @@ def base_convert_to_ten(
 def base_convert_from_ten(
     base: int,
     n: int,
-) -> typing.List[int]:
+) -> list[int]:
     """Convert base ten integer to arbitral base digits.
 
     Args:
@@ -44,7 +44,7 @@ def base_convert_from_ten(
         n (int): base ten integer.
 
     Returns:
-        typing.List[int]: result digits.
+        list[int]: result digits.
 
     Examples:
         >>> base_convert_from_ten(-2, 10)
@@ -66,17 +66,17 @@ def base_convert_from_ten(
 def base_convert(
     b0: int,
     b1: int,
-    digits: typing.List[int],
-) -> typing.List[int]:
+    digits: list[int],
+) -> list[int]:
     """Convert digits base from b0 to b1.
 
     Args:
         b0 (int): original base.
         b1 (int): target base.
-        digits (typing.List[int]): original digits.
+        digits (list[int]): original digits.
 
     Returns:
-        typing.List[int]: target digits.
+        list[int]: target digits.
     """
     return base_convert_from_ten(
         b1,

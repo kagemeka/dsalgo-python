@@ -13,10 +13,10 @@ from dsalgo.number_theory.prime_number.finding.least_prime_factor import (
 
 def prime_factorize_lpf(
     max_value: int,
-) -> typing.Callable[[int], typing.List[typing.Tuple[int, int]]]:
+) -> typing.Callable[[int], list[typing.Tuple[int, int]]]:
     lpf = least_prime_factor(max_value)
 
-    def prime_factorize(n: int) -> typing.List[typing.Tuple[int, int]]:
+    def prime_factorize(n: int) -> list[typing.Tuple[int, int]]:
         primes = [0]
         counts = [0]
         while n > 1:

@@ -29,7 +29,7 @@ TEST_DATA = [
 
 
 @pytest.mark.parametrize(("word", "suffix_array"), TEST_DATA_STRING)
-def test(word: str, suffix_array: typing.List[int]) -> None:
+def test(word: str, suffix_array: list[int]) -> None:
     arr = [ord(c) for c in word]
     assert sa_is_recurse(arr) == suffix_array
 

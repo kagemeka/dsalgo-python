@@ -55,7 +55,7 @@ def permutations_dfs(
 
 
 def permutations_next_perm(n: int) -> typing.Iterator[typing.Tuple[int, ...]]:
-    arr: typing.Optional[typing.List[int]] = list(range(n))
+    arr: typing.Optional[list[int]] = list(range(n))
     while arr is not None:
         yield tuple(arr)
         arr = next_permutation(arr)

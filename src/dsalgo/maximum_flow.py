@@ -10,7 +10,7 @@ from dsalgo.constant import INT_INF
 
 # O(EV^2)
 def maxflow_dinic(
-    capacity_graph: typing.List[typing.List[typing.Tuple[int, int]]],
+    capacity_graph: list[list[typing.Tuple[int, int]]],
     src: int,
     sink: int,
 ) -> int:
@@ -20,7 +20,7 @@ def maxflow_dinic(
         for v, capacity in capacity_graph[u]:
             residual_flow[u][v] += capacity
 
-    graph: typing.List[typing.List[int]] = [[] for _ in range(n)]
+    graph: list[list[int]] = [[] for _ in range(n)]
     for u in range(n):
         for v in range(n):
             if residual_flow[u][v] > 0:
@@ -73,7 +73,7 @@ def maxflow_dinic(
 
 # O(V^2 + Ef)
 def maxflow_ford_fulkerson(
-    capacity_graph: typing.List[typing.List[typing.Tuple[int, int]]],
+    capacity_graph: list[list[typing.Tuple[int, int]]],
     src: int,
     sink: int,
 ) -> int:
@@ -83,7 +83,7 @@ def maxflow_ford_fulkerson(
         for v, capacity in capacity_graph[u]:
             residual_flow[u][v] += capacity
 
-    graph: typing.List[typing.List[int]] = [[] for _ in range(n)]
+    graph: list[list[int]] = [[] for _ in range(n)]
     for u in range(n):
         for v in range(n):
             if residual_flow[u][v] > 0:
@@ -125,7 +125,7 @@ def maxflow_ford_fulkerson(
 
 # O(V^2 + VE^2)
 def maxflow_edmonds_karp(
-    capacity_graph: typing.List[typing.List[typing.Tuple[int, int]]],
+    capacity_graph: list[list[typing.Tuple[int, int]]],
     src: int,
     sink: int,
 ) -> int:
@@ -135,13 +135,13 @@ def maxflow_edmonds_karp(
         for v, capacity in capacity_graph[u]:
             residual_flow[u][v] += capacity
 
-    graph: typing.List[typing.List[int]] = [[] for _ in range(n)]
+    graph: list[list[int]] = [[] for _ in range(n)]
     for u in range(n):
         for v in range(n):
             if residual_flow[u][v] > 0:
                 graph[u].append(v)
 
-    def find_path() -> typing.List[int]:
+    def find_path() -> list[int]:
         parent = [-1] * n
         parent[src] = src
         que = [src]
@@ -159,7 +159,7 @@ def maxflow_edmonds_karp(
             path.append(v)
         return path
 
-    def augment_flow(path: typing.List[int]) -> int:
+    def augment_flow(path: list[int]) -> int:
         flow = INT_INF
         for i in range(len(path) - 1):
             flow = min(flow, residual_flow[path[i + 1]][path[i]])

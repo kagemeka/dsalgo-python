@@ -10,11 +10,11 @@ from dsalgo.graph_theory.tree.fenwick_tree.fenwick_tree_int_add import (
 )
 
 
-def compute_inversion_number(arr: typing.List[int]) -> int:
+def compute_inversion_number(arr: list[int]) -> int:
     r"""Inversion Number of array.
 
     Args:
-        arr (typing.List[int]): integer array.
+        arr (list[int]): integer array.
 
     Returns:
         int: inversion number.

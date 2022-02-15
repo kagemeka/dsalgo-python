@@ -7,13 +7,13 @@ import typing
 
 
 def traveling_salesperson(
-    graph: typing.List[typing.List[typing.Optional[int]]],
+    graph: list[list[typing.Optional[int]]],
     src: int,
 ) -> typing.Optional[int]:
     n = len(graph)
     assert all(len(edges) == n for edges in graph)
     assert 0 <= src < n
-    dist: typing.List[typing.List[typing.Optional[int]]] = [
+    dist: list[list[typing.Optional[int]]] = [
         [None] * n for _ in range(1 << n)
     ]
     dist[1 << src][src] = 0

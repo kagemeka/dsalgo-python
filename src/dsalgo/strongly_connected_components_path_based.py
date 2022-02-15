@@ -1,12 +1,12 @@
 import typing
 
 
-def scc_path_based(graph: typing.List[typing.List[int]]) -> typing.List[int]:
+def scc_path_based(graph: list[list[int]]) -> list[int]:
     n = len(graph)
     order = [-1] * n
     labels = [-1] * n
-    stack_0: typing.List[int] = []
-    stack_1: typing.List[int] = []
+    stack_0: list[int] = []
+    stack_1: list[int] = []
     ord = 0
     label = 0
 

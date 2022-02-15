@@ -6,7 +6,7 @@ Discrete
 import typing
 
 
-def argmax(arr: typing.List[int]) -> typing.Optional[int]:
+def argmax(arr: list[int]) -> typing.Optional[int]:
     if len(arr) == 0:
         return None
     idx, max_value = 0, arr[0]

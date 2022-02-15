@@ -18,7 +18,7 @@ def greatest_common_divisor(a: int, b: int) -> int:
     return a
 
 
-def array_gcd(arr: typing.List[int]) -> typing.Optional[int]:
+def array_gcd(arr: list[int]) -> typing.Optional[int]:
     if len(arr) == 0:
         return None
     gcd = arr[0]

@@ -7,16 +7,16 @@ import typing
 
 
 def compute_path_on_tree(
-    edges: typing.List[typing.Tuple[int, int]],
+    edges: list[typing.Tuple[int, int]],
     src: int,
     dst: int,
-) -> typing.List[int]:
+) -> list[int]:
     n = len(edges) + 1
-    graph: typing.List[typing.List[int]] = [[] for _ in range(n)]
+    graph: list[list[int]] = [[] for _ in range(n)]
     for u, v in edges:
         graph[u].append(v)
         graph[v].append(u)
-    rev_path: typing.List[int] = []
+    rev_path: list[int] = []
 
     def dfs(u: int, parent: int) -> bool:
         if u == dst:

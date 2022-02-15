@@ -7,8 +7,8 @@ Prime Factors
 import typing
 
 
-def find_prime_factors(n: int) -> typing.List[int]:
-    factors: typing.List[int] = []
+def find_prime_factors(n: int) -> list[int]:
+    factors: list[int] = []
     i = 1
     while i * i < n:
         i += 1

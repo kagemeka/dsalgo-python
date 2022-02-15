@@ -7,17 +7,17 @@ import typing
 
 
 def bfs_tree(
-    graph: typing.List[typing.List[int]],
+    graph: list[list[int]],
     root: int,
-) -> typing.List[typing.Tuple[int, int]]:
+) -> list[typing.Tuple[int, int]]:
     """Compute breadth first search tree from directed graph.
 
     Args:
-        graph (typing.List[typing.List[int]]): directed graph.
+        graph (list[list[int]]): directed graph.
         root (int): tree root node.
 
     Returns:
-        typing.List[typing.Tuple[int, int]]: bfs tree.
+        list[typing.Tuple[int, int]]: bfs tree.
 
     Examples:
         >>> graph = [[1, 3], [0, 2, 3], [1, 3], [0, 1, 2]]
@@ -25,7 +25,7 @@ def bfs_tree(
         [(0, 1), (0, 3), (1, 2)]
     """
     n = len(graph)
-    tree_edges: typing.List[typing.Tuple[int, int]] = []
+    tree_edges: list[typing.Tuple[int, int]] = []
 
     added_to_que = [False] * n
     que = [root]
@@ -42,17 +42,17 @@ def bfs_tree(
 
 
 def dfs_tree(
-    graph: typing.List[typing.List[int]],
+    graph: list[list[int]],
     root: int,
-) -> typing.List[typing.Tuple[int, int]]:
+) -> list[typing.Tuple[int, int]]:
     """Compute depth first search tree from directed graph.
 
     Args:
-        graph (typing.List[typing.List[int]]): directed graph.
+        graph (list[list[int]]): directed graph.
         root (int): tree root node.
 
     Returns:
-        typing.List[typing.Tuple[int, int]]: dfs tree.
+        list[typing.Tuple[int, int]]: dfs tree.
 
     Examples:
         >>> graph = [[1, 3], [0, 2, 3], [1, 3], [0, 1, 2]]
@@ -60,7 +60,7 @@ def dfs_tree(
         [(0, 1), (1, 2), (2, 3)]
     """
     n = len(graph)
-    tree_edges: typing.List[typing.Tuple[int, int]] = []
+    tree_edges: list[typing.Tuple[int, int]] = []
     visited = [False] * n
 
     def dfs(u: int) -> None:

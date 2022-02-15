@@ -5,11 +5,9 @@ from dsalgo.constant import INT_INF
 
 def __to_directed(
     n: int,
-    edges: typing.List[typing.Tuple[int, int, int]],
-) -> typing.List[typing.List[typing.Tuple[int, ...]]]:
-    graph: typing.List[typing.List[typing.Tuple[int, ...]]] = [
-        [] for _ in range(n)
-    ]
+    edges: list[typing.Tuple[int, int, int]],
+) -> list[list[typing.Tuple[int, ...]]]:
+    graph: list[list[typing.Tuple[int, ...]]] = [[] for _ in range(n)]
     for e in edges:
         u, v = e[:2]
         graph[u].append((v, *e[2:]))
@@ -20,10 +18,10 @@ def __to_directed(
 # O((E + V)\log{E})
 def mst_prim_sparse(
     n: int,
-    edges: typing.List[typing.Tuple[int, int, int]],
-) -> typing.List[typing.Tuple[int, int, int]]:
+    edges: list[typing.Tuple[int, int, int]],
+) -> list[typing.Tuple[int, int, int]]:
     graph = __to_directed(n, edges)
-    mst_edges: typing.List[typing.Tuple[int, int, int]] = []
+    mst_edges: list[typing.Tuple[int, int, int]] = []
     import heapq
 
     hq = [(0, -1, 0)]

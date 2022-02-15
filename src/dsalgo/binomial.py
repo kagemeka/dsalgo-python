@@ -64,7 +64,7 @@ def make_caching_pascal_choose(
     return choose
 
 
-def n_choose_table(p: int, n: int, kmax: int) -> typing.List[int]:
+def n_choose_table(p: int, n: int, kmax: int) -> list[int]:
     """N choose k table for fixed N and small k.
 
     Args:
@@ -73,7 +73,7 @@ def n_choose_table(p: int, n: int, kmax: int) -> typing.List[int]:
         kmax (int): max k for N choose k.
 
     Returns:
-        typing.List[int]: result table.
+        list[int]: result table.
     """
     assert 0 <= kmax <= n
     a = list(range(n + 1, n - kmax, -1))

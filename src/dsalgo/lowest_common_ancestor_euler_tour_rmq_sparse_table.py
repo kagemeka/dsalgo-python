@@ -11,7 +11,7 @@ from dsalgo.range_query.sparse_table.sparse_table import sparse_table
 
 
 def lca_euler_tour_rmq(
-    tree_edges: typing.List[typing.Tuple[int, int]],
+    tree_edges: list[typing.Tuple[int, int]],
     root: int,
 ) -> typing.Callable[[int, int], int]:
     tour = euler_tour(tree_edges, root)

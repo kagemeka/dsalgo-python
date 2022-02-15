@@ -5,7 +5,7 @@ T = typing.TypeVar("T")
 
 def binary_search(
     is_ok: typing.Callable[[T], bool],
-    arr: typing.List[T],
+    arr: list[T],
     lo: typing.Optional[int] = None,
     hi: typing.Optional[int] = None,
 ) -> int:
@@ -14,7 +14,7 @@ def binary_search(
     Args:
         is_ok (typing.Callable[[T], bool]):
             conditional function to search index of arr.
-        arr (typing.List[T]):
+        arr (list[T]):
             array for search.
             it must be monotonous between [lo, hi) over is_ok.
             that means following conditions should be satisfied.
@@ -52,11 +52,11 @@ def binary_search(
     return hi
 
 
-def bisect_left(arr: typing.List[int], x: int) -> int:
+def bisect_left(arr: list[int], x: int) -> int:
     """Bisect Left.
 
     Args:
-        arr (typing.List[int]): monotonous increasing sequence.
+        arr (list[int]): monotonous increasing sequence.
         x (int): target value.
 
     Returns:
@@ -68,11 +68,11 @@ def bisect_left(arr: typing.List[int], x: int) -> int:
     return binary_search(is_ok, arr)
 
 
-def bisect_right(arr: typing.List[int], x: int) -> int:
+def bisect_right(arr: list[int], x: int) -> int:
     """Bisect Right.
 
     Args:
-        arr (typing.List[int]): monotonous increasing sequence.
+        arr (list[int]): monotonous increasing sequence.
         x (int): target value.
 
     Returns:
