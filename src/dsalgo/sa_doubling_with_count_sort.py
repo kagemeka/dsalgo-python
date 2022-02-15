@@ -1,6 +1,6 @@
 """
 Counting sort
-Radix sort 
+Radix sort
 """
 
 import typing
