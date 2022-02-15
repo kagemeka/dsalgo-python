@@ -1,6 +1,6 @@
 import unittest
 
-from dsalgo.counting_sort import counting_sort_index
+from dsalgo.counting_sort import counting_sort, counting_sort_index
 
 
 class Test(unittest.TestCase):
@@ -10,6 +10,13 @@ class Test(unittest.TestCase):
         self.assertEqual(
             counting_sort_index(arr),
             answer,
+        )
+
+    def test_counting_sort(self) -> None:
+        arr = [4, 3, 0, 6, -1, 6, 3]
+        self.assertEqual(
+            counting_sort(arr),
+            sorted(arr),
         )
 
 
