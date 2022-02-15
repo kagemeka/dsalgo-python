@@ -10,7 +10,7 @@ from dsalgo.combinatorics.next_combination import next_combination
 def combinations(
     n: int,
     k: int,
-) -> typing.Generator[typing.Tuple[int, ...], None, None]:
+) -> typing.Generator[tuple[int, ...], None, None]:
     a = tuple(range(n))
     n = len(a)
     if k < 0 or n < k:
@@ -33,7 +33,7 @@ def combinations(
 def combinations_next_comb(
     n: int,
     k: int,
-) -> typing.Generator[typing.Tuple[int, ...], None, None]:
+) -> typing.Generator[tuple[int, ...], None, None]:
     a = tuple(range(n))
     n = len(a)
     if k < 0 or n < k:

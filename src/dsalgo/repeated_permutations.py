@@ -8,10 +8,10 @@ import typing
 def repeated_permutations_dfs(
     n: int,
     repeat: int,
-) -> typing.Iterator[typing.Tuple[int, ...]]:
+) -> typing.Iterator[tuple[int, ...]]:
     p: list[int] = [n] * repeat
 
-    def dfs(fixed_count: int) -> typing.Iterator[typing.Tuple[int, ...]]:
+    def dfs(fixed_count: int) -> typing.Iterator[tuple[int, ...]]:
         nonlocal p
         if fixed_count == repeat:
             yield tuple(p)

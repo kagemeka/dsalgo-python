@@ -11,14 +11,14 @@ from dsalgo.range_query.sparse_table.sparse_table import sparse_table
 
 
 def lca_euler_tour_rmq(
-    tree_edges: list[typing.Tuple[int, int]],
+    tree_edges: list[tuple[int, int]],
     root: int,
 ) -> typing.Callable[[int, int], int]:
     tour = euler_tour(tree_edges, root)
     depth = compute_depth(tour)
     tour = to_nodes(tour)
     first_idx = compute_first_index(tour)
-    semigroup = Semigroup[typing.Tuple[int, int]](op=min)
+    semigroup = Semigroup[tuple[int, int]](op=min)
     get_min = sparse_table(semigroup, [(depth[i], i) for i in tour])
 
     def get_lca(u: int, v: int) -> int:

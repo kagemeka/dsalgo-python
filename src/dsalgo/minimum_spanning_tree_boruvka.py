@@ -8,11 +8,11 @@ from dsalgo.graph_theory.components.connected_components.connected_components_un
 # O(E\log{V})
 def mst_boruvka(
     n: int,
-    edges: list[typing.Tuple[int, int, int]],
-) -> list[typing.Tuple[int, int, int]]:
+    edges: list[tuple[int, int, int]],
+) -> list[tuple[int, int, int]]:
     m = len(edges)
     is_added = [False] * m
-    mst_edges: list[typing.Tuple[int, int, int]] = []
+    mst_edges: list[tuple[int, int, int]] = []
     while True:  # O(\log{N}) times loop.
         label = connected_components_union_find(
             n,

@@ -39,7 +39,7 @@ def add_left(
 
 def pop_right(
     right: Node[T],
-) -> typing.Tuple[Node[T], typing.Optional[Node[T]]]:
+) -> tuple[Node[T], typing.Optional[Node[T]]]:
     popped, new_right = right, right.left
     popped.left is None
     if new_right is not None:
@@ -49,7 +49,7 @@ def pop_right(
 
 def pop_left(
     left: Node[T],
-) -> typing.Tuple[Node[T], typing.Optional[Node[T]]]:
+) -> tuple[Node[T], typing.Optional[Node[T]]]:
     popped, new_left = left, left.right
     popped.right is None
     if new_left is not None:

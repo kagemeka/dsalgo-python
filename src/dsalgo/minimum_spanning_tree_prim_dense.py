@@ -6,12 +6,12 @@ from dsalgo.constant import INT_INF
 # O(V^2)
 def mst_prime_dense(
     graph: list[list[int]],
-) -> list[typing.Tuple[int, int, int]]:
+) -> list[tuple[int, int, int]]:
     n = len(graph)
     for u in range(1, n):
         for v in range(u):
             assert graph[u][v] == graph[v][u]
-    mst_edges: list[typing.Tuple[int, int, int]] = []
+    mst_edges: list[tuple[int, int, int]] = []
     min_edge = [(-1, INT_INF)] * n  # (previous node, weight)
     min_edge[0] = (-1, 0)
     visited = [False] * n

@@ -7,7 +7,7 @@ Prime Factors
 import typing
 
 
-def prime_factorize(n: int) -> list[typing.Tuple[int, int]]:
+def prime_factorize(n: int) -> list[tuple[int, int]]:
     primes: list[int] = []
     counts: list[int] = []
     i = 1

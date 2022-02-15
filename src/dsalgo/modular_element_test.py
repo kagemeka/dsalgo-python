@@ -5,7 +5,7 @@ from dsalgo.algebra.modular.modular_element import (
 )
 
 
-class Test(unittest.TestCase):
+class TestElement(unittest.TestCase):
     def test(self) -> None:
         Mint = define_static_modular_element(10**9 + 7)
 

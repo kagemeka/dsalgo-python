@@ -9,7 +9,7 @@ import typing
 def repeated_combinations(
     n: int,
     k: int,
-) -> typing.Generator[typing.Tuple[int, ...], None, None]:
+) -> typing.Generator[tuple[int, ...], None, None]:
     """Repeated Combinations.
 
     Args:
@@ -17,6 +17,6 @@ def repeated_combinations(
         k (int): k of nHk
 
     Returns:
-        typing.Generator[typing.Tuple[int, ...], None, None]: [description]
+        typing.Generator[tuple[int, ...], None, None]: [description]
     """
     ...

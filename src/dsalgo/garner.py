@@ -12,7 +12,7 @@ from dsalgo.algebra.modular.multiplicative_inverse.extended_euclidean import (
 
 
 def garner_form(
-    mod_rem_pairs: list[typing.Tuple[int, int]],
+    mod_rem_pairs: list[tuple[int, int]],
 ) -> typing.Optional[int]:
     # x_0 = r_0
     # x_1 = x_0 + t_0m_0 \equiv r_1 (\mod m_1)
@@ -36,7 +36,7 @@ def garner_form(
 
 def garner_form_mod(
     mod: int,
-    mod_rem_pairs: list[typing.Tuple[int, int]],
+    mod_rem_pairs: list[tuple[int, int]],
 ) -> typing.Optional[int]:
     mod_rem_pairs = [pair for pair in mod_rem_pairs if pair != (1, 0)]
     n = len(mod_rem_pairs)

@@ -9,7 +9,7 @@ from dsalgo.graph_theory.tree_algo.tree_bfs import tree_bfs
 
 
 def heavy_light_decompose(
-    tree_edges: list[typing.Tuple[int, int]],
+    tree_edges: list[tuple[int, int]],
     root: int,
 ) -> list[int]:
     # range query: O(\log^2{N})
@@ -44,7 +44,7 @@ def heavy_light_decompose(
 
 
 def compute_roots(
-    tree_edges: list[typing.Tuple[int, int]],
+    tree_edges: list[tuple[int, int]],
     root: int,
     labels: list[int],
 ) -> list[int]:

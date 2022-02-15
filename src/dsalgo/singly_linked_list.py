@@ -28,7 +28,7 @@ def add_last(
 
 def pop_front(
     first: Node[T],
-) -> typing.Tuple[Node[T], typing.Optional[Node[T]]]:
+) -> tuple[Node[T], typing.Optional[Node[T]]]:
     popped, new_first = first, first.next
     popped.next is None
     return popped, new_first

@@ -1,3 +1,69 @@
+from __future__ import annotations
+import typing
+import math
+
+
+def extended_euclidean_mod(mod: int, n: int) -> tuple[int, int]:
+    r"""Compute gcd(mod, n) and Modular Inverse of n / gcd(mod, n).
+
+    Args:
+        mod (int): an modulo.
+        n (int): arbitral integer.
+
+    Returns:
+        tuple[int, int]:
+            return (gcd(mod, n), x).
+            such that xn \equiv gcd(mod, n) \mod mod.
+
+    Algorithm Summary:
+        let g := gcd(mod, n).
+        consider xn \equiv g \mod mod.
+        (1 <= n, x < mod)
+
+        n := g * u
+        mod := g * m
+        xgu \equiv g \mod (gm)
+        <-> xu \equiv 1 \mod m
+        that is, x is a modular inverse of u = n / g on \mod m.
+        it's gonna be satisfied that 0 <= x < m = mod / g.
+    """
+    assert mod > 1
+    a, b = n % mod, mod
+    x00, x01 = 1, 0  # first row of matrix identity element.
+    while b:
+        q, r = divmod(a, b)
+        x00, x01 = x01, x00 - q * x01
+        a, b = b, r
+    gcd = a
+    if x00 < 0:
+        x00 += mod // gcd
+    assert 0 <= x00 < mod // gcd
+    return gcd, x00
+
+
+def greatest_common_divisor_recurse(a: int, b: int) -> int:
+    return greatest_common_divisor_recurse(b, a % b) if b else a
+
+
+def greatest_common_divisor(a: int, b: int) -> int:
+    while b:
+        a, b = b, a % b
+    return a
+
+
+def array_gcd(arr: typing.Sequence[int]) -> int | None:
+    if len(arr) == 0:
+        return None
+    gcd = arr[0]
+    for x in arr:
+        gcd = math.gcd(gcd, x)
+    return gcd
+
+
+def least_common_multiple(a: int, b: int) -> int:
+    return 0 if a == b == 0 else a // math.gcd(a, b) * b
+
+
 """
 Number Theory
 Equation
@@ -6,7 +72,7 @@ Equation
 import typing
 
 
-def extended_euclidean_recurse(a: int, b: int) -> typing.Tuple[int, int, int]:
+def extended_euclidean_recurse(a: int, b: int) -> tuple[int, int, int]:
     """Compute Extended Euclidean Algorithm.
 
     Algorithm Summary:
@@ -31,7 +97,7 @@ def extended_euclidean_recurse(a: int, b: int) -> typing.Tuple[int, int, int]:
         b (int): an integer.
 
     Returns:
-        typing.Tuple[int, int, int]:
+        tuple[int, int, int]:
             return a tuple (gcd(a, b), x, y).
             x, y are not fixed values and also can be negative.
     """
@@ -42,7 +108,7 @@ def extended_euclidean_recurse(a: int, b: int) -> typing.Tuple[int, int, int]:
     return gcd, t, s - a // b * t
 
 
-def extended_euclidean(a: int, b: int) -> typing.Tuple[int, int, int]:
+def extended_euclidean(a: int, b: int) -> tuple[int, int, int]:
     """Compute Extended Euclidean Algorithm.
 
     Algorithm Summary:
@@ -75,7 +141,7 @@ def extended_euclidean(a: int, b: int) -> typing.Tuple[int, int, int]:
         b (int): an integer.
 
     Returns:
-        typing.Tuple[int, int, int]:
+        tuple[int, int, int]:
             return a tuple (gcd(a, b), x, y).
             x, y are not fixed values and also can be negative.
     """

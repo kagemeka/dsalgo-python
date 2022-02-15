@@ -10,7 +10,7 @@ from dsalgo.constant import INT_INF
 
 # O(EV^2)
 def maxflow_dinic(
-    capacity_graph: list[list[typing.Tuple[int, int]]],
+    capacity_graph: list[list[tuple[int, int]]],
     src: int,
     sink: int,
 ) -> int:
@@ -73,7 +73,7 @@ def maxflow_dinic(
 
 # O(V^2 + Ef)
 def maxflow_ford_fulkerson(
-    capacity_graph: list[list[typing.Tuple[int, int]]],
+    capacity_graph: list[list[tuple[int, int]]],
     src: int,
     sink: int,
 ) -> int:
@@ -125,7 +125,7 @@ def maxflow_ford_fulkerson(
 
 # O(V^2 + VE^2)
 def maxflow_edmonds_karp(
-    capacity_graph: list[list[typing.Tuple[int, int]]],
+    capacity_graph: list[list[tuple[int, int]]],
     src: int,
     sink: int,
 ) -> int:

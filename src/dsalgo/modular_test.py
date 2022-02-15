@@ -1,12 +1,18 @@
 import unittest
 
-from dsalgo.algebra.modular.multiplicative_inverse.extended_euclidean import (
-    invert_extended_euclidean,
-    invert_extended_euclidean_direct,
-)
+
+class TestElement(unittest.TestCase):
+    def test(self) -> None:
+        Mint = define_static_modular_element(10**9 + 7)
+
+        a = 0
+        b = Mint(1)
+        a += b
+        print(a)
 
 
-class Test(unittest.TestCase):
+
+class TestInvertExtendedEuclidean(unittest.TestCase):
     def test(self) -> None:
         mod = 17
         x = invert_extended_euclidean(mod, 15)
@@ -22,7 +28,3 @@ class Test(unittest.TestCase):
         self.assertLess(x, mod)
         self.assertEqual(15 * x % mod, 1)
         self.assertEqual(x, 8)
-
-
-if __name__ == "__main__":
-    unittest.main()

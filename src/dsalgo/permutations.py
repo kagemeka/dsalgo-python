@@ -10,7 +10,7 @@ from dsalgo.combinatorics.next_permutation import next_permutation
 def permutations(
     n: int,
     k: typing.Optional[int] = None,
-) -> typing.Iterator[typing.Tuple[int, ...]]:
+) -> typing.Iterator[tuple[int, ...]]:
     if k is None:
         k = n
     if k < 0 or n < k:
@@ -36,12 +36,12 @@ def permutations(
 def permutations_dfs(
     n: int,
     k: typing.Optional[int] = None,
-) -> typing.Iterator[typing.Tuple[int, ...]]:
+) -> typing.Iterator[tuple[int, ...]]:
     if k is None:
         k = n
     indices = list(range(n))
 
-    def dfs(left: int) -> typing.Iterator[typing.Tuple[int, ...]]:
+    def dfs(left: int) -> typing.Iterator[tuple[int, ...]]:
         nonlocal indices, n, k
         if left == k:
             yield tuple(indices[:k])
@@ -54,7 +54,7 @@ def permutations_dfs(
     return dfs(0)
 
 
-def permutations_next_perm(n: int) -> typing.Iterator[typing.Tuple[int, ...]]:
+def permutations_next_perm(n: int) -> typing.Iterator[tuple[int, ...]]:
     arr: typing.Optional[list[int]] = list(range(n))
     while arr is not None:
         yield tuple(arr)

@@ -7,7 +7,7 @@ import typing
 
 
 def compute_path_on_tree(
-    edges: list[typing.Tuple[int, int]],
+    edges: list[tuple[int, int]],
     src: int,
     dst: int,
 ) -> list[int]:

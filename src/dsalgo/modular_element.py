@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import abc
 import typing
-from socket import if_nameindex
 
 from dsalgo.algebra.modular.multiplicative_inverse.fermat_little_theorem import (
     invert_fermat,

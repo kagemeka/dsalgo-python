@@ -9,16 +9,16 @@ from dsalgo.graph_theory.union_find.union_find import UnionFind
 
 
 def lca_tarjan_offline(
-    tree_edges: list[typing.Tuple[int, int]],
+    tree_edges: list[tuple[int, int]],
     root: int,
-    query_pairs: list[typing.Tuple[int, int]],
+    query_pairs: list[tuple[int, int]],
 ) -> list[int]:
     n = len(tree_edges) + 1
     graph: list[list[int]] = [[] for _ in range(n)]
     for u, v in tree_edges:
         graph[u].append(v)
         graph[v].append(u)
-    queries: list[list[typing.Tuple[int, int]]] = [[] for _ in range(n)]
+    queries: list[list[tuple[int, int]]] = [[] for _ in range(n)]
     for i, (u, v) in enumerate(query_pairs):
         queries[u].append((v, i))
         queries[v].append((u, i))

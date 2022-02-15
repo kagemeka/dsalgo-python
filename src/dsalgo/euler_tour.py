@@ -7,13 +7,13 @@ import typing
 
 
 def euler_tour_recurse(
-    tree_edges: list[typing.Tuple[int, int]],
+    tree_edges: list[tuple[int, int]],
     root: int,
 ) -> list[int]:
     """Euler Tour.
 
     Args:
-        tree_edges (list[typing.Tuple[int, int]]):
+        tree_edges (list[tuple[int, int]]):
             undirected graph edges.
         root (int): tour root node.
 
@@ -47,13 +47,13 @@ def euler_tour_recurse(
 
 
 def euler_tour(
-    tree_edges: list[typing.Tuple[int, int]],
+    tree_edges: list[tuple[int, int]],
     root: int,
 ) -> list[int]:
     """Euler Tour.
 
     Args:
-        tree_edges (list[typing.Tuple[int, int]]):
+        tree_edges (list[tuple[int, int]]):
             undirected graph edges.
         root (int): tour root node.
 

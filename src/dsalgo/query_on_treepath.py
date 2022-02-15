@@ -14,13 +14,13 @@ S = typing.TypeVar("S")
 
 def query_on_path_binary_lifting(
     monoid: Monoid[S],
-    tree_edges: list[typing.Tuple[int, int, S]],
+    tree_edges: list[tuple[int, int, S]],
 ) -> typing.Callable[[int, int], S]:
     # moniod operation must be commutative
     # focused on edges.
     root = 0
     n = len(tree_edges) + 1
-    graph: list[list[typing.Tuple[int, S]]] = [[] for _ in range(n)]
+    graph: list[list[tuple[int, S]]] = [[] for _ in range(n)]
     for u, v, value in tree_edges:
         graph[u].append((v, value))
         graph[v].append((u, value))

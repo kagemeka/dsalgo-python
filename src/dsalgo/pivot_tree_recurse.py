@@ -73,13 +73,13 @@ def find(root: typing.Optional[Node[V]], key: int) -> typing.Optional[Node[V]]:
         return find(root.right, key)
 
 
-def _get_min(root: Node[V]) -> typing.Tuple[int, V]:
+def _get_min(root: Node[V]) -> tuple[int, V]:
     if root.left is None:
         return (root.key, root.value)
     return _get_min(root.left)
 
 
-def _get_max(root: Node[V]) -> typing.Tuple[int, V]:
+def _get_max(root: Node[V]) -> tuple[int, V]:
     if root.right is None:
         return (root.key, root.value)
     return _get_max(root.right)

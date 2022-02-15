@@ -44,6 +44,7 @@ sphinx = "^"
 sphinxcontrib-mermaid = "^"
 types-requests = "^"
 
+bandit = "^1.7.2"
 # FORMATTING ------------------------------------------------------------------------------
 [tool.black]
 # github: https://github.com/psf/black

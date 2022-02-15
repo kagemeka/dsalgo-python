@@ -3,9 +3,9 @@ import typing
 
 def lowlink_undirected(
     n: int,
-    edges: list[typing.Tuple[int, int]],
-) -> typing.Tuple[list[int], list[int]]:
-    graph: list[list[typing.Tuple[int, int]]] = [[] for _ in range(n)]
+    edges: list[tuple[int, int]],
+) -> tuple[list[int], list[int]]:
+    graph: list[list[tuple[int, int]]] = [[] for _ in range(n)]
     for i, (u, v) in enumerate(edges):
         graph[u].append((v, i))
         graph[v].append((u, i))
@@ -38,7 +38,7 @@ def lowlink_directed():
 
 def bridges_lowlink(
     n: int,
-    edges: list[typing.Tuple[int, int]],
+    edges: list[tuple[int, int]],
 ) -> list[int]:
     # bridge is defined on undirected graph.
     # https://cp-algorithms.com/graph/bridge-searching.html
@@ -58,11 +58,11 @@ def strong_bridges():
 
 def articulation_points_lowlink(
     n: int,
-    edges: list[typing.Tuple[int, int]],
+    edges: list[tuple[int, int]],
 ) -> list[int]:
     # articulation point is defined on undirected graph.
     # https://cp-algorithms.com/graph/cutpoints.html
-    graph: list[list[typing.Tuple[int, int]]] = [[] for _ in range(n)]
+    graph: list[list[tuple[int, int]]] = [[] for _ in range(n)]
     for i, (u, v) in enumerate(edges):
         graph[u].append((v, i))
         graph[v].append((u, i))

@@ -85,7 +85,7 @@ def _balance_tree(root: Node[K, V]) -> Node[K, V]:
 
 def _pop_max_node(
     root: Node[K, V],
-) -> typing.Tuple[Node[K, V], typing.Optional[Node[K, V]]]:
+) -> tuple[Node[K, V], typing.Optional[Node[K, V]]]:
     if root.right is None:
         new_root, root.left = root.left, None
         return root, new_root

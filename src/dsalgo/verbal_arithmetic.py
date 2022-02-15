@@ -76,7 +76,7 @@ def verbal_arithmetic(
 def to_int(
     words: list[str],
     result: str,
-) -> typing.Tuple[list[list[int]], list[int]]:
+) -> tuple[list[list[int]], list[int]]:
     return (
         [list(map(ord, word)) for word in words],
         list(map(ord, result)),

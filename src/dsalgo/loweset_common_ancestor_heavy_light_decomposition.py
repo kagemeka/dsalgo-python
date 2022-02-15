@@ -12,7 +12,7 @@ from dsalgo.graph_theory.tree_algo.tree_bfs import tree_bfs
 
 
 def lca_hld(
-    tree_edges: list[typing.Tuple[int, int]],
+    tree_edges: list[tuple[int, int]],
     root: int,
 ) -> typing.Callable[[int, int], int]:
     parent, depth = tree_bfs(tree_edges, root)

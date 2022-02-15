@@ -11,12 +11,12 @@ class FenwickTree2D(typing.Generic[S]):
     def __init__(
         self,
         monoid: Monoid[S],
-        shape: typing.Tuple[int, int],
+        shape: tuple[int, int],
     ) -> None:
         """Initialize.
 
         Args:
-            shape (typing.Tuple[int, int]): [description]
+            shape (tuple[int, int]): [description]
         """
         self.__monoid = monoid
         n, m = shape
@@ -25,11 +25,11 @@ class FenwickTree2D(typing.Generic[S]):
         ]
 
     @property
-    def shape(self) -> typing.Tuple[int, int]:
+    def shape(self) -> tuple[int, int]:
         """Shape of Matrix.
 
         Returns:
-            typing.Tuple[int, int]: (height, width)
+            tuple[int, int]: (height, width)
         """
         return (len(self.__data) - 1, len(self.__data[0]) - 1)
 

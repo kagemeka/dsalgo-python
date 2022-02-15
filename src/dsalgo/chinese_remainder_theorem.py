@@ -31,7 +31,7 @@ def crt_2_coprime(
         rem_1 (int): remainder 1
 
     Returns:
-        typing.Tuple[int, int]: lcm = mod_0mod_1, x
+        tuple[int, int]: lcm = mod_0mod_1, x
             where:
                 x \equiv rem_0 \mod mod_0
                 x \equiv rem_1 \mod mod_1
@@ -87,7 +87,7 @@ def crt_2(
 
 
 def crt(
-    mod_rem_pairs: list[typing.Tuple[int, int]],
+    mod_rem_pairs: list[tuple[int, int]],
 ) -> typing.Optional[int]:
     mod_rem_pairs = [pair for pair in mod_rem_pairs if pair != (1, 0)]
     assert len(mod_rem_pairs) >= 1
@@ -121,7 +121,7 @@ def safe_crt_2(
         rem_1 (int): remainder 1
 
     Returns:
-        typing.Optional[typing.Tuple[int, int]]:
+        typing.Optional[tuple[int, int]]:
             return (lcm = mod_0mod_1, x)
             where:
                 x \equiv rem_0 \mod mod_0
@@ -165,7 +165,7 @@ def safe_crt_2(
 
 
 def safe_crt(
-    mod_rem_pairs: list[typing.Tuple[int, int]],
+    mod_rem_pairs: list[tuple[int, int]],
 ) -> typing.Optional[int]:
     mod_rem_pairs = [pair for pair in mod_rem_pairs if pair != (1, 0)]
     assert len(mod_rem_pairs) >= 1

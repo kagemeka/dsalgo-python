@@ -2,21 +2,21 @@ import typing
 
 
 class FenwickTreeIntAdd2D:
-    def __init__(self, shape: typing.Tuple[int, int]) -> None:
+    def __init__(self, shape: tuple[int, int]) -> None:
         """Initialize.
 
         Args:
-            shape (typing.Tuple[int, int]): [description]
+            shape (tuple[int, int]): [description]
         """
         n, m = shape
         self.__data = [[0] * (m + 1) for _ in range(n + 1)]
 
     @property
-    def shape(self) -> typing.Tuple[int, int]:
+    def shape(self) -> tuple[int, int]:
         """Shape of Matrix.
 
         Returns:
-            typing.Tuple[int, int]: (height, width)
+            tuple[int, int]: (height, width)
         """
         return (len(self.__data) - 1, len(self.__data[0]) - 1)
 
