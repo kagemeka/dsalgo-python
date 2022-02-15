@@ -17,9 +17,3 @@ def counting_sort_index(arr: list[int]) -> list[int]:
         count[arr[i] - mn] -= 1
         order[count[arr[i] - mn]] = i
     return order
-
-
-if __name__ == "__main__":
-    import doctest
-
-    doctest.testmod(verbose=True)

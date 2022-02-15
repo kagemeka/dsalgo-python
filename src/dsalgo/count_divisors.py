@@ -1,15 +1,4 @@
-"""
-Tag
-- numbe theory
-- divisor
-"""
-
-
-# zeta transform
-import typing
-
-
-def count_divisors(n: int) -> list[int]:
+def count_divisors_zeta_transform(n: int) -> list[int]:
     cnt = [1] * n
     cnt[0] = 0
     for i in range(2, n):
