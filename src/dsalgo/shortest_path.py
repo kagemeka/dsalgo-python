@@ -79,6 +79,10 @@ def dijkstra_dense(
     return dist
 
 
+def count_dijkstra_sparse():
+    ...
+
+
 def dijkstra_sparse(
     graph: list[list[tuple[int, int]]],
     src: int,

@@ -4,32 +4,30 @@ Graph Theory
 """
 
 import typing
+import dataclasses
+import dsalgo.graph
+
+
+@typing.final
+@dataclasses.dataclass
+class EulerTourResult:
+    tour: list[int]
+    parent: list[int]
+    depth: list[int]
 
 
 def euler_tour_recurse(
     tree_edges: list[tuple[int, int]],
     root: int,
 ) -> list[int]:
-    """Euler Tour.
-
-    Args:
-        tree_edges (list[tuple[int, int]]):
-            undirected graph edges.
-        root (int): tour root node.
-
-    Returns:
-        list[int]: the result array represent the tour on edges.
-
+    """
     Examples:
         >>> edges = [(0, 1), (0, 3), (1, 4), (1, 2)]
         >>> euler_tour(edges, 0)
         [0, 1, 4, -5, 2, -3, -2, 3, -4, -1]
     """
     n = len(tree_edges) + 1
-    graph: list[list[int]] = [[] for _ in range(n)]
-    for u, v in tree_edges:
-        graph[u].append(v)
-        graph[v].append(u)
+    graph = dsalgo.graph.edges_to_graph(n, tree_edges)
     parent: list[typing.Optional[int]] = [None] * n
     tour: list[int] = []
 
@@ -50,26 +48,14 @@ def euler_tour(
     tree_edges: list[tuple[int, int]],
     root: int,
 ) -> list[int]:
-    """Euler Tour.
-
-    Args:
-        tree_edges (list[tuple[int, int]]):
-            undirected graph edges.
-        root (int): tour root node.
-
-    Returns:
-        list[int]: the result array represent the tour on edges.
-
+    """
     Examples:
         >>> edges = [(0, 1), (0, 3), (1, 4), (1, 2)]
         >>> euler_tour(edges, 0)
         [0, 1, 4, -5, 2, -3, -2, 3, -4, -1]
     """
     n = len(tree_edges) + 1
-    graph: list[list[int]] = [[] for _ in range(n)]
-    for u, v in tree_edges:
-        graph[u].append(v)
-        graph[v].append(u)
+    graph = dsalgo.graph.edges_to_graph(n, tree_edges)
     parent: list[typing.Optional[int]] = [None] * n
     tour = [-1] * (n << 1)
 

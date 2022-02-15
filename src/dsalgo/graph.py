@@ -1,75 +1,56 @@
+from __future__ import annotations
 import dataclasses
 import typing
 
-T = typing.TypeVar("T")
-U = typing.TypeVar("U")
+from dsalgo.type import T, U
 
 
 @dataclasses.dataclass
 class Edge(typing.Generic[T]):
     u: int
     v: int
-    data: typing.Optional[T] = None
+    data: T | None = None
 
 
 @dataclasses.dataclass
 class Graph(typing.Generic[T, U]):
-    nodes: list[typing.Optional[T]]
     edges: list[list[Edge[U]]]
+    node_datas: list[T] | None = None
 
 
 def add_edge(graph: Graph[T, U], edge: Edge[U]) -> None:
     graph.edges[edge.u].append(edge)
 
 
-def create_graph(n: int) -> Graph[T, U]:
-    return Graph(
-        nodes=[None] * n,
-        edges=[[] for _ in range(n)],
-    )
-
-
 @dataclasses.dataclass
 class UndirectedGraph(typing.Generic[T, U]):
-    nodes: list[typing.Optional[T]]
     edges: list[Edge[U]]
-
-
-def create_undirected_graph(n: int) -> UndirectedGraph[T, U]:
-    return UndirectedGraph(
-        nodes=[None] * n,
-        edges=[],
-    )
-
-
-def to_directed(
-    graph: UndirectedGraph[T, U],
-) -> Graph[T, U]:
-    new_graph: Graph[T, U] = create_graph(size_of(graph))
-    new_graph.nodes = graph.nodes
-    for edge in graph.edges:
-        add_edge(new_graph, edge)
-    return new_graph
+    node_datas: list[T] | None = None
 
 
 @dataclasses.dataclass
 class DenseGraph(typing.Generic[T, U]):
-    nodes: list[typing.Optional[T]]
-    edge_datas: list[list[typing.Optional[U]]]
+    edge_datas: list[list[U | None]]
+    node_datas: list[T] | None = None
 
 
-def create_dense_graph(n: int) -> DenseGraph[T, U]:
-    return DenseGraph(
-        nodes=[None] * n,
-        edge_datas=[[None] * n for _ in range(n)],
-    )
+def edges_with_data_to_graph(
+    size: int,
+    edges: list[tuple[int, ...]],
+) -> list[list[tuple[int, ...]]]:
+    graph: list[list[tuple[int, ...]]] = [[] for _ in range(size)]
+    for u, v, *datas in edges:
+        graph[u].append((v, *datas))
+        graph[v].append((u, *datas))
+    return graph
 
 
-def size_of(
-    graph: typing.Union[
-        Graph[T, U],
-        UndirectedGraph[T, U],
-        DenseGraph[T, U],
-    ],
-) -> int:
-    return len(graph.nodes)
+def edges_to_graph(
+    size: int,
+    edges: list[tuple[int, int]],
+) -> list[list[int]]:
+    graph: list[list[int]] = [[] for _ in range(size)]
+    for u, v in edges:
+        graph[u].append(v)
+        graph[v].append(u)
+    return graph

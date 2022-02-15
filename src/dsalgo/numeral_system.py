@@ -64,8 +64,8 @@ def base_convert_from_ten(
 
 
 def base_convert(
-    b0: int,
-    b1: int,
+    base_from: int,
+    base_to: int,
     digits: list[int],
 ) -> list[int]:
     """Convert digits base from b0 to b1.
@@ -79,8 +79,8 @@ def base_convert(
         list[int]: target digits.
     """
     return base_convert_from_ten(
-        b1,
-        base_convert_to_ten(b0, digits),
+        base_to,
+        base_convert_to_ten(base_from, digits),
     )
 
 

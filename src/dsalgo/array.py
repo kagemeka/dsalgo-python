@@ -1,4 +1,7 @@
 from __future__ import annotations
+import dataclasses
+import typing
+from dsalgo.type import T
 
 
 def argmax(arr: list[int]) -> int | None:
@@ -18,16 +21,69 @@ def bincount(arr: list[int]) -> list[int]:
     return cnt
 
 
-def compress(
-    arr: list[int],
-) -> tuple[list[int], list[int]]:
-    """
-    Returns:
-        tuple[list[int], list[int]]:
-            first: compressed array.
-            second: array to retrieve original value.
-    """
+@dataclasses.dataclass
+class CompressionResult:
+    compressed: list[int]
+    retrieve: list[int]
+
+
+def compress(arr: list[int]) -> CompressionResult:
     import bisect
 
     v = sorted(set(arr))
-    return [bisect.bisect_left(v, x) for x in arr], v
+    return CompressionResult(
+        [bisect.bisect_left(v, x) for x in arr],
+        v,
+    )
+
+
+def compute_inversion_number(arr: list[int]) -> int:
+    r"""Inversion Number of array.
+
+    Args:
+        arr (list[int]): integer array.
+
+    Returns:
+        int: inversion number.
+
+    Complexity:
+        time: O(N\log{N})
+        space: O(N)
+        where:
+            N: size of arr.
+    """
+    arr = compress(arr).compressed
+    fw = FenwickTreeIntAdd([0] * len(arr))
+    count = 0
+    for i, x in enumerate(arr):
+        count += i - fw[x]
+        fw[x] = 1
+    return count
+
+
+def flatnonzero(arr: list[bool]) -> list[int]:
+    return [i for i, x in enumerate(arr) if x]
+
+
+def accumulate(
+    identity_element: T,
+) -> typing.Callable[
+    [typing.Callable[[T, T], T]],
+    typing.Callable[[typing.Iterable[T]], T],
+]:
+    def decorate(
+        op: typing.Callable[[T, T], T],
+    ) -> typing.Callable[[typing.Iterable[T]], T]:
+        import functools
+
+        def wrapped(arr: typing.Iterable[T]) -> T:
+            return functools.reduce(op, arr, identity_element)
+
+        return wrapped
+
+    return decorate
+
+
+# @accumulate(0)
+# def xor(a: int, b: int) -> int:
+#     return a ^ b
