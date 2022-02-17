@@ -4,12 +4,11 @@ import unittest
 from dsalgo.graph_theory.shortest_path.shortest_path_error import (
     NegativeCycleError,
 )
-from dsalgo.graph_theory.shortest_path.shortest_path_johnson_sparse import (
-    johnson_sparse,
-)
-
 from dsalgo.graph_theory.shortest_path.shortest_path_floyd_warshall import (
     floyd_warshall,
+)
+from dsalgo.graph_theory.shortest_path.shortest_path_johnson_sparse import (
+    johnson_sparse,
 )
 
 
@@ -44,7 +43,6 @@ class TestJohnsonSparse(unittest.TestCase):
             johnson_sparse(graph)
 
 
-
 class TestFloydWarshall(unittest.TestCase):
     def test(self) -> None:
         graph = [
@@ -70,6 +68,7 @@ class TestFloydWarshall(unittest.TestCase):
         graph = [[None, -1, None], [None, None, -1], [-1, None, None]]
         with self.assertRaises(NegativeCycleError):
             floyd_warshall(graph)
+
 
 if __name__ == "__main__":
     unittest.main()

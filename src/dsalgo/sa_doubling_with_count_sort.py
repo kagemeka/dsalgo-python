@@ -47,8 +47,9 @@ def suffix_array_doubling_countsort(arr: list[int]) -> list[int]:
     return suffix_array
 
 
-import pytest
 import unittest
+
+import pytest
 
 if __name__ == "__main__":
 

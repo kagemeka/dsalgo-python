@@ -1,37 +1,31 @@
-"""
-- algebra
-- abstract data structure
-"""
+from __future__ import annotations
 
 import dataclasses
 import typing
 
-S = typing.TypeVar("S")
+from dsalgo.type import T
 
 
 @dataclasses.dataclass
-class Semigroup(typing.Generic[S]):
-    op: typing.Callable[[S, S], S]
+class Semigroup(typing.Generic[T]):
+    operation: typing.Callable[[T, T], T]
 
 
 @dataclasses.dataclass
-class Monoid(typing.Generic[S]):
-    op: typing.Callable[[S, S], S]
-    e: typing.Callable[[], S]
+class Monoid(Semigroup[T]):
+    identity: typing.Callable[[], T]
 
 
 @dataclasses.dataclass
-class Group(typing.Generic[S]):
-    op: typing.Callable[[S, S], S]
-    e: typing.Callable[[], S]
-    invert: typing.Callable[[S], S]
+class Group(Monoid[T]):
+    invert: typing.Callable[[T], T]
 
 
 @dataclasses.dataclass
-class Semiring(typing.Generic[S]):
+class Semiring(typing.Generic[T]):
     ...
 
 
 @dataclasses.dataclass
-class Ring(typing.Generic[S]):
+class Ring(Semiring[T]):
     ...

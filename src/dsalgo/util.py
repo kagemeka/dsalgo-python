@@ -4,7 +4,6 @@ import typing
 
 from dsalgo.type import T
 
-
 Exportable = typing.Union[typing.Callable, typing.Type]
 
 

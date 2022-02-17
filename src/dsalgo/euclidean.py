@@ -1,6 +1,7 @@
 from __future__ import annotations
-import typing
+
 import math
+import typing
 
 
 def extended_euclidean_mod(mod: int, n: int) -> tuple[int, int]:

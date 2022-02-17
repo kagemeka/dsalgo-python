@@ -3,8 +3,9 @@ Graph Theory
 
 """
 
-import typing
 import dataclasses
+import typing
+
 import dsalgo.graph
 
 

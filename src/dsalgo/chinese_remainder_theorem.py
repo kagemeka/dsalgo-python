@@ -1,4 +1,3 @@
-
 import typing
 
 from dsalgo.number_theory.equation._extended_euclidean_mod import (

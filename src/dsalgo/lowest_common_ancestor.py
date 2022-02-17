@@ -1,5 +1,3 @@
-
-
 def tarjan_offline(
     tree_edges: list[tuple[int, int]],
     root: int,

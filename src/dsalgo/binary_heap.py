@@ -1,4 +1,5 @@
 import typing
+
 import dsalgo.protocol
 
 T = typing.TypeVar("T", bound=dsalgo.protocol.Order)

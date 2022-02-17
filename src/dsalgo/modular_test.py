@@ -11,7 +11,6 @@ class TestElement(unittest.TestCase):
         print(a)
 
 
-
 class TestInvertExtendedEuclidean(unittest.TestCase):
     def test(self) -> None:
         mod = 17

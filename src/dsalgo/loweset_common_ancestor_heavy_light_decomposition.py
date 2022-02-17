@@ -4,13 +4,12 @@ Graph Theory
 
 import typing
 
+import dsalgo.heavy_light_decomposition
 from dsalgo.graph_theory.tree_algo.heavy_light_decomposition import (
     compute_roots,
     heavy_light_decompose,
 )
 from dsalgo.graph_theory.tree_algo.tree_bfs import tree_bfs
-
-import dsalgo.heavy_light_decomposition
 
 
 def heavy_light_decomposition(

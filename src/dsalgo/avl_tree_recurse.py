@@ -3,7 +3,6 @@ from __future__ import annotations
 import dataclasses
 import typing
 
-
 import dsalgo.protocol
 import dsalgo.util
 
