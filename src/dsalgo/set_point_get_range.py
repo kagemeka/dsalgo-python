@@ -1,4 +1,20 @@
+from __future__ import annotations
 import typing
+
+from dsalgo.type import S
+import dsalgo.fenwick_tree
+
+
+class FenwickTree(typing.Generic[S]):
+    def __init__(self, group: Group[S], arr: list[S]) -> None:
+        self.__fw = FenwickTreeAbelianGroup(group, arr)
+
+    def __setitem__(self, i: int, x: S) -> None:
+        self.__fw[i] = x
+
+    def get(self, left: int, right: int) -> S:
+        return self.__fw.get_range(left, right)
+
 
 from kgmk.dsa.algebra.abstract.structure.monoid import Monoid
 from kgmk.dsa.tree.misc.segment.normal.one_indexed.topdown.non_recursive import (
@@ -11,7 +27,7 @@ from kgmk.dsa.tree.misc.segment.normal.one_indexed.topdown.non_recursive import 
 T = typing.TypeVar("T")
 
 
-class SetPointGetRange(typing.Generic[T]):
+class SegmentTree(typing.Generic[T]):
     def __init__(
         self,
         monoid: Monoid[T],
