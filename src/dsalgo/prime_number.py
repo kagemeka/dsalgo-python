@@ -78,4 +78,3 @@ def count_prime_factors(max_value: int) -> list[int]:
         for i in range(p, max_value, p):
             count[i] += 1
     return count
-
