@@ -3,8 +3,6 @@ Graph Theory
 Directed Acyclic Graph (DAG)
 """
 
-import typing
-
 
 def count_topological_sort(
     graph: list[list[int]],

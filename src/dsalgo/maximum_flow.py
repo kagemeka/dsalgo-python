@@ -1,3 +1,5 @@
+from __future__ import annotations 
+
 """
 Graph Theory
 Flow
@@ -179,6 +181,7 @@ def edmonds_karp(
             break
         flow += augment_flow(path)
     return flow
+
 
 
 def mpm():

@@ -1,31 +1,16 @@
 from __future__ import annotations
 
 
-def union_find(
-    n: int,
-    edges: list[tuple[int, int]],
-) -> list[int]:
-    from dsalgo.union_find import UnionFind, get_labels
+def union_find(n: int, edges: list[tuple[int, int]]) -> list[int]:
+    import dsalgo.union_find
 
-    """Compute Connected Components with Union-Find.
-
-    Args:
-        n (int): the number of graph nodes.
-        edges (list[tuple[int, int]]): undirected graph edges.
-
-    Returns:
-        list[int]: label for each node.
-    """
-    uf = UnionFind(n)
+    uf = dsalgo.union_find.UnionFind(n)
     for u, v in edges:
         uf.unite(u, v)
-    return get_labels(uf)
+    return dsalgo.union_find.get_labels(uf)
 
 
-def bfs(
-    n: int,
-    edges: list[tuple[int, int]],
-) -> list[int]:
+def bfs(n: int, edges: list[tuple[int, int]]) -> list[int]:
     graph: list[list[int]] = [[] for _ in range(n)]
     for u, v in edges:
         graph[u].append(v)
@@ -47,10 +32,7 @@ def bfs(
     return labels
 
 
-def dfs(
-    n: int,
-    edges: list[tuple[int, int]],
-) -> list[int]:
+def dfs(n: int, edges: list[tuple[int, int]]) -> list[int]:
     graph: list[list[int]] = [[] for _ in range(n)]
     for u, v in edges:
         graph[u].append(v)

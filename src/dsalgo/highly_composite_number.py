@@ -1,5 +1,0 @@
-"""
-Tag
-- numbe theory
-- divisor
-"""
