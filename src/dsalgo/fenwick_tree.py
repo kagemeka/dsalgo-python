@@ -33,17 +33,18 @@ class FenwickTree(typing.Generic[S]):
         self.__monoid, self.__data = monoid, data
 
     def __len__(self) -> int:
+        """Size of original array."""
         return len(self.__data) - 1
 
     def __setitem__(self, i: int, x: S) -> None:
-        assert 0 <= i < len(self) - 1
+        assert 0 <= i < len(self)
         i += 1
-        while i < len(self):
+        while i < len(self) + 1:
             self.__data[i] = self.__monoid.operation(self.__data[i], x)
             i += i & -i
 
     def __getitem__(self, i: int) -> S:
-        assert 0 <= i < len(self)
+        assert 0 <= i <= len(self)
         v = self.__monoid.identity()
         while i > 0:
             v = self.__monoid.operation(v, self.__data[i])
@@ -51,7 +52,7 @@ class FenwickTree(typing.Generic[S]):
         return v
 
     def max_right(self, is_ok: typing.Callable[[S], bool]) -> int:
-        n = len(self)
+        n = len(self) + 1
         length = 1
         while length << 1 < n:
             length <<= 1
@@ -89,14 +90,14 @@ class FenwickTreeIntAdd:
         return len(self.__data) - 1
 
     def __setitem__(self, i: int, x: int) -> None:
-        assert 0 <= i < len(self.__data) - 1
+        assert 0 <= i < len(self)
         i += 1
-        while i < len(self.__data):
+        while i < len(self) + 1:
             self.__data[i] += x
             i += i & -i
 
     def __getitem__(self, i: int) -> int:
-        assert 0 <= i < len(self.__data)
+        assert 0 <= i <= len(self)
         v = 0
         while i > 0:
             v += self.__data[i]
@@ -120,14 +121,14 @@ class FenwickTreeIntMax:
         return len(self.__data) - 1
 
     def __setitem__(self, i: int, x: int) -> None:
-        assert 0 <= i < len(self.__data) - 1
+        assert 0 <= i < len(self)
         i += 1
-        while i < len(self.__data):
+        while i < len(self) + 1:
             self.__data[i] = max(self.__data[i], x)
             i += i & -i
 
     def __getitem__(self, i: int) -> int:
-        assert 0 <= i < len(self.__data)
+        assert 0 <= i <= len(self)
         v = 0
         while i > 0:
             v = max(v, self.__data[i])
