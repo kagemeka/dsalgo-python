@@ -1,7 +1,8 @@
+from __future__ import annotations
 import typing
 
 
-def lcp_array_kasai(
+def kasai(
     arr: list[int],
     suffix_array: list[int],
 ) -> list[int]:

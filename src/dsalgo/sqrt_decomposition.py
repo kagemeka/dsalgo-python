@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import typing
 
 from dsalgo.algebra.abstract.abstract_structure import Monoid

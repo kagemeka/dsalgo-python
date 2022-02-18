@@ -1,7 +1,7 @@
 """
 DP
 """
-
+from __future__ import annotations
 import bisect
 import typing
 

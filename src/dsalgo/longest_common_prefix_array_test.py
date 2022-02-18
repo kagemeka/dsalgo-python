@@ -4,7 +4,7 @@ from dsalgo.string.longest_common_prefix.kasai import lcp_array_kasai
 from dsalgo.string.suffix_array.sa_is_recurse import sa_is_recurse
 
 
-class Test(unittest.TestCase):
+class TestKasai(unittest.TestCase):
     def test(self) -> None:
         arr = [1, 0, 3, 3, 0, 3, 3, 0, 2, 2, 0]  # mississippi
         sa = sa_is_recurse(arr)
