@@ -84,7 +84,7 @@ def to_int(
     )
 
 
-def to_str(answer: typing.Dict[int, int]) -> typing.Dict[str, int]:
+def to_str(answer: dict[int, int]) -> dict[str, int]:
     return {chr(value): digit for value, digit in answer.items()}
 
 

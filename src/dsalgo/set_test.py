@@ -1,13 +1,36 @@
-"""
-Container
-"""
+class TestPivotTreeSet:
+    # tree = PivotTreeSet(max_height=5)
 
-import unittest
+    # tree.insert(2)
+    # print(len(tree))
+    # tree.insert(2)
+    # print(2 in tree)
+    # for i in range(10):
+    #     tree.insert(i)
+
+    # print(tree[9])
+    # print(tree.lower_bound(5))
+    # print(tree.min())
+    ...
+
+
+class TestPivotTreeArraySet:
+    # st = PivotTreeArraySet(5)
+    # st.insert(1)
+    # st.remove(2)
+    # print(len(st))
+    # print(st.max(), st.min())
+    # st.remove(1)
+    # print(len(st))
+    ...
+
+
+
 
 from dsalgo.container.set.avl_tree_set import AVLTreeSet
 
 
-class Test(unittest.TestCase):
+class TestAVLTreeSet(unittest.TestCase):
     def test_insert(self) -> None:
         s = AVLTreeSet[int]()
         s.insert(1)
@@ -153,7 +176,3 @@ class Test(unittest.TestCase):
         self.assertFalse(5 in s)
         s.remove(4)
         self.assertFalse(4 in s)
-
-
-if __name__ == "__main__":
-    unittest.main()
