@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import typing
 
 T = typing.TypeVar("T")
@@ -6,8 +8,8 @@ T = typing.TypeVar("T")
 def binary_search(
     is_ok: typing.Callable[[T], bool],
     arr: list[T],
-    lo: typing.Optional[int] = None,
-    hi: typing.Optional[int] = None,
+    lo: int | None = None,
+    hi: int | None = None,
 ) -> int:
     """Descrete Binary Search.
 

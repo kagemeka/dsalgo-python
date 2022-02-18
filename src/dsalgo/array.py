@@ -4,6 +4,7 @@ import dataclasses
 import typing
 
 from dsalgo.type import T
+import dsalgo.fenwick_tree
 
 
 def argmax(arr: list[int]) -> int | None:
@@ -40,22 +41,8 @@ def compress(arr: list[int]) -> CompressionResult:
 
 
 def compute_inversion_number(arr: list[int]) -> int:
-    r"""Inversion Number of array.
-
-    Args:
-        arr (list[int]): integer array.
-
-    Returns:
-        int: inversion number.
-
-    Complexity:
-        time: O(N\log{N})
-        space: O(N)
-        where:
-            N: size of arr.
-    """
     arr = compress(arr).compressed
-    fw = FenwickTreeIntAdd([0] * len(arr))
+    fw = dsalgo.fenwick_tree.FenwickTreeIntAdd([0] * len(arr))
     count = 0
     for i, x in enumerate(arr):
         count += i - fw[x]
