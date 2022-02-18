@@ -6,7 +6,7 @@ requires = ["poetry_core >= 1.0.0"]
 authors = ["Hiroshi Tsuyuki <kagemeka1@gmail.com>"]
 description = "A package for datastructures and algorithms."
 documentation = "https://github.com/kagemeka/dsalgo-python"
-exclude = ["./**/*_test.py", "./**/test_*.py", "./**/tests/"]
+exclude = ["./**/tests/"]
 homepage = "https://github.com/kagemeka/dsalgo-python"
 keywords = ["algorithm", "datastructure"]
 license = "MIT"

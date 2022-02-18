@@ -1,0 +1,6 @@
+class FenwickTree:
+    ...
+
+
+class SegmentTree:
+    ...

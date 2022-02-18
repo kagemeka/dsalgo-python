@@ -1,6 +1,7 @@
 import unittest
-import dsalgo.fenwick_tree
+
 import dsalgo.abstract_structure
+import dsalgo.fenwick_tree
 
 
 class TestFenwickTree2D(unittest.TestCase):

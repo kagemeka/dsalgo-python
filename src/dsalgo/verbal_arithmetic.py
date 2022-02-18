@@ -1,3 +1,4 @@
+from __future__ import annotations
 import bisect
 import functools
 import operator
@@ -93,6 +94,6 @@ def verbal_arithmetic_from_str(
     lo: int = 0,
     hi: int = 10,
     leading_zero: bool = True,
-) -> list[typing.Dict[str, int]]:
+) -> list[dict[str, int]]:
     answer = verbal_arithmetic(*to_int(words, result), lo, hi, leading_zero)
     return list(map(to_str, answer))
