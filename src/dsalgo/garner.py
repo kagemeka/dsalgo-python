@@ -54,4 +54,3 @@ def garner_form_mod(
             mod_values[j] = (mod_values[j] + t * mod_prod[j]) % modulos[j]
             mod_prod[j] = mod_prod[j] * mod % modulos[j]
     return mod_values[-1]
-
