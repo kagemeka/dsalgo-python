@@ -1,10 +1,4 @@
-"""
-Graph Theory
 
-"""
-
-# using LCA
-# https://ikatakos.com/pot/programming_algorithm/graph_theory/lowest_common_ancestor
 import typing
 
 from dsalgo.algebra.abstract.abstract_structure import Monoid

@@ -1,25 +1,8 @@
+from __future__ import annotations
 import typing
 
 
 def sa_is_recurse(arr: list[int]) -> list[int]:
-    r"""SA-IS(Suffix Array with Induced Sort) Algorithm.
-
-    Args:
-        arr (list[int]): original array.
-
-    Returns:
-        list[int]: suffix array.
-
-    Complexity:
-        time: O(N + M)
-        space: O(N + M)
-        where:
-            N: size of arr.
-            M: max element of arr.
-
-    References:
-        - https://ieeexplore.ieee.org/document/4976463?arnumber=4976463
-    """
     mn = min(arr)
     arr = [x - mn + 1 for x in arr]
     arr.append(0)

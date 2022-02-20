@@ -20,12 +20,6 @@ class Node(typing.Generic[K, V]):
     size: int = 1
 
 
-# https://www.programiz.com/dsa/avl-tree
-# http://wwwa.pikara.ne.jp/okojisan/avl-tree/index.html
-# used for set, multiset, map
-# cannot used for multimap.
-
-
 def _get_height(root: typing.Optional[Node[K, V]]) -> int:
     if root is None:
         return 0

@@ -1,6 +1,17 @@
 from __future__ import annotations
 
 
+def argsort_permutation(arr: list[int]) -> list[int]:
+    order = [0] * len(arr)
+    for i, value in enumerate(arr):
+        order[value] = i
+    return order
+
+
+def argsort(arr: list[int]) -> list[int]:
+    return sorted(range(len(arr)), key=lambda i: arr[i])
+
+
 def counting_sort_index(arr: list[int]) -> list[int]:
     if not arr:
         return []

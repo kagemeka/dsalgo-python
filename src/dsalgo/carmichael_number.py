@@ -5,7 +5,6 @@ Prime Number
 
 import typing
 
-# https://oeis.org/A002997
 CARMICHAEL_NUMBERS: typing.Final[list[int]] = [
     561,
     1105,

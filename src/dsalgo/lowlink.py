@@ -40,8 +40,7 @@ def bridges_lowlink(
     n: int,
     edges: list[tuple[int, int]],
 ) -> list[int]:
-    # bridge is defined on undirected graph.
-    # https://cp-algorithms.com/graph/bridge-searching.html
+
     order, lowlink = lowlink_undirected(n, edges)
     bridge_ids: list[int] = []
     for i, (u, v) in enumerate(edges):
@@ -60,8 +59,6 @@ def articulation_points_lowlink(
     n: int,
     edges: list[tuple[int, int]],
 ) -> list[int]:
-    # articulation point is defined on undirected graph.
-    # https://cp-algorithms.com/graph/cutpoints.html
     graph: list[list[tuple[int, int]]] = [[] for _ in range(n)]
     for i, (u, v) in enumerate(edges):
         graph[u].append((v, i))

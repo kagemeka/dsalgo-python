@@ -55,8 +55,3 @@ def garner_form_mod(
             mod_prod[j] = mod_prod[j] * mod % modulos[j]
     return mod_values[-1]
 
-
-# https://qiita.com/drken/items/ae02240cd1f8edfc86fd
-# https://cp-algorithms.com/algebra/chinese-remainder-theorem.html
-# https://math314.hateblo.jp/entry/2015/05/07/014908
-# https://kirika-comp.hatenablog.com/entry/2017/12/18/143923

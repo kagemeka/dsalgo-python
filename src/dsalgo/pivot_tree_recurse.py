@@ -1,5 +1,4 @@
-# reference
-# - https://qiita.com/Kiri8128/items/6256f8559f0026485d90
+
 
 from __future__ import annotations
 

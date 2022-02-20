@@ -6,7 +6,7 @@ services:
     build:
       context: ..
       dockerfile: docker/Dockerfile
-    image: kagemeka/dsalgo-python:latest
+    image: kagemeka/$PROJECT:latest
     restart: on-failure
     tty: true
     volumes:
