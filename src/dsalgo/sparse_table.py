@@ -105,6 +105,61 @@ def sparse_table_2d(
     return get
 
 
+def sparse_table_2d_fixed_window(
+    semigroup: dsalgo.abstract_structure.Semigroup[S],
+    matrix: list[list[S]],
+    window_shape: tuple[int, int],
+) -> typing.Callable[[int, int], S]:
+    assert len(matrix) > 0
+    assert len(matrix[0]) > 0 and all(
+        len(row) == len(matrix[0]) for row in matrix
+    )
+    h, w = window_shape
+    assert 0 < h <= len(matrix) and 0 < w <= len(matrix[0])
+    data = copy.deepcopy(matrix)
+    for log_dx in range((w - 1).bit_length() - 1):
+        for y in range(len(matrix)):
+            for x in range(len(matrix[0]) - (1 << log_dx)):
+                data[y][x] = semigroup.operation(
+                    data[y][x],
+                    data[y][x + (1 << log_dx)],
+                )
+            data[y] = data[y][: len(matrix[0]) - (1 << log_dx)]
+
+    for log_dy in range((h - 1).bit_length() - 1):
+        for y in range(len(matrix) - (1 << log_dy)):
+            for x in range(len(data[0])):
+                data[y][x] = semigroup.operation(
+                    data[y][x],
+                    data[y + (1 << log_dy)][x],
+                )
+        data = data[: len(matrix) - (1 << log_dy)]
+
+    log_dy = (h - 1).bit_length() - 1
+    log_dx = (w - 1).bit_length() - 1
+    if log_dx != -1:
+        for y in range(len(data)):
+            for x in range(len(matrix[0]) - w + 1):
+                data[y][x] = semigroup.operation(
+                    data[y][x],
+                    data[y][x + w - (1 << log_dx)],
+                )
+            data[y] = data[y][: len(matrix[0]) - w + 1]
+    if log_dy != -1:
+        for y in range(len(matrix) - h + 1):
+            for x in range(len(data[0])):
+                data[y][x] = semigroup.operation(
+                    data[y][x],
+                    data[y + h - (1 << log_dy)][x],
+                )
+        data = data[: len(matrix) - h + 1]
+
+    def get(y0: int, x0: int) -> S:
+        return data[y0][x0]
+
+    return get
+
+
 def disjoint_sparse_table(
     semigroup: dsalgo.abstract_structure.Semigroup[S],
     arr: list[S],

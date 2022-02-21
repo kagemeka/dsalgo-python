@@ -75,5 +75,26 @@ class TestSparseTable2D(unittest.TestCase):
         self.assertEqual(get_min(1, 1, 2, 3), 5)
         self.assertEqual(get_min(0, 2, 2, 3), 2)
 
+
+class TestSparseTable2DFixedShape(unittest.TestCase):
+    def test(self) -> None:
+        a = [
+            [0, 1, 2, 3],
+            [4, 5, 6, 7],
+            [-1, 4, 0, 1],
+        ]
+        semigroup = dsalgo.abstract_structure.Semigroup[int](min)
+        get_min = dsalgo.sparse_table.sparse_table_2d_fixed_window(
+            semigroup,
+            a,
+            (2, 2),
+        )
+        self.assertEqual(get_min(0, 0), 0)
+        self.assertEqual(get_min(1, 0), -1)
+        self.assertEqual(get_min(0, 2), 2)
+        with self.assertRaises(IndexError):
+            get_min(0, 3)
+
+
 if __name__ == "__main__":
     unittest.main()
