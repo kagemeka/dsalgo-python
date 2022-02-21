@@ -3,8 +3,8 @@ from __future__ import annotations
 import dataclasses
 import typing
 
-from dsalgo.type import T
 import dsalgo.fenwick_tree
+from dsalgo.type import T
 
 
 def argmax(arr: list[int]) -> int | None:

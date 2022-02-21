@@ -196,7 +196,6 @@ class AVLTree:
     ...
 
 
-
 import math
 from bisect import bisect_left, bisect_right, insort
 from typing import Generic, Iterable, Iterator, List, TypeVar, Union
@@ -345,6 +344,7 @@ class BucketSet(Generic[T]):
                 return ans + bisect_right(a, x)
             ans += len(a)
         return ans
+
 
 if __name__ == "__main__":
     import doctest

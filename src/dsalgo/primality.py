@@ -1,7 +1,8 @@
 from __future__ import annotations
+
+import math
 import random
 import typing
-import math
 
 
 def is_prime(n: int) -> bool:

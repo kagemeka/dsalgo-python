@@ -1,27 +1,17 @@
 from __future__ import annotations
-import typing
+
 import copy
-import dsalgo.bitset
-import dsalgo.abstract_structure
-from dsalgo.type import S
 import typing
+
+import dsalgo.abstract_structure
+import dsalgo.bitset
+from dsalgo.type import S
 
 
 def sparse_table(
     semigroup: dsalgo.abstract_structure.Semigroup[S],
     arr: list[S],
 ) -> typing.Callable[[int, int], S]:
-    """Sparse Table.
-
-    Args:
-        semigroup (Semigroup[S]):
-            semigroup.
-            operation must be idepotent.
-        arr (list[S]): original array.
-
-    Returns:
-        typing.Callable[[int, int], S]: function to get product [left, right).
-    """
     n = len(arr)
     assert n > 0
     bit_length = dsalgo.bitset.bit_length_table(n + 1)
@@ -164,15 +154,6 @@ def disjoint_sparse_table(
     semigroup: dsalgo.abstract_structure.Semigroup[S],
     arr: list[S],
 ) -> typing.Callable[[int, int], S]:
-    """Disjoint Sparse Table.
-
-    Args:
-        semigroup (Semigroup[S]): semigroup.
-        arr (list[S]): original array.
-
-    Returns:
-        typing.Callable[[int, int], S]: function to get product [left, right).
-    """
     n = len(arr)
     assert n > 0
     bit_length = dsalgo.bitset.bit_length_table(n << 1)
@@ -204,21 +185,9 @@ def disjoint_sparse_table(
     return get
 
 
-# from dsalgo.algebra.bit.bit_length import bit_length_table
-
-
 def disjoint_sparse_table_int_xor(
     arr: list[int],
 ) -> typing.Callable[[int, int], int]:
-    """Disjoint Sparse Table int-xor.
-
-    Args:
-        arr (list[int]): original array.
-
-    Returns:
-        typing.Callable[[int, int], int]:
-            function to get xor product [left, right).
-    """
     n = len(arr)
     assert n > 0
     bit_length = dsalgo.bitset.bit_length_table(n << 1)
@@ -247,15 +216,6 @@ def disjoint_sparse_table_int_xor(
 def disjoint_sparse_table_int_sum(
     arr: list[int],
 ) -> typing.Callable[[int, int], int]:
-    """Disjoint Sparse Table int-sum.
-
-    Args:
-        arr (list[int]): original array.
-
-    Returns:
-        typing.Callable[[int, int], int]:
-            function to get sum [left, right).
-    """
     n = len(arr)
     assert n > 0
     bit_length = dsalgo.bitset.bit_length_table(n << 1)

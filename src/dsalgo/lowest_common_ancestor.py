@@ -88,7 +88,6 @@ from dsalgo.graph_theory.tree_algo.euler_tour import (
 )
 from dsalgo.range_query.sparse_table.sparse_table import sparse_table
 
-
 """
 TODO: pass rmq constructor interface instead of define for each rmq method.
 - sparse table

@@ -1,11 +1,11 @@
 import unittest
 
-from dsalgo.container.stack import Stack
+import dsalgo.stack
 
 
 class Test(unittest.TestCase):
     def test(self) -> None:
-        st = Stack[int]()
+        st = dsalgo.stack.Stack[int]()
         st.push(3)
         st.push(2)
         self.assertEqual(len(st), 2)

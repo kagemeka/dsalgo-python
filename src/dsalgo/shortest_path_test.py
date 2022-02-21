@@ -1,15 +1,6 @@
-import typing
 import unittest
 
-from dsalgo.graph_theory.shortest_path.shortest_path_error import (
-    NegativeCycleError,
-)
-from dsalgo.graph_theory.shortest_path.shortest_path_floyd_warshall import (
-    floyd_warshall,
-)
-from dsalgo.graph_theory.shortest_path.shortest_path_johnson_sparse import (
-    johnson_sparse,
-)
+import dsalgo.shortest_path
 
 
 class TestJohnsonSparse(unittest.TestCase):
@@ -21,7 +12,7 @@ class TestJohnsonSparse(unittest.TestCase):
             [(2, 7), (4, 9)],
             [(0, 18), (3, 9)],
         ]
-        dists = johnson_sparse(graph)
+        dists = dsalgo.shortest_path.johnson_sparse(graph)
         self.assertEqual(
             dists,
             [
@@ -39,8 +30,8 @@ class TestJohnsonSparse(unittest.TestCase):
             [(2, -1)],
             [(0, -1)],
         ]
-        with self.assertRaises(NegativeCycleError):
-            johnson_sparse(graph)
+        with self.assertRaises(dsalgo.shortest_path.NegativeCycleError):
+            dsalgo.shortest_path.johnson_sparse(graph)
 
 
 class TestFloydWarshall(unittest.TestCase):
@@ -52,7 +43,7 @@ class TestFloydWarshall(unittest.TestCase):
             [None, None, 7, None, 9],
             [18, None, None, 9, None],
         ]
-        dists = floyd_warshall(graph)
+        dists = dsalgo.shortest_path.floyd_warshall(graph)
         self.assertEqual(
             dists,
             [
@@ -66,8 +57,8 @@ class TestFloydWarshall(unittest.TestCase):
 
     def test_negative_cycle(self) -> None:
         graph = [[None, -1, None], [None, None, -1], [-1, None, None]]
-        with self.assertRaises(NegativeCycleError):
-            floyd_warshall(graph)
+        with self.assertRaises(dsalgo.shortest_path.NegativeCycleError):
+            dsalgo.shortest_path.floyd_warshall(graph)
 
 
 if __name__ == "__main__":

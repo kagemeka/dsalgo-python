@@ -1,9 +1,8 @@
+import operator
 import unittest
 
 import dsalgo.abstract_structure
 import dsalgo.sparse_table
-import operator
-import unittest
 
 
 class TestSparseTable(unittest.TestCase):

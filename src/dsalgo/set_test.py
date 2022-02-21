@@ -1,3 +1,7 @@
+import unittest
+import dsalgo.set
+
+
 class TestPivotTreeSet:
     # tree = PivotTreeSet(max_height=5)
 
@@ -25,14 +29,9 @@ class TestPivotTreeArraySet:
     ...
 
 
-
-
-from dsalgo.container.set.avl_tree_set import AVLTreeSet
-
-
 class TestAVLTreeSet(unittest.TestCase):
     def test_insert(self) -> None:
-        s = AVLTreeSet[int]()
+        s = dsalgo.set.AVLTree[int]()
         s.insert(1)
         self.assertEqual(
             list(s),
@@ -50,7 +49,7 @@ class TestAVLTreeSet(unittest.TestCase):
         )
 
     def test_iter(self) -> None:
-        s = AVLTreeSet[int]()
+        s = dsalgo.set.AVLTree[int]()
         s.insert(1)
         s.insert(0)
         s.insert(3)
@@ -60,7 +59,7 @@ class TestAVLTreeSet(unittest.TestCase):
         )
 
     def test_remove(self) -> None:
-        s = AVLTreeSet[int]()
+        s = dsalgo.set.AVLTree[int]()
         s.insert(1)
         s.insert(0)
         s.insert(3)
@@ -71,7 +70,7 @@ class TestAVLTreeSet(unittest.TestCase):
         )
 
     def test_min(self) -> None:
-        s = AVLTreeSet[int]()
+        s = dsalgo.set.AVLTree[int]()
         s.insert(1)
         s.insert(0)
         s.insert(3)
@@ -81,7 +80,7 @@ class TestAVLTreeSet(unittest.TestCase):
         )
 
     def test_max(self) -> None:
-        s = AVLTreeSet[int]()
+        s = dsalgo.set.AVLTree[int]()
         s.insert(1)
         s.insert(0)
         s.insert(3)
@@ -91,7 +90,7 @@ class TestAVLTreeSet(unittest.TestCase):
         )
 
     def test_lower_bound(self) -> None:
-        s = AVLTreeSet[int]()
+        s = dsalgo.set.AVLTree[int]()
         s.insert(1)
         s.insert(0)
         s.insert(3)
@@ -114,7 +113,7 @@ class TestAVLTreeSet(unittest.TestCase):
         )
 
     def test_upper_bound(self) -> None:
-        s = AVLTreeSet[int]()
+        s = dsalgo.set.AVLTree[int]()
         s.insert(1)
         s.insert(0)
         s.insert(3)
@@ -137,7 +136,7 @@ class TestAVLTreeSet(unittest.TestCase):
         )
 
     def test_getitem(self) -> None:
-        s = AVLTreeSet[int]()
+        s = dsalgo.set.AVLTree[int]()
         s.insert(1)
         s.insert(0)
         s.insert(3)
@@ -149,7 +148,7 @@ class TestAVLTreeSet(unittest.TestCase):
             s[3]
 
     def test_len(self) -> None:
-        s = AVLTreeSet[int]()
+        s = dsalgo.set.AVLTree[int]()
         for i in range(5):
             s.insert(i)
         self.assertEqual(
@@ -168,7 +167,7 @@ class TestAVLTreeSet(unittest.TestCase):
         )
 
     def test_contains(self) -> None:
-        s = AVLTreeSet[int]()
+        s = dsalgo.set.AVLTree[int]()
         for i in range(5):
             s.insert(i)
         self.assertTrue(4 in s)
@@ -176,3 +175,7 @@ class TestAVLTreeSet(unittest.TestCase):
         self.assertFalse(5 in s)
         s.remove(4)
         self.assertFalse(4 in s)
+
+
+if __name__ == "__main__":
+    unittest.main()

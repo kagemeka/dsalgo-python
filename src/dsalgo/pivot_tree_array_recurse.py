@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import typing
 
 
@@ -10,7 +12,7 @@ def _right_pivot(pivot: int) -> int:
 
 
 class PivotTreeArray:
-    __data: list[typing.Optional[int]]
+    __data: list[int | None]
     __size: list[int]
     __max_height: int
 
@@ -99,7 +101,7 @@ class PivotTreeArray:
             return root_key
         return self.__get_min(right_pivot)
 
-    def __remove(self, pivot: int, key: int) -> typing.Optional[int]:
+    def __remove(self, pivot: int, key: int) -> int | None:
         root_key = self.__data[pivot]
         if root_key is None:
             return None
@@ -177,8 +179,8 @@ class PivotTreeArray:
             )
         return 0 if pivot & 1 else self.__upper_bound(left_pivot, key)
 
-    def min(self) -> typing.Optional[int]:
+    def min(self) -> int | None:
         return None if len(self) == 0 else self[0]
 
-    def max(self) -> typing.Optional[int]:
+    def max(self) -> int | None:
         return None if len(self) == 0 else self[len(self) - 1]
