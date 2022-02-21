@@ -1,24 +1,10 @@
-"""
-Numeral System
-"""
+from __future__ import annotations
 
 import typing
 
 
-def base_convert_to_ten(
-    base: int,
-    digits: list[int],
-) -> int:
-    """Convert digits to base ten integer.
-
-    Args:
-        base (int): original base.
-        digits (list[int]): digits.
-
-    Returns:
-        int: base ten integer.
-
-
+def base_convert_to_ten(base: int, digits: list[int]) -> int:
+    """
     Examples:
         >>> digits = [0, 1, 1]
         >>> base_convert_to_ten(2, digits)
@@ -33,19 +19,8 @@ def base_convert_to_ten(
     return n
 
 
-def base_convert_from_ten(
-    base: int,
-    n: int,
-) -> list[int]:
-    """Convert base ten integer to arbitral base digits.
-
-    Args:
-        base (int): target base.
-        n (int): base ten integer.
-
-    Returns:
-        list[int]: result digits.
-
+def base_convert_from_ten(base: int, n: int) -> list[int]:
+    """
     Examples:
         >>> base_convert_from_ten(-2, 10)
         [0, 1, 1, 1, 1]
@@ -63,21 +38,7 @@ def base_convert_from_ten(
     return digits
 
 
-def base_convert(
-    base_from: int,
-    base_to: int,
-    digits: list[int],
-) -> list[int]:
-    """Convert digits base from b0 to b1.
-
-    Args:
-        b0 (int): original base.
-        b1 (int): target base.
-        digits (list[int]): original digits.
-
-    Returns:
-        list[int]: target digits.
-    """
+def base_convert(base_from: int, base_to: int, digits: list[int]) -> list[int]:
     return base_convert_from_ten(
         base_to,
         base_convert_to_ten(base_from, digits),
