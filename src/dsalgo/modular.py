@@ -1,7 +1,11 @@
+from __future__ import annotations
 import enum
+import abc
+import typing
 
 
 def add(mod: int, lhs: int, rhs: int) -> int:
+    assert 0 <= lhs < mod and 0 <= rhs < mod
     res = lhs + rhs
     if res >= mod:
         res -= mod
@@ -9,18 +13,22 @@ def add(mod: int, lhs: int, rhs: int) -> int:
 
 
 def neg(mod: int, x: int) -> int:
+    assert 0 <= x < mod
     return mod - x
 
 
 def subtract(mod: int, lhs: int, rhs: int) -> int:
+    assert 0 <= lhs < mod and 0 <= rhs < mod
     return add(mod, lhs, neg(mod, rhs))
 
 
 def multiply(mod: int, lhs: int, rhs: int) -> int:
+    assert 0 <= lhs < mod and 0 <= rhs < mod
     return lhs * rhs % mod
 
 
 def divide(p: int, lhs: int, rhs: int) -> int:
+    assert 0 <= lhs < p and 0 <= rhs < p
     return multiply(p, lhs, invert_fermat(p, rhs))
 
 
@@ -34,7 +42,7 @@ def pow_recurse(mod: int, x: int, n: int) -> int:
     return y
 
 
-def pow(mod: int, x: int, n: int) -> int:
+def pow_(mod: int, x: int, n: int) -> int:
     y = 1
     while n:
         if n & 1:
@@ -45,116 +53,23 @@ def pow(mod: int, x: int, n: int) -> int:
 
 
 def invert_naive(mod: int, n: int) -> int:
-    """Modular Inverse naive implementation.
-
-    Args:
-        mod (int): [description]
-        n (int): [description]
-
-    Returns:
-        int: [description]
-    """
     return pow(n, -1, mod)
 
 
 def invert_euler_theorem(mod: int, n: int) -> int:
-    """Modular Inverse by Euler's theorem.
-
-    Args:
-        mod (int): [description]
-        n (int): [description]
-
-    Returns:
-        int: [description]
-
-    Constraints:
-
-    """
     ...
 
 
 def invert_fermat(p: int, n: int) -> int:
-    """Modular Inverse by Fermat's Little theorem.
-
-    Args:
-        p (int): [description]
-        n (int): [description]
-
-    Returns:
-        int: [description]
-    """
     return pow(n, p - 2, p)
 
 
-def invert_extended_euclidean(mod: int, n: int) -> typing.Optional[int]:
-    r"""Modular Inverse with extended eucledian GCD algorithm.
+def invert_extended_euclidean(mod: int, n: int) -> int | None:
+    import dsalgo.euclidean
 
-    Args:
-        mod (int): an modulo.
-        n (int): arbitral integer.
-
-    Returns:
-        typing.Optional[int]:
-            modular inverse of n.
-            if the inverse does not exist, return None.
-
-    Algorithm Summary:
-        definition of modular inver of n
-        x := inverse of n.
-        nx \equiv 1 \mod m
-        nx - 1 = qm (q is arbitral)
-        nx - qm = 1
-        y := -q
-        nx + my = 1 (Bezout identity)
-        this equation can be solved by extendex euclidean algorithm.
-    """
     assert mod > 1
-    gcd, x, _ = extended_euclidean_recurse(n % mod, mod)
-    if gcd != 1:
-        return None
-    if x < 0:
-        x += mod
-    assert 0 <= x < mod
-    return x
-
-
-def invert_extended_euclidean_direct(mod: int, n: int) -> typing.Optional[int]:
-    """Compute Modular inverse directly with Extended Euclidean Algorithm.
-
-    Args:
-        mod (int): an modulo.
-        n (int): arbitral integer.
-
-    Returns:
-        typing.Optional[int]:
-            modular inverse of n.
-            if the inverse does not exist, return None.
-
-    Algorithm Summary:
-        consider for the equation nx + my = 1.
-        (x_i, y_i)^T = [
-            [0, 1],
-            [1, -q_i],
-        ](x_{i-1}, y_{i-1})^T
-
-        (x_0, y_0)^T = (1, 0)^T  # one of the solution.
-
-        finally, y is not needed to be computed.
-        it's only enough to store only first row's data.
-    """
-    assert mod > 1
-    a, b = n % mod, mod
-    x00, x01 = 1, 0  # first row of matrix identity element.
-    while b:
-        q, r = divmod(a, b)
-        x00, x01 = x01, x00 - q * x01
-        a, b = b, r
-    if a != 1:
-        return None
-    if x00 < 0:
-        x00 += mod
-    assert 0 <= x00 < mod
-    return x00
+    gcd, x = dsalgo.euclidean.extended_euclidean_gcd_modular_inverse(n, mod)
+    return x if gcd == 1 else None
 
 
 def inverse_table_naive(p: int, n: int) -> list[int]:
@@ -162,19 +77,29 @@ def inverse_table_naive(p: int, n: int) -> list[int]:
 
 
 def inverse_table(p: int, n: int) -> list[int]:
-    """Modular Inverse table.
-
-    Args:
-        n (int): [description]
-        mod (int): [description]
-
-    Returns:
-        list[int]: [description]
-    """
-    b, a = factorial(n, mod), factorial_inverse(n, mod)
+    fact, inv_fact = factorial(n - 1, p), factorial_inverse(n, p)
     for i in range(n - 1):
-        a[i + 1] = a[i + 1] * b[i] % mod
-    return a
+        inv_fact[i + 1] = inv_fact[i + 1] * fact[i] % p
+    return inv_fact
+
+
+def cumprod(mod: int, arr: list[int]) -> list[int]:
+    arr = arr.copy()
+    for i in range(len(arr) - 1):
+        arr[i + 1] = arr[i + 1] * arr[i] % mod
+    return arr
+
+
+def factorial(mod: int, n: int) -> list[int]:
+    fact = list(range(n))
+    fact[0] = 1
+    return cumprod(mod, fact)
+
+
+def factorial_inverse(p: int, n: int) -> list[int]:
+    ifact = list(range(1, n + 1))
+    ifact[-1] = pow(factorial(p, n)[-1], -1, p)
+    return cumprod(p, ifact[::-1])[::-1]
 
 
 ADD_IDENTITY = 0
