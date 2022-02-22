@@ -68,7 +68,7 @@ def invert_extended_euclidean(mod: int, n: int) -> int | None:
     import dsalgo.euclidean
 
     assert mod > 1
-    gcd, x = dsalgo.euclidean.extended_euclidean_gcd_modular_inverse(n, mod)
+    gcd, x = dsalgo.euclidean.extended_euclidean_gcd_modular_inverse(mod, n)
     return x if gcd == 1 else None
 
 
