@@ -3,8 +3,8 @@ import unittest
 import dsalgo.prime_number
 
 
-class TestFindPrimeNumbers(unittest.TestCase):
-    def test(self) -> None:
+class Tests(unittest.TestCase):
+    def test_find_prime_numbers(self) -> None:
         self.assertEqual(
             dsalgo.prime_number.find_prime_numbers(100),
             [
@@ -36,19 +36,15 @@ class TestFindPrimeNumbers(unittest.TestCase):
             ],
         )
 
-
-class TestPrimeFactorize(unittest.TestCase):
-    def test(self) -> None:
+    def test_prime_factorize(self) -> None:
         self.assertEqual(
             dsalgo.prime_number.prime_factorize(105),
             [(3, 1), (5, 1), (7, 1)],
         )
 
-
-class TestPrimeFactorizeLPF(unittest.TestCase):
-    def test(self) -> None:
+    def test_prime_factorize_lpf(self) -> None:
         prime_factorize = dsalgo.prime_number.prime_factorize_lpf(
-            max_value=1000
+            max_size=1000,
         )
         self.assertEqual(
             prime_factorize(105),
@@ -59,9 +55,7 @@ class TestPrimeFactorizeLPF(unittest.TestCase):
             [(2, 2), (5, 2)],
         )
 
-
-class TestLeastPrimeFactor(unittest.TestCase):
-    def test(self) -> None:
+    def test_least_prime_factor(self) -> None:
         self.assertEqual(
             dsalgo.prime_number.least_prime_factor(50)[1:],
             [
@@ -117,19 +111,9 @@ class TestLeastPrimeFactor(unittest.TestCase):
             ],
         )
 
-
-class TestCountPrimeFactors(unittest.TestCase):
-    def test(self) -> None:
+    def test_greatest_prime_factor(self) -> None:
         self.assertEqual(
-            count_prime_factors(20),
-            [0, 0, 1, 1, 1, 1, 2, 1, 1, 1, 2, 1, 2, 1, 2, 2, 1, 1, 2, 1],
-        )
-
-
-class TestGreatestPrimeFactor(unittest.TestCase):
-    def test(self) -> None:
-        self.assertEqual(
-            greatest_prime_factor(50)[1:],
+            dsalgo.prime_number.greatest_prime_factor(50)[1:],
             [
                 1,
                 2,
@@ -181,6 +165,12 @@ class TestGreatestPrimeFactor(unittest.TestCase):
                 3,
                 7,
             ],
+        )
+
+    def test_count_prime_factors(self) -> None:
+        self.assertEqual(
+            dsalgo.prime_number.count_prime_factors(20),
+            [0, 0, 1, 1, 1, 1, 2, 1, 1, 1, 2, 1, 2, 1, 2, 2, 1, 1, 2, 1],
         )
 
 
