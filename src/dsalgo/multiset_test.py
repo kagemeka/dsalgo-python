@@ -1,15 +1,11 @@
-"""
-Container
-"""
-
 import unittest
 
-from dsalgo.container.multiset.fenwick_tree_multiset import FenwickTreeMultiset
+import dsalgo.multiset
 
 
 class Test(unittest.TestCase):
     def test(self) -> None:
-        ms = FenwickTreeMultiset(max_value=1 << 10)
+        ms = dsalgo.multiset.FenwickTree(max_value=1 << 10)
         self.assertIsNone(ms.min())
         self.assertIsNone(ms.max())
         ms.insert(5)
