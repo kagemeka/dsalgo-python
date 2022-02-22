@@ -1,13 +1,12 @@
 import heapq
-import typing
 import unittest
 
-from dsalgo.graph_theory.tree.binary_heap.binary_heap import BinaryMinHeap
+import dsalgo.binary_heap
 
 
 class Test(unittest.TestCase):
     def test(self) -> None:
-        hq = BinaryMinHeap[int]()
+        hq = dsalgo.binary_heap.BinaryMinHeap[int]()
         hq_std: list[int] = []
         for i in range(10, -1, -1):
             hq.push(i)
