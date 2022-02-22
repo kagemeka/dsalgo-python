@@ -1,8 +1,11 @@
-def randomized_linear():
+from __future__ import annotations
+
+
+def randomized_linear() -> None:
     ...
 
 
-def reverse_delete():
+def reverse_delete() -> None:
     ...
 
 
