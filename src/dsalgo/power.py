@@ -1,19 +1,20 @@
 import typing
 
-from dsalgo.algebra.abstract.abstract_structure import Monoid
+import dsalgo.abstract_structure
+from dsalgo.type import S
 
-S = typing.TypeVar("S")
 
-
-def define_power_func(monoid: Monoid[S]) -> typing.Callable[[S, int], S]:
+def define_power_func(
+    monoid: dsalgo.abstract_structure.Monoid[S],
+) -> typing.Callable[[S, int], S]:
     def pow(value: S, exponent: int) -> S:
         assert exponent >= 0
         if exponent == 0:
-            return monoid.e()
+            return monoid.identity()
         x = pow(value, exponent >> 1)
-        x = monoid.op(x, x)
+        x = monoid.operation(x, x)
         if exponent & 1:
-            x = monoid.op(x, value)
+            x = monoid.operation(x, value)
         return x
 
     return pow
