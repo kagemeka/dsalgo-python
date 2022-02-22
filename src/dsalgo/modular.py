@@ -33,6 +33,7 @@ def divide(p: int, lhs: int, rhs: int) -> int:
 
 
 def pow_recurse(mod: int, x: int, n: int) -> int:
+    assert n >= 0
     if n == 0:
         return 1
     y = pow_recurse(mod, x, n >> 1)
@@ -43,6 +44,7 @@ def pow_recurse(mod: int, x: int, n: int) -> int:
 
 
 def pow_(mod: int, x: int, n: int) -> int:
+    assert n >= 0
     y = 1
     while n:
         if n & 1:
@@ -111,6 +113,36 @@ class Modulo(enum.IntEnum):
     MOD_998_244_353 = enum.auto()
     MOD_1_000_000_007 = enum.auto()
     MOD_1_000_000_009 = enum.auto()
+
+
+class Modular:
+    __mod: int
+
+    def __init__(self, modulo: int) -> None:
+        self.__mod = modulo
+
+    def add(self, lhs: int, rhs: int) -> int:
+        return add(self.__mod, lhs, rhs)
+
+    def neg(self, x: int) -> int:
+        return neg(self.__mod, x)
+
+    def subtract(self, lhs: int, rhs: int) -> int:
+        return subtract(self.__mod, lhs, rhs)
+
+    def multiply(self, lhs: int, rhs: int) -> int:
+        return multiply(self.__mod, lhs, rhs)
+
+    def pow(self, x: int, n: int) -> int:
+        return pow(x, n, self.__mod)
+
+
+class PrimeModular(Modular):
+    def divide(self, lhs: int, rhs: int) -> int:
+        return divide(self.__mod, lhs, rhs)
+
+    def invert(self, n: int) -> int:
+        return invert_naive(self.__mod, n)
 
 
 class ModularElement(abc.ABC):
