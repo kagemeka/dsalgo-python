@@ -2,17 +2,34 @@
 build-backend = "poetry.core.masonry.api"
 requires = ["poetry_core >= 1.0.0"]
 
+# POETRY ------------------------------------------------------------------------------
 [tool.poetry]
 authors = ["Hiroshi Tsuyuki <kagemeka1@gmail.com>"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+]
 description = "A package for datastructures and algorithms."
-documentation = "https://github.com/kagemeka/dsalgo-python"
-exclude = ["./**/tests/"]
-homepage = "https://github.com/kagemeka/dsalgo-python"
+documentation = "https://dsalgo.readthedocs.io"
+exclude = [
+  "**/tests/",
+  "**/*_test.py",
+  "**/test_*.py",
+  "**/_test_*.py",
+]
+homepage = "https://kagemeka.github.io/dsalgo-python"
+include = []
 keywords = ["algorithm", "datastructure"]
+
 license = "MIT"
 maintainers = ["Hiroshi Tsuyuki <kagemeka1@gmail.com>"]
 name = "dsalgo"
-packages = [{include = "dsalgo", from = "src"}]
+packages = [
+  {include = "dsalgo", from = "src"},
+  {include = "dsalgo_numba", from = "src"},
+  {include = "dsalgo_numpy", from = "src"},
+]
 readme = "README.md"
 repository = "https://github.com/kagemeka/dsalgo-python"
 version = "0.1.0"
@@ -21,30 +38,57 @@ version = "0.1.0"
 networkx = "^2"
 numba = "^0"
 numpy = "^1"
+optext-python = "0.1.1"
 python = ">=3.8,<3.10"
 scipy = "^1"
-optext-python = "0.1.1"
+
+furo = {version = "^", optional = true}
+myst-parser = {version = "^", optional = true}
+pdoc3 = {version = "^", optional = true}
+pydata-sphinx-theme = {version = "^", optional = true}
+python-docs-theme = {version = "^", optional = true}
+sphinx = {version = "^", optional = true}
+sphinx-book-theme = {version = "^", optional = true}
+sphinx-theme-pd = {version = "^", optional = true}
+sphinx_rtd_theme = {version = "<=2.0.0", optional = true}
+sphinxcontrib-mermaid = {version = "^", optional = true}
 
 [tool.poetry.extras]
+docs = [
+  "sphinx",
+  "furo",
+  "myst-parser",
+  "sphinx_rtd_theme",
+  "sphinxcontrib-mermaid",
+  "pdoc3",
+  "python-docs-theme",
+  "sphinx-theme-pd",
+  "sphinx-book-theme",
+  "pydata-sphinx-theme",
+]
 
 [tool.poetry.dev-dependencies]
+PyYAML = "^"
 autopep8 = "^"
+bandit = "^"
 black = "^"
 blacken-docs = "^"
 flake8 = "^"
 isort = "^"
-mkdocs = "^"
 mypy = "^"
-myst-parser = "^"
-pdoc3 = "^"
+pre-commit = "^"
+pycodestyle = "^"
 pydocstyle = "^"
+pylint = "^"
+pyproject-flake8 = "^"
 pytest = "^"
 pytest-asyncio = "^"
-sphinx = "^"
-sphinxcontrib-mermaid = "^"
+toml = "^"
+types-PyYAML = "^"
 types-requests = "^"
+types-setuptools = "^"
+types-toml = "^"
 
-bandit = "^1.7.2"
 # FORMATTING ------------------------------------------------------------------------------
 [tool.black]
 # github: https://github.com/psf/black

@@ -2,7 +2,7 @@
 
 ## Development status
 
-DsAlgo is now still alpha version and being developed actively (1-22-2022).
+DsAlgo is now still alpha version and being developed actively (2-22-2022).
 
 ### Environment
 

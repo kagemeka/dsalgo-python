@@ -5,7 +5,7 @@ import heapq
 import numba as nb
 import pytest
 
-from dsalgo.numba.graph_theory.tree.binary_heap import heappop, heappush
+from dsalgo_numba.graph_theory.tree.binary_heap import heappop, heappush
 
 
 @pytest.mark.skip
