@@ -1,11 +1,6 @@
-"""
-Number Theory
-Equation
-"""
-
 import unittest
 
-from dsalgo.number_theory.equation.garner import garner_form, garner_form_mod
+import dsalgo.garner
 
 
 class Test(unittest.TestCase):
@@ -15,7 +10,7 @@ class Test(unittest.TestCase):
             (17, 8),
         ]
         self.assertEqual(
-            garner_form(pairs),
+            dsalgo.garner.garner_form(pairs),
             212,
         )
 
@@ -25,11 +20,11 @@ class Test(unittest.TestCase):
             (17, 8),
         ]
         self.assertEqual(
-            garner_form_mod(998_244_353, pairs),
+            dsalgo.garner.garner_modular_form(998_244_353, pairs),
             212,
         )
         self.assertEqual(
-            garner_form_mod(100, pairs),
+            dsalgo.garner.garner_modular_form(100, pairs),
             12,
         )
 

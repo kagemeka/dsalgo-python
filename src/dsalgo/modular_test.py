@@ -1,6 +1,8 @@
 import unittest
-import dsalgo.modular
+
 import optext.option
+
+import dsalgo.modular
 
 
 class TestElement(unittest.TestCase):

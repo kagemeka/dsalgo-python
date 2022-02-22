@@ -1,6 +1,7 @@
 from __future__ import annotations
-import enum
+
 import abc
+import enum
 import typing
 
 
