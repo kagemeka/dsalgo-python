@@ -1,2 +1,0 @@
-class NegativeCycleError(Exception):
-    pass

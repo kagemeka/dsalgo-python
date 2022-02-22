@@ -1,5 +1,6 @@
+from __future__ import annotations
+
 import heapq
-import typing
 
 import numba as nb
 import pytest
