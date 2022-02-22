@@ -1,14 +1,7 @@
+from __future__ import annotations
 import typing
 
-from dsalgo.number_theory.equation._extended_euclidean_mod import (
-    extended_euclidean_mod,
-)
-from dsalgo.number_theory.equation.extended_euclidean import (
-    extended_euclidean_recurse,
-)
-from dsalgo.number_theory.euclidean.least_common_multiple import (
-    least_common_multiple,
-)
+import dsalgo.euclidean
 
 
 def crt_2_coprime(
@@ -18,7 +11,7 @@ def crt_2_coprime(
     rem_1: int,
 ) -> int:
     assert 0 <= rem_0 < mod_0 > 1 and 0 <= rem_1 < mod_1 > 1
-    gcd, x, _ = extended_euclidean_recurse(mod_0, mod_1)
+    gcd, x, _ = dsalgo.euclidean.extended_euclidean_recurse(mod_0, mod_1)
     assert gcd == 1
     lcm = mod_0 * mod_1
     return (rem_0 + x * (rem_1 - rem_0) * mod_0) % lcm
@@ -31,7 +24,7 @@ def crt_2(
     rem_1: int,
 ) -> typing.Optional[int]:
     assert 0 <= rem_0 < mod_0 > 1 and 0 <= rem_1 < mod_1 > 1
-    gcd, x, _ = extended_euclidean_recurse(mod_0, mod_1)
+    gcd, x, _ = dsalgo.euclidean.extended_euclidean_recurse(mod_0, mod_1)
     if (rem_1 - rem_0) % gcd:
         return None
     lcm = mod_0 // gcd * mod_1
@@ -52,7 +45,7 @@ def crt(
         if result is None:
             return None
         rem = result
-        mod = least_common_multiple(mod, m)
+        mod = dsalgo.euclidean.least_common_multiple(mod, m)
         assert 0 <= rem < mod
     return rem
 
@@ -64,7 +57,11 @@ def safe_crt_2(
     rem_1: int,
 ) -> typing.Optional[int]:
     assert 0 <= rem_0 < mod_0 > 1 and 0 <= rem_1 < mod_1 > 1
-    gcd, inv_u0 = extended_euclidean_mod(mod_1, mod_0)
+    gcd, inv_u0 = dsalgo.euclidean.extended_euclidean_gcd_modular_inverse(
+        mod_1,
+        mod_0 % mod_1,
+    )
+    assert inv_u0 is not None
     if (rem_1 - rem_0) % gcd:
         return None
     u1 = mod_1 // gcd
@@ -87,6 +84,6 @@ def safe_crt(
         if result is None:
             return None
         rem = result
-        mod = least_common_multiple(mod, m)
+        mod = dsalgo.euclidean.least_common_multiple(mod, m)
         assert 0 <= rem < mod
     return rem
