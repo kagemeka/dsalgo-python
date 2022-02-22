@@ -25,7 +25,7 @@ def fw_set(
     fw: np.ndarray,
     i: int,
     x: S,
-) -> NoReturn:
+) -> None:
     r"""Set.
 
     a_i := op(a_i, x)
@@ -95,7 +95,7 @@ def build_fw(a: np.ndarray) -> np.ndarray:
 
 
 @nb.njit
-def set_fw(fw: np.ndarray, i: int, x: S) -> NoReturn:
+def set_fw(fw: np.ndarray, i: int, x: S) -> None:
     r"""Set interface."""
     fw_set(fw_op, fw, i, x)
 
@@ -167,7 +167,7 @@ def fw2d_set(
     i: int,
     j: int,
     x: int,
-) -> NoReturn:
+) -> None:
     n, m = fw.shape
     j0 = j
     while i < n:

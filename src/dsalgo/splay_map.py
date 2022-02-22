@@ -28,7 +28,7 @@ V = typing.TypeVar("V")
 class SplayTreeMap(typing.Generic[T, V]):
     root: typing.Optional[Node[T, V]] = None
 
-    def rotate(self) -> NoReturn:
+    def rotate(self) -> None:
         u = self.root
         if self.__key < u.key:
             v = u.left
@@ -40,7 +40,7 @@ class SplayTreeMap(typing.Generic[T, V]):
             v.left = u
         self.root = v
 
-    def splay(self, key: T) -> NoReturn:
+    def splay(self, key: T) -> None:
         self.__key = key
         us = self.__state()
         if not us:
@@ -87,6 +87,6 @@ class SplayTreeMap(typing.Generic[T, V]):
         self.splay(key)
         return self.root.value
 
-    def __setitem__(self, key: T, v: V) -> NoReturn:
+    def __setitem__(self, key: T, v: V) -> None:
         self.splay(key)
         self.root.value = v

@@ -37,12 +37,12 @@ def ms_size(ms: np.ndarray) -> int:
 
 
 @nb.njit
-def ms_add(ms: np.ndarray, x: int) -> NoReturn:
+def ms_add(ms: np.ndarray, x: int) -> None:
     operate_seg(ms, x, 1)
 
 
 @nb.njit
-def ms_pop(ms: np.ndarray, x: int) -> NoReturn:
+def ms_pop(ms: np.ndarray, x: int) -> None:
     assert get_seg(ms, x, x + 1) > 0
     operate_seg(ms, x, -1)
 

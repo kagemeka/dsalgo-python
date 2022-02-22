@@ -1,13 +1,11 @@
-import typing
-
 import numba as nb
 import numpy as np
 
-from dsalgo.numba.graph_theory.tree.segment_tree import F, S
+from dsalgo.type import F, S
 
 
 # set range add, get range mininum.
-@nb.njit
+# @nb.njit
 def seg_op_s(a: S, b: S) -> S:
     return min(a, b)
 

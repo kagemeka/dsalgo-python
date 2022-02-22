@@ -3,7 +3,7 @@ import typing
 import numpy as np
 
 
-def solve() -> NoReturn:
+def solve() -> None:
 
     # TODO cut below
 

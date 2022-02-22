@@ -1,7 +1,7 @@
 import typing
 
 
-def solve() -> NoReturn:
+def solve() -> None:
 
     # TODO cut below
 

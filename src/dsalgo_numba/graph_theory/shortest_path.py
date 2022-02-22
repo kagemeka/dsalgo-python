@@ -191,7 +191,7 @@ def johnson_sparse(n: int, g: np.ndarray) -> np.ndarray:
 
 
 @nb.njit
-def floyd_warshall(g: np.ndarray) -> NoReturn:
+def floyd_warshall(g: np.ndarray) -> None:
     n = len(g)
     assert g.shape == (n, n)
     for k in range(n):

@@ -30,7 +30,7 @@
 #     print(seg.get(0, 10))
 
 
-# def __test_segtree_lazy() -> NoReturn:
+# def __test_segtree_lazy() -> None:
 #     s_op = lambda a, b: (a[0] + b[0], a[1] + b[1])
 #     s_e = lambda: (0, 0)
 #     ms = Monoid(s_op, s_e, False)
