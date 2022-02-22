@@ -21,7 +21,7 @@ def set_fw(
     l: int,
     r: int,
     x: S,
-) -> NoReturn:
+) -> None:
     fw_set(fw_op, fw, l, x)
     fw_set(fw_op, fw, r, fw_inverse(x))
 

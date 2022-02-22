@@ -33,14 +33,14 @@ class SegmentTree(typing.Generic[T]):
         self,
         monoid: Monoid[T],
         a: list[T],
-    ) -> NoReturn:
+    ) -> None:
         self.__seg = SegmentTree(monoid, a)
         self.__monoid = monoid
 
-    def set_point(self, i: int, x: T) -> NoReturn:
+    def set_point(self, i: int, x: T) -> None:
         self.__seg[i] = x
 
-    def operate_point(self, i: int, x: T) -> NoReturn:
+    def operate_point(self, i: int, x: T) -> None:
         self.set_point(i, self.__monoid.op(self.get_point(i), x))
 
     def get_point(self, i: int) -> T:

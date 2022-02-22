@@ -23,7 +23,7 @@ except ImportError:
 
 
 # @nb.njit
-# def uf_unite(uf: np.ndarray, u: int, v: int) -> NoReturn:
+# def uf_unite(uf: np.ndarray, u: int, v: int) -> None:
 #     u, v = uf_find(uf, u), uf_find(uf, v)
 #     if u == v:
 #         return

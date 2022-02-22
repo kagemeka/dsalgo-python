@@ -20,7 +20,7 @@ class Node:
     size: int = 1
     mn: int = 1 << 50
 
-    def rotate(self) -> NoReturn:
+    def rotate(self) -> None:
         p = self.parent
         pp = p.parent
         if pp and pp.left is p:
@@ -44,7 +44,7 @@ class Node:
         p.update()
         self.update()
 
-    def splay(self) -> NoReturn:
+    def splay(self) -> None:
         ss = self.__state()
         while ss != State.NONE:
             p = self.parent
@@ -71,7 +71,7 @@ class Node:
 
     def update(
         self,
-    ) -> NoReturn:
+    ) -> None:
         s = 1
         m = self.value
         if self.left:
@@ -110,7 +110,7 @@ class SplayArray:
         self,
         i: int,
         x: int,
-    ) -> NoReturn:
+    ) -> None:
         u = self.__get(i)
         u.value = x
         u.update()
@@ -130,7 +130,7 @@ class SplayArray:
     def join(
         self,
         rhs: SplayArray,
-    ) -> NoReturn:
+    ) -> None:
         u = self.root
         v = rhs.root
         if not u:
@@ -167,7 +167,7 @@ class SplayArray:
         self,
         i: int,
         v: int,
-    ) -> NoReturn:
+    ) -> None:
         rhs = self.split(i)
         v = Node(value=v)
         v.update()
@@ -177,7 +177,7 @@ class SplayArray:
     def delete(
         self,
         i: int,
-    ) -> NoReturn:
+    ) -> None:
         u = self.__get(i)
         v = u.right
         u = u.left

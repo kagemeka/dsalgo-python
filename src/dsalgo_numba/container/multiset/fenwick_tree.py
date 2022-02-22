@@ -32,12 +32,12 @@ def ms_size(ms: np.ndarray) -> int:
 
 
 @nb.njit
-def ms_add(ms: np.ndarray, x: int) -> NoReturn:
+def ms_add(ms: np.ndarray, x: int) -> None:
     set_fw(ms, x, 1)
 
 
 @nb.njit
-def ms_pop(ms: np.ndarray, x: int) -> NoReturn:
+def ms_pop(ms: np.ndarray, x: int) -> None:
     assert get_range_fw(ms, x, x + 1) > 0
     set_fw(ms, x, -1)
 

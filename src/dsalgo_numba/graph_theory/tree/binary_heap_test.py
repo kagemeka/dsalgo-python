@@ -8,7 +8,7 @@ import pytest
 from dsalgo_numba.graph_theory.tree.binary_heap import heappop, heappush
 
 
-@pytest.mark.skip
+@pytest.mark.skip(reason="numba error")
 @nb.njit(cache=True)
 def test() -> None:
     hq = [0] * 0
