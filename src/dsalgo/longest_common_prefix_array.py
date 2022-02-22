@@ -1,25 +1,7 @@
 from __future__ import annotations
 
-import typing
 
-
-def kasai(
-    arr: list[int],
-    suffix_array: list[int],
-) -> list[int]:
-    """Longest Common Prefix Array Kasai's Algorithm.
-
-    Args:
-        arr (list[int]): original array.
-        suffix_array (list[int]): suffix_array of the original array.
-
-    Returns:
-        list[int]: longest common prefix array.
-
-    Complexity:
-        time: O(N)
-        space: O(N)
-    """
+def kasai(arr: list[int], suffix_array: list[int]) -> list[int]:
     n = len(arr)
     assert n > 0
     rank = [0] * n

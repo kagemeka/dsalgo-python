@@ -1,13 +1,16 @@
 import unittest
 
-from dsalgo.string.longest_common_prefix.kasai import lcp_array_kasai
-from dsalgo.string.suffix_array.sa_is_recurse import sa_is_recurse
+import dsalgo.longest_common_prefix_array
+import dsalgo.suffix_array
+
+# from dsalgo.string.longest_common_prefix.kasai import lcp_array_kasai
+# from dsalgo.string.suffix_array.sa_is_recurse import sa_is_recurse
 
 
 class TestKasai(unittest.TestCase):
     def test(self) -> None:
         arr = [1, 0, 3, 3, 0, 3, 3, 0, 2, 2, 0]  # mississippi
-        sa = sa_is_recurse(arr)
+        sa = dsalgo.suffix_array.sais_recurse(arr)
         """
         sa|lcp |suffix
         -------------------
@@ -24,7 +27,10 @@ class TestKasai(unittest.TestCase):
         2 |3   |ssissippi
         """
         lcp = [1, 1, 4, 0, 0, 1, 0, 2, 1, 3]
-        self.assertEqual(lcp_array_kasai(arr, sa), lcp)
+        self.assertEqual(
+            dsalgo.longest_common_prefix_array.kasai(arr, sa),
+            lcp,
+        )
 
 
 if __name__ == "__main__":
