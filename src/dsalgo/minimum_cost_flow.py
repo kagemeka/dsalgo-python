@@ -1,8 +1,3 @@
-"""
-Graph Theory
-Flow
-"""
-
 # // pub fn primal_dual(g: &[Vec<(usize, u64, i64)>]) -> Option<(i64, u64)> {
 # //     fn preprocess_graph(g: &[Vec<(usize, u64, i64)>]) -> Vec<Vec<(usize, u64, i64, usize)>> {
 # //         let n = g.len();
@@ -25,5 +20,5 @@ Flow
 # // }
 
 
-def mincost_flow_primal_dual():
+def mincost_flow_primal_dual() -> None:
     ...

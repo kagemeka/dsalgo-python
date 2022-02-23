@@ -3,10 +3,14 @@ from __future__ import annotations
 import typing
 
 import dsalgo.abstract_structure
-from dsalgo.type import S
+from dsalgo.type import F, S
 
 
 class SegmentTree(typing.Generic[S]):
+    _monoid: dsalgo.abstract_structure.Monoid[S]
+    _data: list[S]
+    _size: int
+
     def __init__(
         self,
         monoid: dsalgo.abstract_structure.Monoid[S],
@@ -16,118 +20,99 @@ class SegmentTree(typing.Generic[S]):
         n = 1 << (size - 1).bit_length()
         data = [monoid.identity() for _ in range(n << 1)]
         data[n : n + size] = arr.copy()
-        self.__monoid, self.__size, self.__data = monoid, size, data
+        self._monoid, self._size, self._data = monoid, size, data
         for i in range(n - 1, 0, -1):
-            self.__merge(i)
+            self._merge(i)
 
-    def __len__(self) -> int:  # buffer size
-        return len(self.__data)
+    def __len__(self) -> int:
+        return len(self._data)
 
     @property
-    def size(self) -> int:  # original array size
-        return self.__size
+    def size(self) -> int:
+        return self._size
 
-    def __merge(self, i: int) -> None:
-        d = self.__data
-        d[i] = self.__monoid.operation(d[i << 1], d[i << 1 | 1])
+    def _merge(self, i: int) -> None:
+        self._data[i] = self._monoid.operation(
+            self._data[i << 1],
+            self._data[i << 1 | 1],
+        )
 
     def __setitem__(self, i: int, x: S) -> None:
         assert 0 <= i < self.size
         i += len(self) >> 1
-        self.__data[i] = x
+        self._data[i] = x
         while i > 1:
             i >>= 1
-            self.__merge(i)
+            self._merge(i)
 
     def __getitem__(self, i: int) -> S:
-        d = self.__data
-        return d[(len(d) >> 1) + i]
+        return self._data[(len(self._data) >> 1) + i]
 
     def get(self, left: int, right: int) -> S:
         assert 0 <= left <= right <= self.size
-        m, d = self.__m, self.__data
-        n = len(d) >> 1
+        n = len(self._data) >> 1
         l, r = n + left, n + right
-        vl, vr = m.e(), m.e()
+        vl, vr = self._monoid.identity(), self._monoid.identity()
         while l < r:
             if l & 1:
-                vl = m.op(vl, d[l])
+                vl = self._monoid.operation(vl, self._data[l])
                 left += 1
             if r & 1:
                 r -= 1
-                vr = m.op(d[r], vr)
+                vr = self._monoid.operation(self._data[r], vr)
             l, r = l >> 1, r >> 1
-        return m.op(vl, vr)
+        return self._monoid.operation(vl, vr)
 
     def max_right(self, is_ok: typing.Callable[[S], bool], left: int) -> int:
-        m, d = self.__m, self.__data
-        n = len(d) >> 1
+        n = len(self._data) >> 1
         assert 0 <= left < self.size
-        v, i = m.e(), n + left
+        v, i = self._monoid.identity(), n + left
         while True:
             i //= i & -i
-            if is_ok(m.op(v, d[i])):
-                v = m.op(v, d[i])
+            if is_ok(self._monoid.operation(v, self._data[i])):
+                v = self._monoid.operation(v, self._data[i])
                 i += 1
                 if i & -i == i:
                     return self.size
                 continue
             while i < n:
                 i <<= 1
-                if not is_ok(m.op(v, d[i])):
+                if not is_ok(self._monoid.operation(v, self._data[i])):
                     continue
-                v = m.op(v, d[i])
+                v = self._monoid.operation(v, self._data[i])
                 i += 1
             return i - n
 
 
-class SegmentTreeDFS(typing.Generic[S]):
-    def __init__(self, monoid: Monoid[S], arr: list[S]) -> None:
-        size = len(arr)
-        n = 1 << (size - 1).bit_length()
-        seg = [monoid.e() for _ in range(n << 1)]
-        seg[n : n + size] = arr.copy()
-        self.__m, self.__size, self.__data = monoid, size, seg
-        for i in range(n - 1, 0, -1):
-            self.__merge(i)
-
-    def __len__(self) -> int:
-        return len(self.__data)
-
-    @property
-    def size(self) -> int:
-        return self.__size
-
-    def __merge(self, i: int) -> None:
-        d = self.__data
-        d[i] = self.__m.op(d[i << 1], d[i << 1 | 1])
-
+class SegmentTreeDFS(SegmentTree[S]):
     def __setitem__(self, i: int, x: S) -> None:
         assert 0 <= i < self.size
         i += len(self) >> 1
-        self.__data[i] = x
+        self._data[i] = x
         while i > 1:
             i >>= 1
-            self.__merge(i)
-
-    def __getitem__(self, i: int) -> S:
-        d = self.__data
-        return d[(len(d) >> 1) + i]
+            self._merge(i)
 
     def get(self, left: int, right: int) -> S:
         assert 0 <= left <= right <= self.size
         return self.__get(left, right, 0, len(self) >> 1, 1)
 
-    def __get(self, left: int, right: int, s: int, t: int, i: int) -> S:
-        m = self.__m
-        if t <= left or right <= s:
-            return m.e()
-        if left <= s and t <= right:
-            return self.__data[i]
-        c = (s + t) >> 1
-        return m.op(
-            self.__get(left, right, s, c, i << 1),
-            self.__get(left, right, c, t, i << 1 | 1),
+    def __get(
+        self,
+        left: int,
+        right: int,
+        current_left: int,
+        current_right: int,
+        i: int,
+    ) -> S:
+        if current_right <= left or right <= current_left:
+            return self._monoid.identity()
+        if left <= current_left and current_right <= right:
+            return self._data[i]
+        center = (current_left + current_right) >> 1
+        return self._monoid.operation(
+            self.__get(left, right, current_left, center, i << 1),
+            self.__get(left, right, center, current_right, i << 1 | 1),
         )
 
 
@@ -139,202 +124,177 @@ class SegmentTreeBeats:
     ...
 
 
-F = typing.TypeVar("F")
-
-
 class LazySegmentTree(typing.Generic[S, F]):
+    _monoid_s: dsalgo.abstract_structure.Monoid[S]
+    _monoid_f: dsalgo.abstract_structure.Monoid[F]
+    _data: list[S]
+    _lazy: list[F]
+    _size: int
+
     def __init__(
         self,
-        monoid_s: Monoid[S],
-        monoid_f: Monoid[F],
+        monoid_s: dsalgo.abstract_structure.Monoid[S],
+        monoid_f: dsalgo.abstract_structure.Monoid[F],
         map_: typing.Callable[[F, S], S],
         arr: list[S],
     ) -> None:
         size = len(arr)
         n = 1 << (size - 1).bit_length()
-        data = [monoid_s.e() for _ in range(n << 1)]
+        data = [monoid_s.identity() for _ in range(n << 1)]
         data[n : n + size] = arr.copy()
-        lazy = [monoid_f.e() for _ in range(n)]
-        self.__ms, self.__mf, self.__map = monoid_s, monoid_f, map_
-        self.__size, self.__data, self.__lazy = size, data, lazy
+        lazy = [monoid_f.identity() for _ in range(n)]
+        self._monoid_s, self._monoid_f, self.__map = monoid_s, monoid_f, map_
+        self._size, self._data, self._lazy = size, data, lazy
         for i in range(n - 1, 0, -1):
-            self.__merge(i)
+            self._merge(i)
 
     def __len__(self) -> int:
-        return len(self.__data)
+        return len(self._data)
 
     @property
     def size(self) -> int:
-        return self.__size
+        return self._size
 
-    def __merge(self, i: int) -> None:
-        d = self.__data
-        d[i] = self.__ms.op(d[i << 1], d[i << 1 | 1])
+    def _merge(self, i: int) -> None:
+        self._data[i] = self._monoid_s.operation(
+            self._data[i << 1],
+            self._data[i << 1 | 1],
+        )
 
-    def __apply(self, i: int, f: F) -> None:
-        d, lz = self.__data, self.__lazy
-        d[i] = self.__map(f, d[i])
-        if i < len(lz):
-            lz[i] = self.__mf.op(f, lz[i])
+    def _apply(self, i: int, f: F) -> None:
+        self._data[i] = self.__map(f, self._data[i])
+        if i < len(self._lazy):
+            self._lazy[i] = self._monoid_f.operation(f, self._lazy[i])
 
-    def __propagate(self, i: int) -> None:
-        lz = self.__lazy
-        self.__apply(i << 1, lz[i])
-        self.__apply(i << 1 | 1, lz[i])
-        lz[i] = self.__mf.e()
+    def _propagate(self, i: int) -> None:
+        self._apply(i << 1, self._lazy[i])
+        self._apply(i << 1 | 1, self._lazy[i])
+        self._lazy[i] = self._monoid_f.identity()
 
     def set(self, left: int, right: int, f: F) -> None:
         assert 0 <= left <= right <= self.size
         n = len(self) >> 1
-        left, right = n + left, n + right
-        h = n.bit_length()
+        left += n
+        right += n
+        height = n.bit_length()
 
-        for i in range(h, 0, -1):
+        for i in range(height, 0, -1):
             if (left >> i) << i != left:
-                self.__propagate(left >> i)
+                self._propagate(left >> i)
             if (right >> i) << i != right:
-                self.__propagate((right - 1) >> i)
+                self._propagate((right - 1) >> i)
 
         l0, r0 = left, right  # backup
         while left < right:
             if left & 1:
-                self.__apply(left, f)
+                self._apply(left, f)
                 left += 1
             if right & 1:
                 right -= 1
-                self.__apply(right, f)
+                self._apply(right, f)
             left, right = left >> 1, right >> 1
 
         left, right = l0, r0
-        for i in range(1, h + 1):
+        for i in range(1, height + 1):
             if (left >> i) << i != right:
-                self.__merge(left >> i)
+                self._merge(left >> i)
             if (right >> i) << i != right:
-                self.__merge((right - 1) >> i)
+                self._merge((right - 1) >> i)
 
     def get(self, left: int, right: int) -> S:
         assert 0 <= left <= right <= self.size
         n = len(self) >> 1
         left, right = n + left, n + right
-        h = n.bit_length()
+        height = n.bit_length()
 
-        for i in range(h, 0, -1):
+        for i in range(height, 0, -1):
             if (left >> i) << i != left:
-                self.__propagate(left >> i)
+                self._propagate(left >> i)
             if (right >> i) << i != right:
-                self.__propagate((right - 1) >> i)
+                self._propagate((right - 1) >> i)
 
-        ms, d = self.__ms, self.__data
-        vl, vr = ms.e(), ms.e()
+        vl, vr = self._monoid_s.identity(), self._monoid_s.identity()
         while left < right:
             if left & 1:
-                vl = ms.op(vl, d[left])
+                vl = self._monoid_s.operation(vl, self._data[left])
                 left += 1
             if right & 1:
                 right -= 1
-                vr = ms.op(d[right], vr)
+                vr = self._monoid_s.operation(self._data[right], vr)
             left, right = left >> 1, right >> 1
-        return ms.op(vl, vr)
+        return self._monoid_s.operation(vl, vr)
 
     def update(self, i: int, x: S) -> None:
         assert 0 <= i < self.size
         n = len(self) >> 1
         i += n
-        h = n.bit_length()
-        for j in range(h, 0, -1):
-            self.__propagate(i >> j)
-        self.__data[i] = x
-        for j in range(1, h + 1):
-            self.__merge(i >> j)
+        height = n.bit_length()
+        for j in range(height, 0, -1):
+            self._propagate(i >> j)
+        self._data[i] = x
+        for j in range(1, height + 1):
+            self._merge(i >> j)
 
 
-class LazySegmentTreeDFS(typing.Generic[S, F]):
-    def __init__(
-        self,
-        monoid_s: Monoid[S],
-        monoid_f: Monoid[F],
-        map_: typing.Callable[[F, S], S],
-        arr: list[S],
-    ) -> None:
-        size = len(arr)
-        n = 1 << (size - 1).bit_length()
-        data = [monoid_s.e() for _ in range(n << 1)]
-        data[n : n + size] = arr.copy()
-        lazy = [monoid_f.e() for _ in range(n)]
-        self.__ms, self.__mf, self.__map = monoid_s, monoid_f, map_
-        self.__size, self.__data, self.__lazy = size, data, lazy
-        for i in range(n - 1, 0, -1):
-            self.__merge(i)
-
-    def __len__(self) -> int:
-        return len(self.__data)
-
-    @property
-    def size(self) -> int:
-        return self.__size
-
-    def __merge(self, i: int) -> None:
-        d = self.__data
-        d[i] = self.__ms.op(d[i << 1], d[i << 1 | 1])
-
-    def __apply(self, i: int, f: F) -> None:
-        d, lz = self.__data, self.__lazy
-        d[i] = self.__map(f, d[i])
-        if i < len(lz):
-            lz[i] = self.__mf.op(f, lz[i])
-
-    def __propagate(self, i: int) -> None:
-        lz = self.__lazy
-        self.__apply(i << 1, lz[i])
-        self.__apply(i << 1 | 1, lz[i])
-        lz[i] = self.__mf.e()
-
+class LazySegmentTreeDFS(LazySegmentTree[S, F]):
     def set(self, left: int, right: int, f: F) -> None:
         assert 0 <= left <= right <= self.size
         self.__set(left, right, f, 0, len(self) >> 1, 1)
 
     def __set(
-        self, left: int, right: int, f: F, s: int, t: int, i: int
+        self,
+        left: int,
+        right: int,
+        f: F,
+        current_left: int,
+        current_right: int,
+        i: int,
     ) -> None:
         n = len(self) >> 1
         if i < n:
-            self.__propagate(i)
-        if t <= left or right <= s:
+            self._propagate(i)
+        if current_right <= left or right <= current_left:
             return
-        if left <= s and t <= right:
-            self.__apply(i, f)
+        if left <= current_left and current_right <= right:
+            self._apply(i, f)
             if i < n:
-                self.__propagate(i)
+                self._propagate(i)
             return
-        c = (s + t) >> 1
-        self.__set(left, right, f, s, c, i << 1)
-        self.__set(left, right, f, c, t, i << 1 | 1)
-        self.__merge(i)
+        center = (current_left + current_right) >> 1
+        self.__set(left, right, f, current_left, center, i << 1)
+        self.__set(left, right, f, center, current_right, i << 1 | 1)
+        self._merge(i)
 
     def get(self, left: int, right: int) -> S:
         assert 0 <= left <= right <= self.size
         return self.__get(left, right, 0, len(self) >> 1, 1)
 
-    def __get(self, left: int, right: int, s: int, t: int, i: int) -> S:
-        ms = self.__ms
+    def __get(
+        self,
+        left: int,
+        right: int,
+        current_left: int,
+        current_right: int,
+        i: int,
+    ) -> S:
         n = len(self) >> 1
         if i < n:
-            self.__propagate(i)
-        if t <= left or right <= s:
-            return ms.e()
-        if left <= s and t <= right:
+            self._propagate(i)
+        if current_right <= left or right <= current_left:
+            return self._monoid_s.identity()
+        if left <= current_left and current_right <= right:
             if i < n:
-                self.__propagate(i)
-            return self.__data[i]
-        c = (s + t) >> 1
-        vl = self.__get(left, right, s, c, i << 1)
-        vr = self.__get(left, right, c, t, i << 1 | 1)
-        self.__merge(i)
-        return ms.op(vl, vr)
+                self._propagate(i)
+            return self._data[i]
+        center = (current_left + current_right) >> 1
+        vl = self.__get(left, right, current_left, center, i << 1)
+        vr = self.__get(left, right, center, current_right, i << 1 | 1)
+        self._merge(i)
+        return self._monoid_s.operation(vl, vr)
 
     def update(self, i: int, x: S) -> None:
         assert 0 <= i < self.size
         n = len(self) >> 1
         self.get(i, i + 1)
-        self.__data[n + i] = x
+        self._data[n + i] = x
         self.get(i, i + 1)

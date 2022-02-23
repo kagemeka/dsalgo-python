@@ -1,12 +1,5 @@
 from __future__ import annotations
 
-"""
-Graph Theory
-Flow
-"""
-
-import typing
-
 from dsalgo.constant import INT_INF
 
 
@@ -183,29 +176,29 @@ def edmonds_karp(
     return flow
 
 
-def mpm():
+def mpm() -> None:
     ...
 
 
-def push_relabel_fifo_verted():
+def push_relabel_fifo_verted() -> None:
     ...
 
 
-def push_relabel_dist_verted():
+def push_relabel_dist_verted() -> None:
     ...
 
 
-def push_relabel_dynamic_tree():
+def push_relabel_dynamic_tree() -> None:
     ...
 
 
-def krt():
+def krt() -> None:
     ...
 
 
-def binary_blocking_flow():
+def binary_blocking_flow() -> None:
     ...
 
 
-def orlin():
+def orlin() -> None:
     ...

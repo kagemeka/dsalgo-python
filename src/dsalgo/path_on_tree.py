@@ -3,7 +3,7 @@ Graph Theory
 
 """
 
-import typing
+from __future__ import annotations
 
 
 def compute_path_on_tree(
