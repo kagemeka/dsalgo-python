@@ -1,17 +1,5 @@
-"""
-Number Theory
-Equation
-"""
-
 import unittest
 
-# from dsalgo.number_theory.equation.chinese_remainder_theorem import (
-#     crt,
-#     crt_2,
-#     crt_2_coprime,
-#     safe_crt,
-#     safe_crt_2,
-# )
 import dsalgo.chinese_remainder_theorem
 
 
@@ -27,6 +15,7 @@ class Test(unittest.TestCase):
     def test_2(self) -> None:
         x = dsalgo.chinese_remainder_theorem.crt_2(10, 3, 14, 7)
         self.assertIsNotNone(x)
+        assert x is not None
         self.assertEqual(x % 10, 3)
         self.assertEqual(x % 14, 7)
         self.assertGreaterEqual(x, 0)
@@ -59,6 +48,7 @@ class Test(unittest.TestCase):
     def test_safe_2(self) -> None:
         x = dsalgo.chinese_remainder_theorem.safe_crt_2(10, 3, 14, 7)
         self.assertIsNotNone(x)
+        assert x is not None
         self.assertEqual(x % 10, 3)
         self.assertEqual(x % 14, 7)
         self.assertGreaterEqual(x, 0)

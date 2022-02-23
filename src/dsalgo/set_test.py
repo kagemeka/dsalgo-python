@@ -1,3 +1,7 @@
+"""Mypy Inline Configs.
+# mypy: ignore-errors
+"""
+
 import unittest
 
 import dsalgo.set
