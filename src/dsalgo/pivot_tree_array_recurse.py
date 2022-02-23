@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-import typing
-
 
 def _left_pivot(pivot: int) -> int:
     return pivot - (pivot & -pivot) // 2
@@ -168,15 +166,10 @@ class PivotTreeArray:
         if root_key <= key:
             i = 0 if pivot & 1 else self.__size[left_pivot]
             i += 1
-            return (
-                i
-                if pivot & 1
-                else i
-                + self.__upper_bound(
-                    _right_pivot(pivot),
-                    key,
-                )
-            )
+            if pivot & 1:
+                return i
+            else:
+                return i + self.__upper_bound(_right_pivot(pivot), key)
         return 0 if pivot & 1 else self.__upper_bound(left_pivot, key)
 
     def min(self) -> int | None:

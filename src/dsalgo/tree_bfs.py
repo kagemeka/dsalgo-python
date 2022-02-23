@@ -1,11 +1,3 @@
-"""
-Graph Theory
-
-"""
-
-import typing
-
-
 def tree_bfs(
     tree_edges: list[tuple[int, int]],
     root: int,

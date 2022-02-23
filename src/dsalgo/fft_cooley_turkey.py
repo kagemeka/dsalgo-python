@@ -1,5 +1,4 @@
 import cmath
-import typing
 
 
 class FFT:

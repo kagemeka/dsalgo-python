@@ -17,8 +17,8 @@ class FenwickTree(typing.Generic[S]):
         return self.__fw.get_range(left, right)
 
 
-from kgmk.dsa.algebra.abstract.structure.monoid import Monoid
-from kgmk.dsa.tree.misc.segment.normal.one_indexed.topdown.non_recursive import (
+from dsa.algebra.abstract.structure.monoid import Monoid
+from dsa.tree.misc.segment.normal.one_indexed.topdown.non_recursive import (
     SegmentTree,
 )
 
