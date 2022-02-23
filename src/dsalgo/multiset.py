@@ -109,7 +109,7 @@ class AVLTree:
 
 #     def __init__(self, a: Iterable[T] = []) -> None:
 #         """
-#         Make a new SortedMultiset from iterable. / O(N) if sorted / O(N log N)
+#         Make a new SortedMultiset from iterable.
 #         """
 #         a = list(a)
 #         if not all(a[i] <= a[i + 1] for i in range(len(a) - 1)):

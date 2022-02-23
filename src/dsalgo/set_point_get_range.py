@@ -26,9 +26,9 @@ class SegmentTree(typing.Generic[T]):
     def __init__(
         self,
         monoid: dsalgo.abstract_structure.Monoid[T],
-        a: list[T],
+        arr: list[T],
     ) -> None:
-        self.__seg = dsalgo.segment_tree.SegmentTree(monoid, a)
+        self.__seg = dsalgo.segment_tree.SegmentTree(monoid, arr)
         self.__monoid = monoid
 
     def set_point(self, i: int, x: T) -> None:
