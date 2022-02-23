@@ -6,6 +6,7 @@ Polynomial
 import typing
 
 import numpy as np
+from numpy import typing as npt
 
 
 class ModConvolveToomCook:
@@ -14,7 +15,11 @@ class ModConvolveToomCook:
     this algorithm might not be correct because of dealing with floating point.
     """
 
-    def __call__(self, f: np.ndarray, g: np.ndarray) -> np.ndarray:
+    def __call__(
+        self,
+        f: npt.NDArray[np.int64],
+        g: npt.NDArray[np.int64],
+    ) -> npt.NDArray[np.int64]:
         mod = self.__mod
         N: typing.Final[int] = 10
         BASE: typing.Final[int] = 1 << N
@@ -32,11 +37,18 @@ class ModConvolveToomCook:
         h = (h % mod << N * 2) + (h1 << N) + h0
         return h % mod
 
-    def __conv(self, f: np.ndarray, g: np.ndarray) -> np.ndarray:
+    def __conv(
+        self,
+        f: npt.NDArray[np.int64],
+        g: npt.NDArray[np.int64],
+    ) -> npt.NDArray[np.int64]:
         import scipy.signal
 
         h = scipy.signal.fftconvolve(f, g)
-        return np.rint(h).astype(np.int64) % self.__mod
+        return typing.cast(
+            npt.NDArray[np.int64],
+            np.rint(h).astype(np.int64) % self.__mod,
+        )
 
     def __init__(self, mod: int) -> None:
         self.__mod = mod

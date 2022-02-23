@@ -1,18 +1,14 @@
-"""
-Geometry
-"""
-
 from __future__ import annotations
 
-from dataclasses import dataclass
+import dataclasses
 
-from ..algebra.vector import Vector2D
+import dsalgo.vector_arithmetic
 
 
-@dataclass
+@dataclasses.dataclass
 class Segment2D:
-    p0: Vector2D
-    p1: Vector2D
+    p0: dsalgo.vector_arithmetic.Vector2D
+    p1: dsalgo.vector_arithmetic.Vector2D
 
     def intersect(self, rhs: Segment2D) -> bool:
         return self.across(rhs) & rhs.across(self)
