@@ -60,7 +60,6 @@ Submodules
    dsalgo.euler_tour
    dsalgo.exponential_tree
    dsalgo.fenwick_tree
-   dsalgo.fermat_little_theorem
    dsalgo.fermat_number
    dsalgo.fft_butterfly_recurse
    dsalgo.fft_cooley_turkey
@@ -133,8 +132,6 @@ Submodules
    dsalgo.pivot_tree
    dsalgo.pivot_tree_array_recurse
    dsalgo.pivot_tree_recurse
-   dsalgo.pollard_rho
-   dsalgo.popcount
    dsalgo.power
    dsalgo.pq_tree
    dsalgo.pr_tree

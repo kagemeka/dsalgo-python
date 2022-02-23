@@ -2,18 +2,21 @@ from __future__ import annotations
 
 import typing
 
-from dsalgo.algebra.abstract.abstract_structure import Monoid
-
-S = typing.TypeVar("S")
+import dsalgo.abstract_structure
+from dsalgo.type import S
 
 
 class SegmentTree(typing.Generic[S]):
-    def __init__(self, monoid: Monoid[S], arr: list[S]) -> None:
+    def __init__(
+        self,
+        monoid: dsalgo.abstract_structure.Monoid[S],
+        arr: list[S],
+    ) -> None:
         size = len(arr)
         n = 1 << (size - 1).bit_length()
-        data = [monoid.e() for _ in range(n << 1)]
+        data = [monoid.identity() for _ in range(n << 1)]
         data[n : n + size] = arr.copy()
-        self.__m, self.__size, self.__data = monoid, size, data
+        self.__monoid, self.__size, self.__data = monoid, size, data
         for i in range(n - 1, 0, -1):
             self.__merge(i)
 
@@ -26,7 +29,7 @@ class SegmentTree(typing.Generic[S]):
 
     def __merge(self, i: int) -> None:
         d = self.__data
-        d[i] = self.__m.op(d[i << 1], d[i << 1 | 1])
+        d[i] = self.__monoid.operation(d[i << 1], d[i << 1 | 1])
 
     def __setitem__(self, i: int, x: S) -> None:
         assert 0 <= i < self.size

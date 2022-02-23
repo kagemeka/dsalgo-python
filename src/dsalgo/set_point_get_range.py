@@ -2,13 +2,18 @@ from __future__ import annotations
 
 import typing
 
+import dsalgo.abstract_structure
 import dsalgo.fenwick_tree
-from dsalgo.type import S
+from dsalgo.type import S, T
 
 
 class FenwickTree(typing.Generic[S]):
-    def __init__(self, group: Group[S], arr: list[S]) -> None:
-        self.__fw = FenwickTreeAbelianGroup(group, arr)
+    def __init__(
+        self,
+        group: dsalgo.abstract_structure.Group[S],
+        arr: list[S],
+    ) -> None:
+        self.__fw = dsalgo.fenwick_tree.FenwickTreeAbelianGroup(group, arr)
 
     def __setitem__(self, i: int, x: S) -> None:
         self.__fw[i] = x
@@ -17,24 +22,13 @@ class FenwickTree(typing.Generic[S]):
         return self.__fw.get_range(left, right)
 
 
-from dsa.algebra.abstract.structure.monoid import Monoid
-from dsa.tree.misc.segment.normal.one_indexed.topdown.non_recursive import (
-    SegmentTree,
-)
-
-# TODO cut below
-
-
-T = typing.TypeVar("T")
-
-
 class SegmentTree(typing.Generic[T]):
     def __init__(
         self,
-        monoid: Monoid[T],
+        monoid: dsalgo.abstract_structure.Monoid[T],
         a: list[T],
     ) -> None:
-        self.__seg = SegmentTree(monoid, a)
+        self.__seg = dsalgo.segment_tree.SegmentTree(monoid, a)
         self.__monoid = monoid
 
     def set_point(self, i: int, x: T) -> None:
@@ -48,11 +42,6 @@ class SegmentTree(typing.Generic[T]):
 
     def get_range(self, l: int, r: int) -> T:
         return self.__seg.get_range(l, r)
-
-
-from dsalgo.graph_theory.tree.fenwick_tree.fenwick_tree import (
-    FenwickTreeIntAdd,
-)
 
 
 class FenwickTreePointAddRangeSum:
