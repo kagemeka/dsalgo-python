@@ -1,4 +1,4 @@
-import typing
+from __future__ import annotations
 
 
 def lowlink_undirected(
@@ -32,7 +32,7 @@ def lowlink_undirected(
     return order, lowlink
 
 
-def lowlink_directed():
+def lowlink_directed() -> None:
     ...
 
 
@@ -51,7 +51,7 @@ def bridges_lowlink(
     return bridge_ids
 
 
-def strong_bridges():
+def strong_bridges() -> None:
     ...
 
 
@@ -91,7 +91,7 @@ def articulation_points_lowlink(
     return [i for i in range(n) if is_articulation[i]]
 
 
-def strong_articulation_points():
+def strong_articulation_points() -> None:
     ...
 
 

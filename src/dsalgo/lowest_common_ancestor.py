@@ -1,11 +1,12 @@
 from __future__ import annotations
 
-"""
-Graph Theory
-"""
+import typing
 
-
-from dsalgo.graph_theory.tree_algo.tree_bfs import tree_bfs
+import dsalgo.abstract_structure
+import dsalgo.euler_tour
+import dsalgo.heavy_light_decomposition
+import dsalgo.sparse_table
+import dsalgo.tree_bfs
 
 
 def binary_lifting(
@@ -13,7 +14,7 @@ def binary_lifting(
     root: int,
 ) -> typing.Callable[[int, int], int]:
     n = len(tree_edges) + 1
-    parent, depth = tree_bfs(tree_edges, root)
+    parent, depth = dsalgo.tree_bfs.tree_bfs(tree_edges, root)
     k = max(1, max(depth).bit_length())
     ancestor = [[n] * n for _ in range(k)]
     ancestor[0] = parent
@@ -73,39 +74,33 @@ def tarjan_offline(
 
         for v, query_id in queries[u]:
             if visited[v]:
-                lca[query_id] = ancestor[uf.find(v)]
+                lca[query_id] = ancestor[uf.find_root(v)]
 
     dfs(root)
     return lca
-
-
-from dsalgo.algebra.abstract.abstract_structure import Semigroup
-from dsalgo.graph_theory.tree_algo.euler_tour import (
-    compute_depth,
-    compute_first_index,
-    euler_tour,
-    to_nodes,
-)
-from dsalgo.range_query.sparse_table.sparse_table import sparse_table
-
-"""
-TODO: pass rmq constructor interface instead of define for each rmq method.
-- sparse table
-- sqrt decomposition
-- segment tree
-"""
 
 
 def euler_tour_rmq(
     tree_edges: list[tuple[int, int]],
     root: int,
 ) -> typing.Callable[[int, int], int]:
-    tour = euler_tour(tree_edges, root)
-    depth = compute_depth(tour)
-    tour = to_nodes(tour)
-    first_idx = compute_first_index(tour)
-    semigroup = Semigroup[tuple[int, int]](op=min)
-    get_min = sparse_table(semigroup, [(depth[i], i) for i in tour])
+    tour = dsalgo.euler_tour.euler_tour(tree_edges, root)
+    depth = dsalgo.euler_tour.compute_depth(tour)
+    tour = dsalgo.euler_tour.to_nodes(tour)
+    first_idx = dsalgo.euler_tour.compute_first_index(tour)
+    semigroup = dsalgo.abstract_structure.Semigroup[typing.Tuple[int, int]](
+        operation=min
+    )
+    """
+    TODO: pass rmq constructor interface instead of define for each rmq method.
+    - sparse table
+    - sqrt decomposition
+    - segment tree
+    """
+    get_min = dsalgo.sparse_table.sparse_table(
+        semigroup,
+        [(depth[i], i) for i in tour],
+    )
 
     def get_lca(u: int, v: int) -> int:
         left, right = first_idx[u], first_idx[v]
@@ -116,26 +111,20 @@ def euler_tour_rmq(
     return get_lca
 
 
-import typing
-
-import dsalgo.heavy_light_decomposition
-from dsalgo.graph_theory.tree_algo.heavy_light_decomposition import (
-    compute_roots,
-    heavy_light_decompose,
-)
-from dsalgo.graph_theory.tree_algo.tree_bfs import tree_bfs
-
-
 def heavy_light_decomposition(
     tree_edges: list[tuple[int, int]],
     root: int,
 ) -> typing.Callable[[int, int], int]:
-    parent, depth = tree_bfs(tree_edges, root)
+    parent, depth = dsalgo.tree_bfs.tree_bfs(tree_edges, root)
     labels = dsalgo.heavy_light_decomposition.heavy_light_decompose(
         tree_edges,
         root,
     )
-    roots = compute_roots(tree_edges, root, labels)
+    roots = dsalgo.heavy_light_decomposition.compute_roots(
+        tree_edges,
+        root,
+        labels,
+    )
     roots = [roots[label] for label in labels]
 
     def get_lca(u: int, v: int) -> int:
@@ -149,6 +138,5 @@ def heavy_light_decomposition(
     return get_lca
 
 
-def lca_farach_colton_bender():
-
+def lca_farach_colton_bender() -> None:
     ...

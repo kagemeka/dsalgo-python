@@ -4,6 +4,7 @@ import typing
 
 import dsalgo.abstract_structure
 import dsalgo.fenwick_tree
+import dsalgo.segment_tree
 from dsalgo.type import S, T
 
 
@@ -35,18 +36,18 @@ class SegmentTree(typing.Generic[T]):
         self.__seg[i] = x
 
     def operate_point(self, i: int, x: T) -> None:
-        self.set_point(i, self.__monoid.op(self.get_point(i), x))
+        self.set_point(i, self.__monoid.operation(self.get_point(i), x))
 
     def get_point(self, i: int) -> T:
         return self.__seg[i]
 
-    def get_range(self, l: int, r: int) -> T:
-        return self.__seg.get_range(l, r)
+    def get_range(self, left: int, right: int) -> T:
+        return self.__seg.get(left, right)
 
 
-class FenwickTreePointAddRangeSum:
+class FenwickTreeAddSum:
     def __init__(self, arr: list[int]) -> None:
-        self.__fw = FenwickTreeIntAdd(arr)
+        self.__fw = dsalgo.fenwick_tree.FenwickTreeIntAdd(arr)
 
     def __setitem__(self, i: int, x: int) -> None:
         self.__fw[i] = x

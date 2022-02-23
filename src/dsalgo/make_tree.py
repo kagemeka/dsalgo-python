@@ -1,9 +1,4 @@
-"""
-Graph Theory
-"""
-
-
-import typing
+from __future__ import annotations
 
 
 def bfs_tree(

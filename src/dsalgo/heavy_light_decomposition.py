@@ -1,11 +1,6 @@
-"""
-Graph Theory
+from __future__ import annotations
 
-"""
-
-import typing
-
-from dsalgo.graph_theory.tree_algo.tree_bfs import tree_bfs
+import dsalgo.tree_bfs
 
 
 def heavy_light_decompose(
@@ -52,7 +47,7 @@ def compute_roots(
     k = max(labels) + 1
     roots = [-1] * k
     min_depth = [n] * k
-    _, depth = tree_bfs(tree_edges, root)
+    _, depth = dsalgo.tree_bfs.tree_bfs(tree_edges, root)
     for i, label in enumerate(labels):
         if depth[i] < min_depth[label]:
             min_depth[label] = depth[i]

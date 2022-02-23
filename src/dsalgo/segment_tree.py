@@ -3,7 +3,7 @@ from __future__ import annotations
 import typing
 
 import dsalgo.abstract_structure
-from dsalgo.type import S, F
+from dsalgo.type import F, S
 
 
 class SegmentTree(typing.Generic[S]):

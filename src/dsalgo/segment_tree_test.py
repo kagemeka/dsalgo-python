@@ -1,8 +1,10 @@
 from __future__ import annotations
-import unittest
-import dsalgo.segment_tree
-import dsalgo.abstract_structure
+
 import typing
+import unittest
+
+import dsalgo.abstract_structure
+import dsalgo.segment_tree
 
 
 class Test(unittest.TestCase):
