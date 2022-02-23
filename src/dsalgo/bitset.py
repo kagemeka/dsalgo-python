@@ -145,21 +145,10 @@ def define_popcount(mask_size: int = 8) -> typing.Callable[[int], int]:
 
 
 def least_significant_bit(n: int) -> int | None:
-    """LSB.
-
-    Args:
-        n (int): an 64bit unsined integer.
-
-    Returns:
-        typing.Optional[int]: lsb
-
+    """
     Examples:
         >>> least_significant_bit(0b01010)
         1
-
-    Complexity:
-        time: O(1)
-        space: O(1)
     """
     assert n >= 0
     if n == 0:
@@ -168,21 +157,10 @@ def least_significant_bit(n: int) -> int | None:
 
 
 def most_significant_bit_naive(n: int) -> int | None:
-    """MSB naive.
-
-    Args:
-        n (int): an 64bit unsined integer.
-
-    Returns:
-        typing.Optional[int]: msb
-
+    """
     Examples:
         >>> most_significant_bit_naive(0b01010)
         3
-
-    Complexity:
-        time: O(1)
-        space: O(1)
     """
     assert n >= 0
     if n == 0:
@@ -191,21 +169,10 @@ def most_significant_bit_naive(n: int) -> int | None:
 
 
 def most_significant_bit(n: int) -> typing.Optional[int]:
-    """MSB.
-
-    Args:
-        n (int): an 64bit unsined integer.
-
-    Returns:
-        typing.Optional[int]: msb
-
+    """
     Examples:
         >>> most_significant_bit(0b01010)
         3
-
-    Complexity:
-        time: O(1)
-        space: O(1)
     """
     assert n >= 0
     if n == 0:

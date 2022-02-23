@@ -201,3 +201,7 @@ CARMICHAEL_NUMBERS: typing.Final[list[int]] = [
     488881,
     512461,
 ]
+
+
+def pollard_rho() -> None:
+    ...

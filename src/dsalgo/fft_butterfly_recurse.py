@@ -1,17 +1,10 @@
-"""
-Algebra
-Polynomial
-"""
-
-
 import cmath
-import typing
 
 
 class FFT:
     def __call__(
         self,
-        a: list[int],
+        a: list[float],
     ) -> None:
         self.__dft(a)
         n = len(a)
@@ -21,15 +14,15 @@ class FFT:
 
     def __dft(
         self,
-        a: list[int],
+        a: list[float],
     ) -> None:
         n = len(a)
         assert 1 << (n.bit_length() - 1) == n
         if n == 1:
             return
         m = n // 2
-        b = [0] * m
-        c = [0] * m
+        b = [0.0] * m
+        c = [0.0] * m
         for i in range(m):
             b[i] = a[2 * i]
             c[i] = a[2 * i + 1]
@@ -37,7 +30,7 @@ class FFT:
         self.__dft(c)
         sign = -1 + 2 * self.__inv
         zeta = cmath.rect(1, sign * 2 * cmath.pi / n)
-        x = 1
+        x = 1 + 0j
         for i in range(n):
             a[i] = b[i % m] + x * c[i % m]
             x *= zeta

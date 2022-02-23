@@ -1,4 +1,3 @@
-import typing
 import unittest
 
 import dsalgo.strongly_connected_components

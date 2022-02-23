@@ -5,7 +5,6 @@ import typing
 import dsalgo.avl_tree_recurse
 import dsalgo.pivot_tree_array_recurse
 from dsalgo.avl_tree_recurse import K
-from dsalgo.type import T
 
 
 class FenwickTree:

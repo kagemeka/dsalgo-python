@@ -1,12 +1,6 @@
-"""
-Graph Theory
-Directed Acyclic Graph (DAG)
-"""
-
-
 def count_topological_sort(
     graph: list[list[int]],
-    mod: typing.Optional[int] = None,
+    mod: int | None = None,
 ) -> int:
     """Count of Topological Sorting.
 

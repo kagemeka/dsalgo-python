@@ -20,6 +20,23 @@ def pascal_triangle(
     return p
 
 
+def define_caching_pascal_triangle(
+    monoid: dsalgo.abstract_structure.Monoid[T],
+    default: typing.Callable[[], T],
+) -> typing.Callable[[int, int], T]:
+    import functools
+
+    @functools.lru_cache(maxsize=None)
+    def pascal(n: int, k: int) -> T:
+        if k < 0 or n < k:
+            return monoid.identity()
+        if k == 0:
+            return default()
+        return monoid.operation(pascal(n - 1, k), pascal(n - 1, k - 1))
+
+    return pascal
+
+
 def combinations(
     n: int,
     k: int,

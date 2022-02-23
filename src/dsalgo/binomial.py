@@ -1,10 +1,11 @@
 """
 Combinatorics
 """
+from __future__ import annotations
 
 import typing
 
-from dsalgo.algebra.modular import cumprod, factorial, factorial_inverse
+import dsalgo.modular
 
 
 def make_choose(p: int, n: int) -> typing.Callable[[int, int], int]:
@@ -18,8 +19,8 @@ def make_choose(p: int, n: int) -> typing.Callable[[int, int], int]:
     Returns:
         typing.Callable[[int, int], int]: choose function.
     """
-    fact = factorial(p, n)
-    ifact = factorial_inverse(p, n)
+    fact = dsalgo.modular.factorial(p, n)
+    ifact = dsalgo.modular.factorial_inverse(p, n)
 
     def choose(n: int, k: int) -> int:
         nonlocal fact, ifact
@@ -31,7 +32,7 @@ def make_choose(p: int, n: int) -> typing.Callable[[int, int], int]:
 
 
 def make_caching_pascal_choose(
-    mod: typing.Optional[int] = None,
+    mod: int | None = None,
 ) -> typing.Callable[[int, int], int]:
     """Make chasing pascal choose.
 
@@ -78,8 +79,8 @@ def n_choose_table(p: int, n: int, kmax: int) -> list[int]:
     assert 0 <= kmax <= n
     a = list(range(n + 1, n - kmax, -1))
     a[0] = 1
-    a = cumprod(p, a)
-    b = factorial_inverse(p, kmax + 1)
+    a = dsalgo.modular.cumprod(p, a)
+    b = dsalgo.modular.factorial_inverse(p, kmax + 1)
     for i in range(kmax + 1):
         a[i] *= b[i]
         a[i] %= p
@@ -98,8 +99,8 @@ def make_count_permutation(p: int, n: int) -> typing.Callable[[int, int], int]:
     Returns:
         typing.Callable[[int, int], int]: count permutations function.
     """
-    fact = factorial(p, n)
-    ifact = factorial_inverse(p, n)
+    fact = dsalgo.modular.factorial(p, n)
+    ifact = dsalgo.modular.factorial_inverse(p, n)
 
     def count_perm(n: int, k: int) -> int:
         nonlocal fact, ifact

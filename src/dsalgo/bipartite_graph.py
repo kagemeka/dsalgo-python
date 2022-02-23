@@ -1,39 +1,23 @@
-"""
-Graph Theory
-"""
+from __future__ import annotations
 
 
-import typing
-
-
-def is_bipartite(graph: list[list[int]]) -> bool:
+def label_bipartite(graph: list[list[int]]) -> list[int] | None:
     n = len(graph)
     assert n >= 1
-    label = [-1] * n
-    label[0] = 0
+    labels = [-1] * n
+    labels[0] = 0
     que = [0]
     for u in que:
         for v in graph[u]:
-            if label[v] == label[u]:
-                return False
-            if label[v] != -1:
+            if labels[v] == labels[u]:
+                return None
+            if labels[v] != -1:
                 continue
-            label[v] = label[u] ^ 1
+            labels[v] = labels[u] ^ 1
             que.append(v)
-    assert all(l != -1 for l in label)
-    return True
+    assert all(label != -1 for label in labels)
+    return labels
 
 
-def label_bipartite(g: list[list[int]]) -> list[int]:
-    assert is_bipartite(g)
-    n = len(g)
-    label = [-1] * n
-    label[0] = 0
-    que = [0]
-    for u in que:
-        for v in g[u]:
-            if label[v] != -1:
-                continue
-            label[v] = label[u] ^ 1
-            que.append(v)
-    return label
+def is_bipartite(graph: list[list[int]]) -> bool:
+    return label_bipartite(graph) is not None

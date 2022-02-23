@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-import typing
-
 
 def base_convert_to_ten(base: int, digits: list[int]) -> int:
     """
