@@ -2,85 +2,37 @@ from __future__ import annotations
 
 import typing
 
-T = typing.TypeVar("T")
+import dsalgo.protocol
+from dsalgo.type import T
+
+K = typing.TypeVar("K", bound=dsalgo.protocol.Order)
 
 
 def binary_search(
     is_ok: typing.Callable[[T], bool],
     arr: list[T],
-    lo: int | None = None,
+    lo: int = 0,
     hi: int | None = None,
 ) -> int:
-    """Descrete Binary Search.
-
-    Args:
-        is_ok (typing.Callable[[T], bool]):
-            conditional function to search index of arr.
-        arr (list[T]):
-            array for search.
-            it must be monotonous between [lo, hi) over is_ok.
-            that means following conditions should be satisfied.
-                is_ok(arr[lo]) = ... = is_ok(arr[i - 1]) = False
-                is_ok(arr[i]), ... = is_ok(arr[hi - 1]) = True
-            where
-                lo <= i < hi
-        lo (typing.Optional[int], optional):
-            low index. Defaults to None.
-            0 <= lo <= len(arr)
-        hi (typing.Optional[int], optional):
-            high index. Defaults to None.
-            0 <= hi <= len(arr)
-
-    Constraints:
-        - lo <= hi
-
-    Returns:
-        int:
-            return minimum i (lo <= i < hi) such that is_ok(arr[i]) = True.
-            or return hi if such a i does not exist.
-    """
-    if lo is None:
-        lo = -1
     if hi is None:
         hi = len(arr)
-    assert -1 <= lo < hi <= len(arr)
-    lo -= 1
-    while hi - lo > 1:
-        i = (lo + hi) >> 1
+    assert 0 <= lo <= hi <= len(arr)
+    while hi - lo > 0:
+        i = (lo + hi - 1) >> 1
         if is_ok(arr[i]):
             hi = i
         else:
-            lo = i
+            lo = i + 1
     return hi
 
 
-def bisect_left(arr: list[int], x: int) -> int:
-    """Bisect Left.
-
-    Args:
-        arr (list[int]): monotonous increasing sequence.
-        x (int): target value.
-
-    Returns:
-        int:
-            first index i such that arr[i] >= x.
-            if i does not exist, return the size of arr.
-    """
-    is_ok: typing.Callable[[int], bool] = lambda y: y >= x
-    return binary_search(is_ok, arr)
+def bisect_left(arr: list[K], x: K) -> int:
+    return binary_search(lambda y: y >= x, arr)
 
 
-def bisect_right(arr: list[int], x: int) -> int:
-    """Bisect Right.
+def bisect_right(arr: list[K], x: K) -> int:
+    return binary_search(lambda y: y > x, arr)
 
-    Args:
-        arr (list[int]): monotonous increasing sequence.
-        x (int): target value.
 
-    Returns:
-        int:
-            first index i such that arr[i] > x.
-            if i does not exist, return the size of arr.
-    """
-    is_ok: typing.Callable[[int], bool] = lambda y: y > x
-    return binary_search(is_ok, arr)
+lower_bound = bisect_left
+upper_bound = bisect_right
