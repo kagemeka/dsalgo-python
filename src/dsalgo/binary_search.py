@@ -2,7 +2,10 @@ from __future__ import annotations
 
 import typing
 
+import dsalgo.protocol
 from dsalgo.type import T
+
+K = typing.TypeVar("K", bound=dsalgo.protocol.Order)
 
 
 def binary_search(
@@ -23,9 +26,13 @@ def binary_search(
     return hi
 
 
-def bisect_left(arr: list[int], x: int) -> int:
+def bisect_left(arr: list[K], x: K) -> int:
     return binary_search(lambda y: y >= x, arr)
 
 
-def bisect_right(arr: list[int], x: int) -> int:
+def bisect_right(arr: list[K], x: K) -> int:
     return binary_search(lambda y: y > x, arr)
+
+
+lower_bound = bisect_left
+upper_bound = bisect_right
