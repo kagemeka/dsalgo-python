@@ -54,10 +54,19 @@ def bit_length(n: int) -> int:
 
 
 def bit_length_table(n: int) -> list[int]:
+    """
+    Notes:
+        - std implementation is faster than table implementation.
+    """
     length = [0] * n
     for i in range(1, n):
         length[i] = length[i >> 1] + 1
     return length
+
+
+def next_power_of_two(n: int) -> int:
+    assert n >= 0
+    return 1 if n == 0 else 1 << (n - 1).bit_length()
 
 
 def invert_bit(n: int) -> int:
