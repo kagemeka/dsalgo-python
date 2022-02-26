@@ -24,9 +24,6 @@ class SegmentTree(typing.Generic[S]):
         for i in range(n - 1, 0, -1):
             self._merge(i)
 
-    def __len__(self) -> int:
-        return len(self._data)
-
     @property
     def size(self) -> int:
         return self._size
@@ -38,7 +35,8 @@ class SegmentTree(typing.Generic[S]):
         )
 
     def __setitem__(self, i: int, x: S) -> None:
-        assert 0 <= i < self.size
+        if not 0 <= i < self.size:
+            raise IndexError
         i += len(self._data) >> 1
         self._data[i] = x
         while i > 1:
@@ -46,10 +44,13 @@ class SegmentTree(typing.Generic[S]):
             self._merge(i)
 
     def __getitem__(self, i: int) -> S:
+        if not 0 <= i < self.size:
+            raise IndexError
         return self._data[(len(self._data) >> 1) + i]
 
     def get(self, left: int, right: int) -> S:
-        assert 0 <= left <= right <= self.size
+        if not 0 <= left <= right <= self.size:
+            raise IndexError
         n = len(self._data) >> 1
         l, r = n + left, n + right
         vl, vr = self._monoid.identity(), self._monoid.identity()
@@ -64,7 +65,8 @@ class SegmentTree(typing.Generic[S]):
         return self._monoid.operation(vl, vr)
 
     def max_right(self, is_ok: typing.Callable[[S], bool], left: int) -> int:
-        assert 0 <= left <= self.size
+        if not 0 <= left <= self.size:
+            raise IndexError
         if left == self.size:
             return self.size
         n = len(self._data) >> 1
@@ -86,7 +88,8 @@ class SegmentTree(typing.Generic[S]):
         return i - n
 
     def min_left(self, is_ok: typing.Callable[[S], bool], right: int) -> int:
-        assert 0 <= right <= self.size
+        if not 0 <= right <= self.size:
+            raise IndexError
         if right == 0:
             return 0
         n = len(self._data) >> 1
@@ -110,8 +113,9 @@ class SegmentTree(typing.Generic[S]):
 
 class SegmentTreeDFS(SegmentTree[S]):
     def get(self, left: int, right: int) -> S:
-        assert 0 <= left <= right <= self.size
-        return self.__get(left, right, 0, len(self) >> 1, 1)
+        if not 0 <= left <= right <= self.size:
+            raise IndexError
+        return self.__get(left, right, 0, len(self._data) >> 1, 1)
 
     def __get(
         self,
