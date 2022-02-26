@@ -39,7 +39,7 @@ class SegmentTree(typing.Generic[S]):
 
     def __setitem__(self, i: int, x: S) -> None:
         assert 0 <= i < self.size
-        i += len(self) >> 1
+        i += len(self._data) >> 1
         self._data[i] = x
         while i > 1:
             i >>= 1
@@ -64,8 +64,10 @@ class SegmentTree(typing.Generic[S]):
         return self._monoid.operation(vl, vr)
 
     def max_right(self, is_ok: typing.Callable[[S], bool], left: int) -> int:
+        assert 0 <= left <= self.size
+        if left == self.size:
+            return self.size
         n = len(self._data) >> 1
-        assert 0 <= left < self.size
         v, i = self._monoid.identity(), n + left
         while True:
             i //= i & -i
@@ -83,16 +85,30 @@ class SegmentTree(typing.Generic[S]):
             i += 1
         return i - n
 
+    def min_left(self, is_ok: typing.Callable[[S], bool], right: int) -> int:
+        assert 0 <= right <= self.size
+        if right == 0:
+            return 0
+        n = len(self._data) >> 1
+        v, i = self._monoid.identity(), n + right
+        while True:
+            i //= i & -i
+            if not is_ok(self._monoid.operation(self._data[i - 1], v)):
+                break
+            i -= 1
+            v = self._monoid.operation(self._data[i], v)
+            if i & -i == i:
+                return 0
+        while i < n:
+            i <<= 1
+            if not is_ok(self._monoid.operation(self._data[i - 1], v)):
+                continue
+            i -= 1
+            v = self._monoid.operation(self._data[i], v)
+        return i - n
+
 
 class SegmentTreeDFS(SegmentTree[S]):
-    def __setitem__(self, i: int, x: S) -> None:
-        assert 0 <= i < self.size
-        i += len(self) >> 1
-        self._data[i] = x
-        while i > 1:
-            i >>= 1
-            self._merge(i)
-
     def get(self, left: int, right: int) -> S:
         assert 0 <= left <= right <= self.size
         return self.__get(left, right, 0, len(self) >> 1, 1)
