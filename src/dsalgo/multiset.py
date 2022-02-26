@@ -13,14 +13,8 @@ class FenwickTree:
 
     def __init__(self, max_value: int) -> None:
         """instance can contain values range of [0, max_value)."""
-        self.__fw = dsalgo.fenwick_tree.FenwickTreeAbelianGroup(
-            dsalgo.abstract_structure.Group[int](
-                operation=lambda x, y: x + y,
-                identity=lambda: 0,
-                invert=lambda x: -x,
-            ),
-            [0] * max_value,
-        )
+        self.__fw = dsalgo.fenwick_tree.FenwickTreeIntAdd([0] * max_value)
+
         self.__max_value = max_value
 
     @property

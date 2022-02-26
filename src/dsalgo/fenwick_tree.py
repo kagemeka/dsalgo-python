@@ -105,6 +105,23 @@ class FenwickTreeIntAdd:
             i -= i & -i
         return v
 
+    def get_range(self, left: int, right: int) -> int:
+
+        return self[right] - self[left]
+
+    def max_right(self, is_ok: typing.Callable[[int], bool]) -> int:
+        n = len(self) + 1
+        length = 1
+        while length << 1 < n:
+            length <<= 1
+        v, i = 0, 0
+        while length:
+            if i + length < n and is_ok(v + self.__data[i + length]):
+                i += length
+                v += self.__data[i]
+            length >>= 1
+        return i
+
 
 class FenwickTreeIntMax:
     def __init__(self, arr: list[int]) -> None:

@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-import dsalgo.array
+import dsalgo.array_compression
 import dsalgo.sort
 
 
@@ -81,7 +81,7 @@ def sais_recurse(arr: list[int]) -> list[int]:
 
 def doubling(arr: list[int]) -> list[int]:
     n = len(arr)
-    rank, k = dsalgo.array.compress(arr).compressed, 1
+    rank, k = dsalgo.array_compression.compress(arr).compressed_array, 1
     while True:
         key = [r << 30 for r in rank]
         for i in range(n - k):
@@ -98,7 +98,7 @@ def doubling(arr: list[int]) -> list[int]:
 
 def doubling_counting_sort(arr: list[int]) -> list[int]:
     n = len(arr)
-    rank, k = dsalgo.array.compress(arr).compressed, 1
+    rank, k = dsalgo.array_compression.compress(arr).compressed_array, 1
     while True:
         second_key = [0] * n
         for i in range(n - k):
