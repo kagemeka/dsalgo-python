@@ -19,6 +19,7 @@ class Test(unittest.TestCase):
             dsalgo.segment_tree.SegmentTree[int],
             dsalgo.segment_tree.SegmentTreeDFS[int],
         ]
+
         for Class in Classes:
             seg = Class(monoid, arr)
             self.assertEqual(seg.get(0, n), sum(arr))
@@ -26,11 +27,16 @@ class Test(unittest.TestCase):
             self.assertEqual(seg.get(0, n), sum(arr) + 1)
             seg[0] = 0
             self.assertEqual(seg.get(0, n), sum(arr))
-            self.assertEqual(len(seg), 32)
             self.assertEqual(seg.size, 10)
             self.assertEqual(seg[5], 5)
             seg[5] = 10
             self.assertEqual(seg.get(0, 10), 50)
+            self.assertEqual(seg.max_right(lambda s: s < 10, 0), 4)
+            self.assertEqual(seg.max_right(lambda s: s < 10, 5), 5)
+            self.assertEqual(seg.min_left(lambda s: s < 10, 7), 6)
+            self.assertEqual(seg.min_left(lambda s: s < 10, 6), 6)
+            self.assertEqual(seg.min_left(lambda s: s < 10, 5), 2)
+            self.assertEqual(seg.min_left(lambda s: s < 10, 4), 0)
 
     def test_segment_tree_lazy(self) -> None:
         monoid_s = dsalgo.abstract_structure.Monoid[typing.Tuple[int, int]](

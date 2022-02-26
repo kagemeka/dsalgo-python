@@ -1,25 +1,21 @@
 dsalgo\_numpy package
 =====================
 
-Subpackages
------------
-
-.. toctree::
-   :maxdepth: 2
-
-   dsalgo_numpy.algebra
-   dsalgo_numpy.combinatorics
-   dsalgo_numpy.dp
-   dsalgo_numpy.number_theory
-
 Submodules
 ----------
 
 .. toctree::
    :maxdepth: 2
 
+   dsalgo_numpy.binom
+   dsalgo_numpy.combination
    dsalgo_numpy.fft_butterfly_recurse
    dsalgo_numpy.fft_cooley_turkey
+   dsalgo_numpy.longest_common_sequence
+   dsalgo_numpy.matrix_modular
+   dsalgo_numpy.matrix_xor_and
+   dsalgo_numpy.modular
+   dsalgo_numpy.sieve_of_eratosthenes
 
 Module contents
 ---------------

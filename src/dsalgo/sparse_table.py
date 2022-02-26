@@ -4,7 +4,6 @@ import copy
 import typing
 
 import dsalgo.abstract_structure
-import dsalgo.bitset
 from dsalgo.type import S
 
 
@@ -14,9 +13,8 @@ def sparse_table(
 ) -> typing.Callable[[int, int], S]:
     n = len(arr)
     assert n > 0
-    bit_length = dsalgo.bitset.bit_length_table(n + 1)
     data = [arr.copy()]
-    for i in range(bit_length[n - 1] - 1):
+    for i in range((n - 1).bit_length() - 1):
         data.append(data[i].copy())
         for j in range(n - (1 << i)):
             data[i + 1][j] = semigroup.operation(
@@ -28,7 +26,7 @@ def sparse_table(
         assert 0 <= left < right <= n
         if right - left == 1:
             return data[0][left]
-        k = bit_length[right - 1 - left] - 1
+        k = (right - 1 - left).bit_length() - 1
         return semigroup.operation(data[k][left], data[k][right - (1 << k)])
 
     return get
@@ -42,10 +40,9 @@ def sparse_table_2d(
     assert h > 0
     w = len(matrix[0])
     assert w > 0 and all(len(row) == w for row in matrix)
-    bit_length = dsalgo.bitset.bit_length_table(max(h, w))
     data = [copy.deepcopy(matrix)]
 
-    for log_dx in range(bit_length[w - 1] - 1):
+    for log_dx in range((w - 1).bit_length() - 1):
         i = log_dx
         data.append(copy.deepcopy(data[i]))
         for y in range(h):
@@ -55,9 +52,9 @@ def sparse_table_2d(
                     data[i][y][x + (1 << i)],
                 )
     width = len(data)
-    assert len(data) == max(1, bit_length[w - 1])
-    for log_dy in range(bit_length[h - 1] - 1):
-        for log_dx in range(max(1, bit_length[w - 1])):
+    assert len(data) == max(1, (w - 1).bit_length())
+    for log_dy in range((h - 1).bit_length() - 1):
+        for log_dx in range(max(1, (w - 1).bit_length())):
             i = log_dy * width + log_dx
             ni = i + width
             data.append(copy.deepcopy(data[i]))
@@ -70,8 +67,8 @@ def sparse_table_2d(
 
     def get(y0: int, x0: int, y1: int, x1: int) -> S:
         assert 0 <= y0 < y1 <= h and 0 <= x0 < x1 <= w
-        log_dy = bit_length[y1 - y0 - 1] - 1
-        log_dx = bit_length[x1 - x0 - 1] - 1
+        log_dy = (y1 - y0 - 1).bit_length() - 1
+        log_dx = (x1 - x0 - 1).bit_length() - 1
         if log_dy == log_dx == -1:
             return data[0][y0][x0]
         if log_dy == -1:
@@ -156,8 +153,7 @@ def disjoint_sparse_table(
 ) -> typing.Callable[[int, int], S]:
     n = len(arr)
     assert n > 0
-    bit_length = dsalgo.bitset.bit_length_table(n << 1)
-    k = max(1, bit_length[n - 1])
+    k = max(1, (n - 1).bit_length())
     data = [arr.copy()]
     for i in range(1, k):
         data.append(arr.copy())
@@ -179,7 +175,7 @@ def disjoint_sparse_table(
         assert 0 <= left < right <= n
         if right - left == 1:
             return data[0][left]
-        k = bit_length[left ^ (right - 1)] - 1
+        k = (left ^ (right - 1)).bit_length() - 1
         return semigroup.operation(data[k][left], data[k][right - 1])
 
     return get
@@ -190,8 +186,7 @@ def disjoint_sparse_table_int_xor(
 ) -> typing.Callable[[int, int], int]:
     n = len(arr)
     assert n > 0
-    bit_length = dsalgo.bitset.bit_length_table(n << 1)
-    k = max(1, bit_length[n - 1])
+    k = max(1, (n - 1).bit_length())
     data = [arr.copy()]
     for i in range(1, k):
         data.append(arr.copy())
@@ -207,7 +202,7 @@ def disjoint_sparse_table_int_xor(
         assert 0 <= left < right <= n
         if right - left == 1:
             return data[0][left]
-        k = bit_length[left ^ (right - 1)] - 1
+        k = (left ^ (right - 1)).bit_length() - 1
         return data[k][left] ^ data[k][right - 1]
 
     return get
