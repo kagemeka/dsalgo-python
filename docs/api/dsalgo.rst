@@ -11,12 +11,10 @@ Submodules
    dsalgo.ab_tree
    dsalgo.abstract_protocol
    dsalgo.abstract_structure
-   dsalgo.abundunt_number
    dsalgo.addressable_heap
    dsalgo.af_heap
    dsalgo.analysis_search
    dsalgo.array
-   dsalgo.automaton
    dsalgo.avl_tree_recurse
    dsalgo.b_heap
    dsalgo.b_plus_tree
@@ -26,7 +24,6 @@ Submodules
    dsalgo.binary_heap
    dsalgo.binary_search
    dsalgo.binary_search_tree
-   dsalgo.binomial
    dsalgo.binomial_heap
    dsalgo.bipartite_graph
    dsalgo.bitset
@@ -48,12 +45,12 @@ Submodules
    dsalgo.cover_tree
    dsalgo.dancing_link
    dsalgo.dancing_tree
+   dsalgo.day_stout_warren
    dsalgo.deque
    dsalgo.directed_acyclic_graph
    dsalgo.divisor
    dsalgo.doubly_chained_tree
    dsalgo.doubly_linked_list
-   dsalgo.dsw
    dsalgo.error
    dsalgo.euclidean
    dsalgo.euler_totient
@@ -102,7 +99,6 @@ Submodules
    dsalgo.m_tree
    dsalgo.make_tree
    dsalgo.matrix
-   dsalgo.matrix_xor_and
    dsalgo.max_cardinal_match
    dsalgo.max_point_max_range
    dsalgo.max_qlique
@@ -118,7 +114,6 @@ Submodules
    dsalgo.minimum_spanning_tree
    dsalgo.mo_algorithm
    dsalgo.modular
-   dsalgo.modular_matrix
    dsalgo.multiset
    dsalgo.nim
    dsalgo.node
@@ -205,6 +200,7 @@ Submodules
    dsalgo.util
    dsalgo.van_emde_boas_tree
    dsalgo.vector
+   dsalgo.vector_arithmetic
    dsalgo.verbal_arithmetic
    dsalgo.vp_tree
    dsalgo.weak_heap

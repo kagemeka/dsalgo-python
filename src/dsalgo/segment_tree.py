@@ -69,19 +69,19 @@ class SegmentTree(typing.Generic[S]):
         v, i = self._monoid.identity(), n + left
         while True:
             i //= i & -i
-            if is_ok(self._monoid.operation(v, self._data[i])):
-                v = self._monoid.operation(v, self._data[i])
-                i += 1
-                if i & -i == i:
-                    return self.size
+            if not is_ok(self._monoid.operation(v, self._data[i])):
+                break
+            v = self._monoid.operation(v, self._data[i])
+            i += 1
+            if i & -i == i:
+                return self.size
+        while i < n:
+            i <<= 1
+            if not is_ok(self._monoid.operation(v, self._data[i])):
                 continue
-            while i < n:
-                i <<= 1
-                if not is_ok(self._monoid.operation(v, self._data[i])):
-                    continue
-                v = self._monoid.operation(v, self._data[i])
-                i += 1
-            return i - n
+            v = self._monoid.operation(v, self._data[i])
+            i += 1
+        return i - n
 
 
 class SegmentTreeDFS(SegmentTree[S]):
