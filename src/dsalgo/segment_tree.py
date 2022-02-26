@@ -14,15 +14,15 @@ class SegmentTree(typing.Generic[S]):
     def __init__(
         self,
         monoid: dsalgo.abstract_structure.Monoid[S],
-        arr: list[S],
+        array: list[S],
     ) -> None:
-        size = len(arr)
+        size = len(array)
         n = 1 << (size - 1).bit_length()
         data = [monoid.identity() for _ in range(n << 1)]
-        data[n : n + size] = arr.copy()
+        data[n : n + size] = array.copy()
         self._monoid, self._size, self._data = monoid, size, data
-        for i in range(n - 1, 0, -1):
-            self._merge(i)
+        for node_index in range(n - 1, 0, -1):
+            self._merge(node_index)
 
     @property
     def size(self) -> int:
@@ -52,17 +52,26 @@ class SegmentTree(typing.Generic[S]):
         if not 0 <= left <= right <= self.size:
             raise IndexError
         n = len(self._data) >> 1
-        l, r = n + left, n + right
-        vl, vr = self._monoid.identity(), self._monoid.identity()
-        while l < r:
-            if l & 1:
-                vl = self._monoid.operation(vl, self._data[l])
+        left += n
+        right += n
+        value_left = self._monoid.identity()
+        value_right = self._monoid.identity()
+        while left < right:
+            if left & 1:
+                value_left = self._monoid.operation(
+                    value_left,
+                    self._data[left],
+                )
                 left += 1
-            if r & 1:
-                r -= 1
-                vr = self._monoid.operation(self._data[r], vr)
-            l, r = l >> 1, r >> 1
-        return self._monoid.operation(vl, vr)
+            if right & 1:
+                right -= 1
+                value_right = self._monoid.operation(
+                    self._data[right],
+                    value_right,
+                )
+            left >>= 1
+            right >>= 1
+        return self._monoid.operation(value_left, value_right)
 
     def max_right(self, is_ok: typing.Callable[[S], bool], left: int) -> int:
         if not 0 <= left <= self.size:
@@ -123,16 +132,18 @@ class SegmentTreeDFS(SegmentTree[S]):
         right: int,
         current_left: int,
         current_right: int,
-        i: int,
+        node_index: int,
     ) -> S:
         if current_right <= left or right <= current_left:
             return self._monoid.identity()
         if left <= current_left and current_right <= right:
-            return self._data[i]
+            return self._data[node_index]
         center = (current_left + current_right) >> 1
         return self._monoid.operation(
-            self.__get(left, right, current_left, center, i << 1),
-            self.__get(left, right, center, current_right, i << 1 | 1),
+            self.__get(left, right, current_left, center, node_index << 1),
+            self.__get(
+                left, right, center, current_right, node_index << 1 | 1
+            ),
         )
 
 

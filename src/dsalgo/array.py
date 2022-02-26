@@ -1,9 +1,7 @@
 from __future__ import annotations
 
-import dataclasses
 import typing
 
-import dsalgo.fenwick_tree
 from dsalgo.type import T
 
 
@@ -24,24 +22,11 @@ def bincount(arr: list[int]) -> list[int]:
     return cnt
 
 
-@dataclasses.dataclass
-class CompressionResult:
-    compressed: list[int]
-    retrieve: list[int]
-
-
-def compress(arr: list[int]) -> CompressionResult:
-    import bisect
-
-    v = sorted(set(arr))
-    return CompressionResult(
-        [bisect.bisect_left(v, x) for x in arr],
-        v,
-    )
-
-
 def compute_inversion_number(arr: list[int]) -> int:
-    arr = compress(arr).compressed
+    import dsalgo.array_compression
+    import dsalgo.fenwick_tree
+
+    arr = dsalgo.array_compression.compress(arr).compressed_array
     fw = dsalgo.fenwick_tree.FenwickTreeIntAdd([0] * len(arr))
     count = 0
     for i, x in enumerate(arr):
@@ -76,3 +61,9 @@ def accumulate(
 # @accumulate(0)
 # def xor(a: int, b: int) -> int:
 #     return a ^ b
+
+
+if __name__ == "__main__":
+    import doctest
+
+    doctest.testmod(verbose=True)
