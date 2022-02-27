@@ -75,6 +75,32 @@ def build_fenwick_tree_with_size(
     return FenwickTree[S](monoid, [monoid.identity() for _ in range(size)])
 
 
+class FenwickTreeAbelianGroup(FenwickTree[S]):
+    def __init__(
+        self,
+        group: dsalgo.abstract_structure.Group[S],
+        arr: list[S],
+    ) -> None:
+        super().__init__(group, arr)
+        self.__group = group
+
+    def get_range(self, left: int, right: int) -> S:
+        return self.__group.operation(
+            self.__group.invert(self[left]),
+            self[right],
+        )
+
+
+def build_fenwick_tree_ablian_group_with_size(
+    group: dsalgo.abstract_structure.Group[S],
+    size: int,
+) -> FenwickTreeAbelianGroup[S]:
+    return FenwickTreeAbelianGroup[S](
+        group,
+        [group.identity() for _ in range(size)],
+    )
+
+
 class FenwickTreeIntAdd:
     def __init__(self, arr: list[int]) -> None:
         n = len(arr)
@@ -152,32 +178,6 @@ class FenwickTreeIntMax:
             v = max(v, self.__data[i])
             i -= i & -i
         return v
-
-
-class FenwickTreeAbelianGroup(FenwickTree[S]):
-    def __init__(
-        self,
-        group: dsalgo.abstract_structure.Group[S],
-        arr: list[S],
-    ) -> None:
-        super().__init__(group, arr)
-        self.__group = group
-
-    def get_range(self, left: int, right: int) -> S:
-        return self.__group.operation(
-            self.__group.invert(self[left]),
-            self[right],
-        )
-
-
-def build_fenwick_tree_ablian_group_with_size(
-    group: dsalgo.abstract_structure.Group[S],
-    size: int,
-) -> FenwickTreeAbelianGroup[S]:
-    return FenwickTreeAbelianGroup[S](
-        group,
-        [group.identity() for _ in range(size)],
-    )
 
 
 class FenwickTree2D(typing.Generic[S]):
