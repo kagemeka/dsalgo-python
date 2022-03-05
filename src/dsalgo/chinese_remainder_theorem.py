@@ -3,6 +3,7 @@ from __future__ import annotations
 import typing
 
 import dsalgo.euclidean
+import dsalgo.util
 
 
 def crt_2_coprime(
@@ -12,10 +13,7 @@ def crt_2_coprime(
     rem_1: int,
 ) -> int:
     assert 0 <= rem_0 < mod_0 > 1 and 0 <= rem_1 < mod_1 > 1
-    gcd, x, _ = dsalgo.euclidean.extended_euclidean_recurse(mod_0, mod_1)
-    assert gcd == 1
-    lcm = mod_0 * mod_1
-    return (rem_0 + x * (rem_1 - rem_0) * mod_0) % lcm
+    return dsalgo.util.unwrap(crt_2(mod_0, rem_0, mod_1, rem_1))
 
 
 def crt_2(
