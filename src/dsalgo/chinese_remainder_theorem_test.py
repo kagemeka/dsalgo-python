@@ -29,22 +29,6 @@ class Test(unittest.TestCase):
             212,
         )
 
-    def test(self) -> None:
-        pairs = [
-            (15, 2),
-            (17, 8),
-        ]
-        self.assertEqual(
-            dsalgo.chinese_remainder_theorem.crt(pairs),
-            212,
-        )
-
-        pairs = [
-            (10, 3),
-            (14, 6),
-        ]
-        self.assertIsNone(dsalgo.chinese_remainder_theorem.crt(pairs))
-
     def test_safe_2(self) -> None:
         x = dsalgo.chinese_remainder_theorem.safe_crt_2(10, 3, 14, 7)
         self.assertIsNotNone(x)
