@@ -227,7 +227,7 @@ class LazySegmentTree(typing.Generic[S, F]):
 
         left, right = l0, r0
         for i in range(1, height + 1):
-            if (left >> i) << i != right:
+            if (left >> i) << i != left:
                 self._merge(left >> i)
             if (right >> i) << i != right:
                 self._merge((right - 1) >> i)

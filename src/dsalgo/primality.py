@@ -24,8 +24,8 @@ def sieve_of_eratosthenes(sieve_size: int) -> list[bool]:
     return is_prime
 
 
-def is_prime_table(max_value: int) -> list[bool]:
-    return sieve_of_eratosthenes(max_value)
+def is_prime_table(size: int) -> list[bool]:
+    return sieve_of_eratosthenes(size)
 
 
 def sieve_of_atkin(n: int) -> list[bool]:
@@ -45,8 +45,7 @@ def solovay_strassen_test() -> bool:
 
 
 def _is_trivial_composite(n: int) -> bool:
-    assert n >= 1
-    return n == 1 or n & 1 == 0 and n != 2
+    return n > 2 and n & 1 == 0
 
 
 def _is_composite(n: int, base: int) -> bool:
@@ -57,11 +56,12 @@ def _is_composite(n: int, base: int) -> bool:
         d >>= 1
     # n - 1 = d2^r
     x = pow(base, d, n)
+    if x == 1:
+        return False
     for _ in range(r):
-        y = x * x % n
-        if y == 1:
-            return x != 1 and x != n - 1
-        x = y
+        if x == n - 1:
+            return False
+        x = x * x % n
     return True
 
 
