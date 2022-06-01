@@ -1,11 +1,12 @@
 version: '3.9'
 
-
 services:
   dev:
     build:
       context: ..
       dockerfile: docker/Dockerfile
+    env_file:
+      - python.env
     image: kagemeka/$PROJECT:latest
     restart: on-failure
     tty: true

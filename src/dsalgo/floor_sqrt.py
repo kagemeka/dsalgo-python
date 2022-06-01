@@ -1,13 +1,28 @@
-"""
-Tag
-- numbe theory
-"""
+import unittest
 
 
 def floor_sqrt(n: int) -> int:
-    r"""Floor Sqrt."""
-    assert n >= 0
-    x = 0
-    while x * x <= n:
-        x += 1
-    return x - 1
+    assert 0 <= n < 1 << 64
+
+    lo, hi = 0, 1 << 32
+    while hi - lo > 1:
+        x = (lo + hi) >> 1
+        if n // x >= x:
+            lo = x
+        else:
+            hi = x
+    return lo
+
+
+# TODO:
+class Tests(unittest.TestCase):
+    def test(self) -> None:
+        ...
+
+
+if __name__ == "__main__":
+    import doctest
+
+    unittest.main()
+
+    doctest.testmod(verbose=True)
