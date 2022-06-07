@@ -28,7 +28,6 @@ def is_prime_table(size: int) -> list[bool]:
     return sieve_of_eratosthenes(size)
 
 
-
 def _is_trivial_composite(n: int) -> bool:
     return n > 2 and n & 1 == 0
 
@@ -83,7 +82,6 @@ def miller_rabin_test_64(n: int) -> bool:
 def miller_rabin_test_64_v2(n: int) -> bool:
     BASES = [2, 325, 9375, 28178, 450775, 9780504, 1795265022]
     return _miller_rabin_fixed_bases(n, BASES)
-
 
 
 def fermat_test(n: int, check_times: int = 100) -> bool:
@@ -151,4 +149,3 @@ CARMICHAEL_NUMBERS: typing.Final[list[int]] = [
     488881,
     512461,
 ]
-

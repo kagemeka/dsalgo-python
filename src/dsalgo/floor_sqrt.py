@@ -1,17 +1,9 @@
 import unittest
+from dsalgo.int_sqrt_binary_search import int_sqrt_binary_search
 
 
 def floor_sqrt(n: int) -> int:
-    assert 0 <= n < 1 << 64
-
-    lo, hi = 0, 1 << 32
-    while hi - lo > 1:
-        x = (lo + hi) >> 1
-        if n // x >= x:
-            lo = x
-        else:
-            hi = x
-    return lo
+    return int_sqrt_binary_search(n)
 
 
 # TODO:

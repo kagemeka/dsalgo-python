@@ -6,15 +6,16 @@ import unittest
 
 
 def sieve_of_eratosthenes(sieve_size: int) -> np.ndarray:
-    is_prime = np.ones(sieve_size, dtype=bool)
-    is_prime[:2] = False
-    is_prime[4::2] = False
+    if sieve_size <= 2:
+        return np.array()
+    is_prime = np.ones(sieve_size >> 1, dtype=bool)
+    is_prime[0] = False
     for i in range(3, sieve_size, 2):
         if i * i >= sieve_size:
             break
-        if is_prime[i]:
-            is_prime[i * i :: i << 1] = False
-    return np.flatnonzero(is_prime)
+        if is_prime[i >> 1]:
+            is_prime[i * i >> 1 :: i] = False
+    return np.hstack((np.array([2]), np.flatnonzero(is_prime) << 1 | 1))
 
 
 class Test(unittest.TestCase):
